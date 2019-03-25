@@ -259,12 +259,6 @@ body{background-color: #f3e4e47d;}
 .m_nav .ul li .dropdown_menu a:last-child{
 	border: none;
 }
-.banner{
-	width: 100%;
-}
-.banner img{
-	width: 100%;
-}
 
 @media screen and (max-width: 992px){
 	.header{
@@ -335,8 +329,23 @@ body{background-color: #f3e4e47d;}
 		display: none;
 	}
 	
-	.banner img{
-		height: 600px;
-		object-fit: cover;
-	}
+}
+
+.footer{
+    width:100%;
+    height: 40px;
+    background:rgba(188, 96, 216, 0.8);
+    position: absolute;
+    bottom:0;
+}
+
+.footer-p{
+    text-align: center;
+    margin-top: 10px;
+    color:#e0dada;
+}
+
+.footer .footer-p p:hover{
+    color:#fff;
+    cursor: pointer;
 }
