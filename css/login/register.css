@@ -39,6 +39,8 @@ body {
     margin: 50px auto;
     width: 300px;
     background: #88eaeab3;
+    perspective: 500;
+    -webkit-perspective: 500;
 }
 
 .form-group {
@@ -50,7 +52,7 @@ body {
 
 .move {
     margin-top: 30px;
-    width:100%;
+    width: 100%;
     position: relative !important;
 }
 
@@ -126,8 +128,80 @@ body {
         display: none;
     }
 
-    .div-card{
-        width:100%;
+    .div-card {
+        width: 100%;
         margin-top: 100px
     }
+}
+
+/*---register*/
+.register {
+    margin-left: 80%;
+    margin-bottom: 10px;
+}
+
+.register a {
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#login,
+#register {
+    -webkit-perspective: 1000;
+    -webkit-transition: all 1.5s;
+    -moz-transition: all 1.5s;
+    -ms-transition: all 1.5s;
+    -o-transition: all 1.5s;
+
+}
+
+#register {
+    transform: rotateY(-180deg);
+    -webkit-transform: rotateY(-180deg);
+    backface-visibility: hidden;
+    margin-top: -440px;
+}
+
+/* #app:hover #login{
+    transform: rotateY(-180deg);
+    -webkit-transform: rotateY(-180deg);
+    backface-visibility:hidden;
+} */
+
+/* #app:hover #register{
+    transform: rotateY(-360deg);
+    -webkit-transform: rotateY(-360deg);
+} */
+
+.LoginOverturn {
+    transform: rotateY(-180deg);
+    -webkit-transform: rotateY(-180deg);
+    backface-visibility: hidden;
+}
+
+.RegisterOverturn {
+    transform: rotateY(-360deg) !important;
+    -webkit-transform: rotateY(-360deg) !important;
+}
+
+#exampleInputCode {
+    display: inline-block;
+    width: 50%;
+    margin-left: 12px;
+}
+
+.code {
+    display: inline-block;
+    width: 100px;
+    height: 30px;
+    border-radius: 20px;
+    margin-left: 10px;
+    background: #ed391cc9;
+    color: #fff;
+}
+
+.colse {
+    background-color: #eee;
+    color: #ccc;
+    cursor: not-allowed !important;
 }

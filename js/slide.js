@@ -3,7 +3,7 @@
  * @LastAuthor: Do not edit
  * @Github: https://github.com/tyutjohn
  * @since: 2019-03-26 10:29:20
- * @lastTime: 2019-03-26 22:59:05
+ * @lastTime: 2019-03-27 01:20:47
  */
 //pc鼠标滑动
 //一、定义一个获取DOM元素的方法
@@ -81,4 +81,30 @@ document.onmouseup = function (e) {
 }
 
 
+//切换登陆注册页面
+let click=document.querySelector("#login-register");
+click.onclick=function(){
+    let clear=document.querySelector(".div-card").setAttribute("style","background:none")
+    let time=window.setTimeout(BackgroundClear,1500);
+    function BackgroundClear(){
+        document.querySelector(".div-card").setAttribute("style","background:#88eaeab3;")
+    }
+    let add1=document.querySelector("#login").classList.add("LoginOverturn");
+    let add2=document.querySelector("#register").classList.add("RegisterOverturn");
+}
 
+//短信验证码
+let code=document.querySelector(".code");
+code.onclick=function(){
+    code.classList.add("disabled","colse");
+    let time=60;
+    let timer=setInterval(() => {
+        if(time==0){
+            code.classList.remove("colse","disabled");
+            code.setAttribute("value","获取验证码");
+        }else{
+            code.value=time+"秒";
+            time--;
+        }
+    }, 1000);
+}
