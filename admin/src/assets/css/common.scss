@@ -1,0 +1,29 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* [theme] support theme change */
+.theme-bg-blue{
+  background-color: #409eff;
+}
+
+/* [vue-scroll] show when hover */
+.__vuescroll:hover {
+  > .__rail-is-vertical {
+    .__bar-is-vertical {
+      opacity: 1 !important;
+    }
+  }
+  > .__rail-is-horizontal {
+    .__bar-is-horizontal {
+      opacity: 1 !important;
+    }
+  }
+}
