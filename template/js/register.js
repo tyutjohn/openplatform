@@ -1,3 +1,10 @@
+/*
+ * @Author: johnwang
+ * @LastEditors: Do not edit
+ * @Github: https://github.com/tyutjohn
+ * @since: 2019-03-25 20:14:04
+ * @lastTime: 2019-03-28 11:48:46
+ */
 var app = new Vue({
   el: "#app",
 

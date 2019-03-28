@@ -1,0 +1,167 @@
+/*
+ * @Author: johnwang
+ * @LastAuthor: Do not edit
+ * @Github: https://github.com/tyutjohn
+ * @since: 2019-03-27 22:54:16
+ * @lastTime: 2019-03-28 17:54:49
+ */
+/*--banner--*/
+.banner .carousel-inner .item {
+    height: 400px;
+}
+
+.banner .carousel-inner .item img {
+    width: 100%;
+    background-size: cover;
+}
+
+.banner .carousel-inner .slide {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    background-position: center 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    transition: opacity 200ms ease-in-out;
+}
+
+/*--main--entrance--*/
+.entrance {
+    height: 550px;
+}
+
+.entrance .container {
+    margin: 0 auto;
+    width: 90%;
+}
+
+.entrance .container .top {
+    text-align: center;
+    color: rgb(90, 119, 113);
+    margin: 30px auto;
+}
+
+.entrance .container .down .down-entrance img {
+    margin: 10px 14%;
+}
+
+.entrance .container .down {
+    display: flex;
+}
+
+.entrance .container .down .down-entrance {
+    flex-direction: column;
+    width: 30%;
+    margin-left: 20px;
+    text-align: center;
+}
+
+/*--main--study--*/
+.study {
+    height: 540px;
+    width: 100%;
+    background: #1a2b3b;
+    display: flex;
+}
+
+.study .study_position {
+    flex-direction: column;
+    margin: 50px auto;
+}
+
+.study .study_left {
+    margin-left: 50px;
+    width: 30%;
+}
+
+.study .study_left h1 {
+    color: #f1fbff;
+    letter-spacing: 6px;
+    font-weight: 300;
+}
+
+.study .study_left h4 {
+    margin: 40px auto;
+    color: #5c697a;
+    text-shadow: #1a2b3b;
+}
+
+.study .study_left .study_progress {
+    width: 300px;
+}
+
+.study .study_left .study_progress .study_list {
+    height: 50px;
+    margin-top: 20px;
+    display: flex;
+}
+
+
+.study .study_left .study_progress .study_list .study_circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid #b9c9d8;
+}
+
+.study .study_left .study_progress .study_list .icon-lightbulb:before {
+    width: 26px;
+    height: 26px;
+    color: #f4ffff;
+}
+
+.study .study_left .study_progress .study_list_position {
+    flex-direction: column;
+    margin-left: 20px;
+}
+
+.study .study_right {
+    position: absolute;
+    right: 0;
+    box-shadow: -10px 10px 10px #162633, -10px -10px 10px #162633;
+    border: 1px solid #515362;
+    transition: box-shadow 2s;
+    -moz-transition: box-shadow 2s;
+    /* Firefox 4 */
+    -webkit-transition: box-shadow 2s;
+    /* Safari 和 Chrome */
+    -o-transition: box-shadow 2s;
+    /* Opera */
+}
+
+.study .study_right:hover {
+    box-shadow: -20px 20px 10px #162633, -20px -20px 10px #0a1819;
+}
+
+/*--media--*/
+@media screen and (max-width:580px) {
+    .banner .carousel-inner .item {
+        height: 130px;
+    }
+
+    .entrance {
+        height: 450px;
+    }
+
+    .entrance .container .down .down-entrance {
+        margin-left: 20px;
+    }
+
+    .entrance .container .down .down-entrance img {
+        margin: 10px auto;
+        width: 120px;
+        height: 120px;
+    }
+}
+
+@media screen and (max-width: 992px){
+    .study .study_right{
+        display:none;
+    }
+    
+    .study .study_left{
+        width:100%;
+        margin-left: 20px;
+    }
+}

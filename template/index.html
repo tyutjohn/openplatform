@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh">
+
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,17 +9,19 @@
 	<link rel="stylesheet" href="css/reset.css" />
 	<link rel="stylesheet" href="css/index/swiper.min.css" />
 	<link href="https://cdn.bootcss.com/zui/1.8.1/css/zui.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="css/common.css"/>
+	<link rel="stylesheet" href="css/index/index.css" />
+	<link rel="stylesheet" href="css/common.css" />
 </head>
+
 <body>
 	<!-- 导航 -->
-	<header class="header"> 
-		<div class="container clearfix"> 
+	<header class="header">
+		<div class="container clearfix">
 			<div class="left">
-				<a href="#" ><img src="image/logo.png" alt="" class="img1" /></a>
+				<a href="#"><img src="image/logo.png" alt="" class="img1" /></a>
 			</div>
 			<p class="header-p">Open Mutual Platform</p>
-			<div class="nav"> 
+			<div class="nav">
 				<ul class="navbar_nav" data-in="fadeInDown" data-out="fadeOutUp">
 					<li class="active">
 						<a href="javascript:void(0)">首页</a>
@@ -53,8 +56,8 @@
 				</ul>
 			</div>
 			<a href="javascript:void(0)" id="navToggle">
-	            <span></span>
-	        </a>
+				<span></span>
+			</a>
 		</div>
 	</header>
 	<!--移动端的导航-->
@@ -99,7 +102,136 @@
 			</li>
 		</ul>
 	</div>
+	<!--main-->
+	<div class="main">
+		<!--轮播-->
+		<section class="banner">
+			<div id="myNiceCarousel" class="carousel slide" data-ride="carousel">
+				<!-- 圆点指示器 -->
+				<ol class="carousel-indicators">
+					<li data-target="#myNiceCarousel" data-slide-to="0" class="active"></li>
+					<li data-target="#myNiceCarousel" data-slide-to="1"></li>
+					<li data-target="#myNiceCarousel" data-slide-to="2"></li>
+				</ol>
 
+				<!-- 轮播项目 -->
+				<div class="carousel-inner">
+					<div class="item active">
+						<img alt="First slide" src="image/banner/01.jpg">
+						<div class="carousel-caption">
+							<!-- <h3>图片来源：花瓣网</h3> -->
+							<!-- <p>:)</p> -->
+						</div>
+					</div>
+					<div class="item">
+						<img alt="Second slide" src="image/banner/02.jpg">
+						<div class="carousel-caption">
+							<!-- <h3>图片来源：花瓣网</h3> -->
+							<!-- <p>0.0</p> -->
+						</div>
+					</div>
+					<div class="item">
+						<img alt="Third slide" src="image/banner/03.jpg">
+						<div class="carousel-caption">
+							<!-- <h3>图片来源：花瓣网</h3> -->
+							<!-- <p>最后一张咯~</p> -->
+						</div>
+					</div>
+				</div>
+
+				<!-- 项目切换按钮 -->
+				<a class="left carousel-control" href="#myNiceCarousel" data-slide="prev">
+					<span class="icon icon-chevron-left"></span>
+				</a>
+				<a class="right carousel-control" href="#myNiceCarousel" data-slide="next">
+					<span class="icon icon-chevron-right"></span>
+				</a>
+			</div>
+		</section>
+		<!--入口-->
+		<section class="entrance">
+			<div class="container">
+				<div class="top">
+					<h1>选择下方开启传送门</h1>
+				</div>
+				<div class="down">
+					<div class="down-entrance">
+						<a href="#"><img src="image/index/icon1.png" alt="" width="200px" height="200px" class="img-circle"></a>
+						<a class="card" href="###">
+							<div class="card-heading"><strong>Study Go</strong></div>
+							<div class="card-content text-muted">开始学习之旅吧</div>
+						</a>
+					</div>
+					<div class="down-entrance">
+						<a href="#"><img src="image/index/icon2.png" alt="" width="200px" height="200px" class="img-circle"></a>
+						<a class="card" href="###">
+							<div class="card-heading"><strong>Share Idea</strong></div>
+							<div class="card-content text-muted">和他人分享你的想法和项目</div>
+						</a>
+					</div>
+					<div class="down-entrance">
+						<a href="#"><img src="image/index/icon3.png" alt="" width="200px" height="200px" class="img-circle"></a>
+						<a class="card" href="###">
+							<div class="card-heading"><strong>Find Team</strong></div>
+							<div class="card-content text-muted">找一些志同道合的小伙伴吧</div>
+						</a>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!--介绍模块--学习入口介绍-->
+		<section class="study">
+			<div class="study_left study_position">
+				<h1>寻找一些Creativity的想法和Scarcity学习资料</h1>
+				<h4>通过学习之旅，找到他人推荐好的资料，发现新奇的想法，开拓视野，更有可能找到志同道合的小伙伴呢！</h4>
+				<div class="study_progress">
+					<div class="study_list">
+						<div class="study_list_position study_circle">
+							<i class="icon icon-lightbulb"></i>
+						</div>
+						<div class="progress progress-striped active study_list_position" style="width:100%;margin-top:4px">
+							<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0"
+								aria-valuemax="100" style="width: 80%">
+							</div>
+						</div>
+					</div>
+					<div class="study_list">
+						<div class="study_list_position study_circle">
+							<i class="icon icon-lightbulb"></i>
+						</div>
+						<div class="progress progress-striped active study_list_position" style="width:100%;margin-top:4px">
+							<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0"
+								aria-valuemax="100" style="width: 60%">
+							</div>
+						</div>
+					</div>
+					<div class="study_list">
+						<div class="study_list_position study_circle">
+							<i class="icon icon-lightbulb"></i>
+						</div>
+						<div class="progress progress-striped active study_list_position" style="width:100%;margin-top:4px">
+							<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0"
+								aria-valuemax="100" style="width: 30%">
+							</div>
+						</div>
+					</div>
+					<div class="study_list">
+						<div class="study_list_position study_circle">
+							<i class="icon icon-lightbulb"></i>
+						</div>
+						<div class="progress progress-striped active study_list_position" style="width:100%;margin-top:4px">
+							<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0"
+								aria-valuemax="100" style="width: 90%">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="study_right study_position card">
+				<img src="image/index/main-banner1.webp">
+			</div>
+		</section>
+	</div>
 	<!-- 尾部-->
 	<footer class="footer">
 		<div class="container">
@@ -112,35 +244,36 @@
 	<script src="https://cdn.bootcss.com/zui/1.8.1/js/zui.min.js"></script>
 	<script src="js/swiper.min.js"></script>
 	<script>
-		$(function(){
+		$(function () {
 			//超过一定高度导航添加类名
-			var nav=$("header"); //得到导航对象  
-			var win=$(window); //得到窗口对象  
-			var sc=$(document);//得到document文档对象。  
-			win.scroll(function(){  
-			  if(sc.scrollTop()>=100){  
-			    nav.addClass("on");   
-			  }else{  
-			   nav.removeClass("on");  
-			  }  
-			})   
+			var nav = $("header"); //得到导航对象  
+			var win = $(window); //得到窗口对象  
+			var sc = $(document); //得到document文档对象。  
+			win.scroll(function () {
+				if (sc.scrollTop() >= 100) {
+					nav.addClass("on");
+				} else {
+					nav.removeClass("on");
+				}
+			})
 
 			//移动端展开nav
-			$('#navToggle').on('click',function(){
+			$('#navToggle').on('click', function () {
 				$('.m_nav').addClass('open');
 			})
 			//关闭nav
-			$('.m_nav .top .closed').on('click',function(){
+			$('.m_nav .top .closed').on('click', function () {
 				$('.m_nav').removeClass('open');
 			})
-			
+
 			//二级导航  移动端
-		    $(".m_nav .ul li").click(function() {
+			$(".m_nav .ul li").click(function () {
 				$(this).children("div.dropdown_menu").slideToggle('slow')
-		        $(this).siblings('li').children('.dropdown_menu').slideUp('slow');				
-		    });
+				$(this).siblings('li').children('.dropdown_menu').slideUp('slow');
+			});
 
 		})
 	</script>
 </body>
+
 </html>

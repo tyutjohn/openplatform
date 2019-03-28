@@ -2,13 +2,13 @@ body{background-color: #f3e4e47d;}
 /*====================导航*********/
 .header{
 	width:100%;
-	position:fixed;
 	top:0;
 	left:0;
 	z-index:999;
 	height:50px;
 	padding: 0 30px;
-	background: rgba(188, 96, 216, 0.8);
+	background: 0;
+	position: fixed;
 }
 
 .header .container{
@@ -336,7 +336,6 @@ body{background-color: #f3e4e47d;}
     height: 40px;
     background:rgba(188, 96, 216, 0.8);
     position: absolute;
-    bottom:0;
 }
 
 .footer-p{
