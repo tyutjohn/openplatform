@@ -106,7 +106,8 @@
                 obj[arry[i].name] = arry[i]['value'];
             }
             let formdata = JSON.stringify(obj);
-            $.ajax({
+            console.log(formdata);
+            /*$.ajax({
                 url: 'Login/index',
                 data: formdata,
                 type: 'post',
@@ -116,7 +117,7 @@
                 error:function(){
                     alert('网络错误或找不到服务器');
                 }
-            })
+            })*/
         })
     </script>
     <script src="https://cdn.bootcss.com/zui/1.8.1/js/zui.min.js"></script>
