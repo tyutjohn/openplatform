@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery.serializeJSON/2.9.0/jquery.serializejson.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <form id="form">
+        <div class="form-group">
+            <label for="exampleInputAccount" class="required">用户名</label>
+            <input type="text" class="form-control" id="exampleInputAccount" placeholder="用户名" name="username">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1" class="required">密码</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="密码" name="userpassword">
+        </div>
+        <div class="register">
+            <a href="#" id="login-register">注册</a>
+        </div>
+        <button type="submit" class="btn btn-primary move hidden" id="button">登陆</button>
+    </form>
+    <script>
+            
+            $('#button').click(function(){
+                var arry = $("#form").serializeArray();
+                let json=JSON.stringify(arry);
+                alert(json);
+
+                $.ajax({
+                    url: "/Login/Index",
+                    data: json,
+                    type:"post",
+                    success: function () {
+                        alert("success");
+                    }
+                })
+            })
+
+    </script>
+</body>
+
+</html>

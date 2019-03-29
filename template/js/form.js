@@ -3,7 +3,7 @@
  * @LastAuthor: Do not edit
  * @Github: https://github.com/tyutjohn
  * @since: 2019-03-27 15:07:29
- * @lastTime: 2019-03-27 15:14:29
+ * @lastTime: 2019-03-29 11:34:45
  */
 
 //登陆注册交互动画
@@ -24,47 +24,40 @@ click.onclick = function () {
     let add1 = document.querySelector("#login").classList.add("LoginOverturn");
     let add2 = document.querySelector("#register").classList.add("RegisterOverturn");
 }
- 
+
 //短信验证码
 let code = document.querySelector(".code");
 code.onclick = function () {
     let phone = document.querySelector("#exampleInputPhone").value;
     if (phone != '') {
-        //设置button效果
-        code.classList.add("disabled", "colse");
-        let time = 60;
-        let timer = setInterval(() => {
-            if (time == 0) {
-                code.classList.remove("colse", "disabled");
-                code.setAttribute("value", "获取验证码");
-            } else {
-                code.value = time + "秒";
-                time--;
-            }
-        }, 1000);
+        let phone = document.querySelector("#exampleInputPhone").value;
+        $.ajax({
+            url: 'register/code',
+            data: phone,
+            type: 'post',
+            success: function () {
+                alert("验证码发送成功");
 
-        sendMessage();
+                //设置button效果
+                code.classList.add("disabled", "colse");
+                let time = 60;
+                let timer = setInterval(() => {
+                    if (time == 0) {
+                        code.classList.remove("colse", "disabled");
+                        code.setAttribute("value", "获取验证码");
+                    } else {
+                        code.value = time + "秒";
+                        time--;
+                    }
+                }, 1000);
+            },
+            error: function () {
+                alert("网络错误")
+            }
+        })
+
     } else {
         alert("手机号码不能为空")
-    }
-}
-
-//向后台发送手机号并请求验证码
-function sendMessage() {
-    let phone = document.querySelector("#exampleInputPhone").value;
-    var xhr = new XMLHttpRequest();
-    xhr.open("post", "url,jsp", true);
-    var data = {
-        phone: phone
-    }
-    xhr.setRequestHeader("content-type", "application/json");
-    xhr.send(JSON.stringify(data));
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4) {
-            if (xhr.status >= 200 && xhr.status < 300) {
-                alert("sucess")
-            }
-        }
     }
 }
 
@@ -78,23 +71,24 @@ ReadyRegister.onclick = function () {
     let usercode = document.querySelector("#exampleInputCode").value;
     if (username && userpassword && userphone && usercode != '') {
         //post提交注册表单
-        var xhr = new XMLHttpRequest();
-        xhr.open("post", "url3,jsp", true);
-        var data = {
-            username: username,
-            userpassword: userpassword,
-            userphone: userphone,
-            usercode: usercode
+        let arry = $("#form2").serializeArray();
+        var obj = {};
+        for (let i = 0; i < arry.length; i++) {
+            obj[arry[i].name] = arry[i]['value'];
         }
-        xhr.setRequestHeader("content-type", "application/json");
-        xhr.send(JSON.stringify(data));
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4) {
-                if (xhr.status >= 200 && xhr.status < 300) {
-                    alert("sucess")
-                }
+        let data = JSON.stringify(obj);
+        // alert(data);
+        $.ajax({
+            url: 'register/form',
+            data: data,
+            type: 'post',
+            success: function () {
+                alert("注册成功")
+            },
+            error: function () {
+                alert("网络错误")
             }
-        }
+        })
 
     } else {
         alert("信息未填写完整")
