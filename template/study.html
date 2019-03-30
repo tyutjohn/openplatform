@@ -8,7 +8,7 @@
     <title>OpenMutualPlatform--study</title>
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/index/swiper.min.css" />
-    <link href="https://cdn.bootcss.com/zui/1.8.1/css/zui.min.css" rel="stylesheet">
+    <link href="css/zui.min.css" rel="stylesheet">
     <link href="css/index/study.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/common.css" />
 </head>
@@ -210,7 +210,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="load-indicator loading" style="width: 100px; height: 100px; background: #eee"></div>
+                <div data-loading="正在加载..." class="load-indicator" id="loadIndicator1"></div>
             </section>
         </div>
     </div>
@@ -290,7 +290,7 @@
                 let windowHeight=$(this).height();
                 if(scrollTop+windowHeight==scrollHeight){
                     alert("加载下一页内容");
-                   // document.querySelector("#loadIndicator1").classList.add("loading");
+                    document.querySelector("#loadIndicator1").classList.add("loading");
                    /* $.post("url",function(data){
                         alert("加载成功");
                     })*/
