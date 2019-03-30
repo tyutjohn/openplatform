@@ -8,7 +8,7 @@
     <title>OpenMutualPlatform--study</title>
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/index/swiper.min.css" />
-    <link href="css/zui.min.css" rel="stylesheet">
+    <link href="css/zui.css" rel="stylesheet">
     <link href="css/index/study.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/common.css" />
 </head>
@@ -140,7 +140,7 @@
                             <div class="form-group">
                               <input type="text" class="form-control" placeholder="搜索">
                             </div>
-                            <button type="submit" class="btn btn-default">搜索</button>
+                            <button type="submit" class="btn btn-info">搜索</button>
                           </form>
                         </ul>
                       </div><!-- END .navbar-collapse -->
@@ -224,81 +224,10 @@
     </footer>
 
     <!--js-->
-    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/zui/1.8.1/js/zui.min.js"></script>
+    <script src="js/jquery/jquery.min.js"></script>
+    <script src="js/zui.min.js"></script>
     <script src="js/swiper.min.js"></script>
-    <script>
-        $(function () {
-            //超过一定高度导航添加类名
-            var nav = $("header"); //得到导航对象  
-            var win = $(window); //得到窗口对象  
-            var sc = $(document); //得到document文档对象。  
-            win.scroll(function () {
-                if (sc.scrollTop() >= 100) {
-                    nav.addClass("on");
-                } else {
-                    nav.removeClass("on");
-                }
-            })
-
-            //移动端展开nav
-            $('#navToggle').on('click', function () {
-                $('.m_nav').addClass('open');
-            })
-            //关闭nav
-            $('.m_nav .top .closed').on('click', function () {
-                $('.m_nav').removeClass('open');
-            })
-
-            //二级导航  移动端
-            $(".m_nav .ul li").click(function () {
-                $(this).children("div.dropdown_menu").slideToggle('slow')
-                $(this).siblings('li').children('.dropdown_menu').slideUp('slow');
-            });
-
-        })
-    </script>
-    <script type="text/javascript">
-        //日期更新
-        function getNow(s) {
-            return s < 10 ? '0' + s : s;
-        }
-
-        var myDate = new Date();
-        //获取当前年
-        var year = myDate.getFullYear();
-        //获取当前月
-        var month = myDate.getMonth() + 1;
-        //获取当前日
-        var date = myDate.getDate();
-        var h = myDate.getHours(); //获取当前小时数(0-23)
-        var m = myDate.getMinutes(); //获取当前分钟数(0-59)
-        var s = myDate.getSeconds();
-
-        var now = year + '-' + getNow(month) + "-" + getNow(date) + " " + getNow(h) + ':' + getNow(m) + ":" + getNow(s);
-
-        $(document).ready(function () {
-            $("#time").append(now);
-        })
-    </script>
-    <script>
-        //滚动加载
-        $(window).scroll(
-            function(){
-                let scrollTop=$(this).scrollTop();
-                let scrollHeight=$(document).height();
-                let windowHeight=$(this).height();
-                if(scrollTop+windowHeight==scrollHeight){
-                    alert("加载下一页内容");
-                    document.querySelector("#loadIndicator1").classList.add("loading");
-                   /* $.post("url",function(data){
-                        alert("加载成功");
-                    })*/
-                }
-                $.ajaxSettings.async=false;
-            }
-        )
-    </script>
+    <script src="js/index/study.js"></script>
 </body>
 
 </html>
