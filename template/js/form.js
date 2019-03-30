@@ -26,35 +26,16 @@ click.onclick = function () {
 }
 
 //短信验证码
-let code = document.querySelector(".code");
+let code = document.querySelector("#code");
 code.onclick = function () {
     let phone = document.querySelector("#exampleInputPhone").value;
+    //console.log(phone);
     if (phone != '') {
         let phone = document.querySelector("#exampleInputPhone").value;
-        $.ajax({
-            url: 'register/code',
-            data: phone,
-            type: 'post',
-            success: function () {
-                alert("验证码发送成功");
-
-                //设置button效果
-                code.classList.add("disabled", "colse");
-                let time = 60;
-                let timer = setInterval(() => {
-                    if (time == 0) {
-                        code.classList.remove("colse", "disabled");
-                        code.setAttribute("value", "获取验证码");
-                    } else {
-                        code.value = time + "秒";
-                        time--;
-                    }
-                }, 1000);
-            },
-            error: function () {
-                alert("网络错误")
-            }
+        $.post("http://127.0.0.1:8080/user/sendCode",{"mobile":phone},function(data){
+            alert(JSON.stringify(data));
         })
+        return false;
 
     } else {
         alert("手机号码不能为空")
@@ -65,30 +46,16 @@ code.onclick = function () {
 let ReadyRegister = document.querySelector("#ReadyRegister");
 
 ReadyRegister.onclick = function () {
-    let username = document.querySelector("#exampleInputAccount2").value;
+    // let username = document.querySelector("#exampleInputAccount2").value;
     let userpassword = document.querySelector("#exampleInputPassword2").value;
+    let confirmPassword=document.querySelector("#exampleInputPassword3").value;
     let userphone = document.querySelector("#exampleInputPhone").value;
     let usercode = document.querySelector("#exampleInputCode").value;
-    if (username && userpassword && userphone && usercode != '') {
-        //post提交注册表单
-        let arry = $("#form2").serializeArray();
-        var obj = {};
-        for (let i = 0; i < arry.length; i++) {
-            obj[arry[i].name] = arry[i]['value'];
-        }
-        let data = JSON.stringify(obj);
-        // alert(data);
-        $.ajax({
-            url: 'register/form',
-            data: data,
-            type: 'post',
-            success: function () {
-                alert("注册成功")
-            },
-            error: function () {
-                alert("网络错误")
-            }
+    if (userpassword && confirmPassword&&userphone && usercode != '') {
+        $.post("http://127.0.0.1:8080/user/register",{"password2":userpassword,"confirmPassword":confirmPassword,"mobile":userphone,"code":usercode},function(data){
+            alert(JSON.stringify(data))
         })
+        return false;
 
     } else {
         alert("信息未填写完整")

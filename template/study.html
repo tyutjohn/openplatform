@@ -128,14 +128,14 @@
                           <span class="icon-bar"></span>
                         </button>
                         <!-- 品牌名称或logo -->
-                        <a class="navbar-brand" href="#">ZUI</a>
+                        <a class="navbar-brand" href="#">OPEN MUTUAL PLATFORM</a>
                       </div>
                       <!-- 导航项目 -->
                       <div class="collapse navbar-collapse navbar-collapse-example">
                         <!-- 一般导航项目 -->
                         <ul class="nav navbar-nav">
-                          <li class="active"><a href="#">项目</a></li>
-                          <li><a href="#">需求</a></li>
+                          <li class="active"><a href="#">灵感</a></li>
+                          <li><a href="#">资源</a></li>
                           <form class="navbar-form navbar-left" role="search">
                             <div class="form-group">
                               <input type="text" class="form-control" placeholder="搜索">
@@ -210,6 +210,7 @@
                         </div>
                     </div>
                 </div>
+                <div class="load-indicator loading" style="width: 100px; height: 100px; background: #eee"></div>
             </section>
         </div>
     </div>
@@ -225,7 +226,6 @@
     <!--js-->
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/zui/1.8.1/js/zui.min.js"></script>
-    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
     <script src="js/swiper.min.js"></script>
     <script>
         $(function () {
@@ -280,6 +280,24 @@
         $(document).ready(function () {
             $("#time").append(now);
         })
+    </script>
+    <script>
+        //滚动加载
+        $(window).scroll(
+            function(){
+                let scrollTop=$(this).scrollTop();
+                let scrollHeight=$(document).height();
+                let windowHeight=$(this).height();
+                if(scrollTop+windowHeight==scrollHeight){
+                    alert("加载下一页内容");
+                   // document.querySelector("#loadIndicator1").classList.add("loading");
+                   /* $.post("url",function(data){
+                        alert("加载成功");
+                    })*/
+                }
+                $.ajaxSettings.async=false;
+            }
+        )
     </script>
 </body>
 
