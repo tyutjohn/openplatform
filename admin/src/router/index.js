@@ -1,67 +1,149 @@
+/**
+ * Created by zzmhot on 2017/3/23.
+ *
+ * 路由Map
+ *
+ * @author: zzmhot
+ * @github: https://github.com/zzmhot
+ * @email: zzmhot@163.com
+ * @Date: 2017/3/23 18:30
+ * @Copyright(©) 2017 by zzmhot.
+ *
+ */
+
 import Vue from 'vue'
-import Router from 'vue-router'
-import whiteList from './whiteList'
-import staticRouter from './staticRouter'
-import {requestUserInfo} from '@/api/user'
+import VueRouter from 'vue-router'
+import store from 'store'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 
-Vue.use(Router)
+//import components
+//view page warp component
+import viewPageComponent from 'pages/App'
 
-const router = new Router({
-  routes: staticRouter
+//home
+import homeComponent from 'pages/home'
+//404
+import noPageComponent from 'pages/error/404'
+//login
+import loginComponent from 'pages/user/login'
+//base table
+import baseTableComponent from 'pages/table/base'
+//sort table
+import sortTableComponent from 'pages/table/sort'
+//save table
+import saveTableComponent from 'pages/table/save'
+//bar charts
+import barChartsComponent from 'pages/charts/bar'
+
+Vue.use(VueRouter)
+
+//使用AMD方式加载
+// component: resolve => require(['pages/home'], resolve),
+const routes = [{
+  path: '/404',
+  name: 'notPage',
+  component: noPageComponent
+}, {
+  path: '*',
+  redirect: '/404'
+}, {
+  path: '/user/login',
+  name: 'login',
+  component: loginComponent
+}, {
+  path: '/',
+  redirect: '/home',
+  component: viewPageComponent,
+  children: [{
+    path: '/home',
+    name: 'home',
+    component: homeComponent,
+    meta: {
+      title: "主页",
+      auth: true
+    }
+  }, {
+    path: '/table/base',
+    name: 'tableBase',
+    component: baseTableComponent,
+    meta: {
+      title: "基本表格",
+      auth: true
+    }
+  }, {
+    path: '/table/sort',
+    name: 'tableSort',
+    component: sortTableComponent,
+    meta: {
+      title: "排序表格",
+      auth: true
+    }
+  }, {
+    path: '/table/update/:id',
+    name: 'tableUpdate',
+    component: saveTableComponent,
+    meta: {
+      title: "数据修改",
+      auth: true
+    }
+  }, {
+    path: '/table/add',
+    name: 'tableAdd',
+    component: saveTableComponent,
+    meta: {
+      title: "添加数据",
+      auth: true
+    }
+  }, {
+    path: '/charts/bar',
+    name: 'chartsBar',
+    component: barChartsComponent,
+    meta: {
+      title: "柱状图表",
+      auth: true
+    }
+  }]
+}]
+
+const router = new VueRouter({
+  routes,
+  mode: 'hash', //default: hash ,history
+  scrollBehavior (to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return {x: 0, y: 0}
+    }
+  }
 })
 
-/* 利用router.meta保存数据级权限 */
-const router_init = (permissions) => {
-  permissions.forEach(function (v) {
-    let routeItem = router.match(v.path)
-    if (routeItem) {
-      routeItem.meta.permission = v.permission ? v.permission : []
-    }
-  })
-}
-
-/* 检测用户是否有权限访问页面 */
-const page_permission = (permissions, to_path, next) => {
-  let allow_page = false
-  permissions.forEach(function (v) {
-    if (v.path === to_path) {
-      allow_page = true
-    }
-  })
-  allow_page ? next() : next({path: '/error/401'})
-}
-
-/* 权限控制 */
+//全局路由配置
+//路由开始之前的操作
 router.beforeEach((to, from, next) => {
-  /* 忽略错误页面的权限判断 */
-  if (to.meta.errorPage) {
-    return next()
-  }
-  /* 进入登录页面将注销用户信息 */
-  if (to.path === '/login') {
-    sessionStorage.removeItem('user-info')
-    localStorage.removeItem('user-token')
-  }
-  /* 免登录页面 */
-  if (whiteList.indexOf(to.fullPath) >= 0) {
-    return next()
-  }
-  let user_info = JSON.parse(sessionStorage.getItem('user-info'))
-  /* 上次会话结束，重新获取用户信息 */
-  if (!user_info) {
-    requestUserInfo({}).then(user_info => {
-      const permissions = user_info.permissions || []
-      router_init(permissions)
-      page_permission(permissions, to.path, next)
-    }).catch((err) => {
-      /* 获取用户信息异常 */
-      console.error(err)
+  NProgress.done().start()
+  let toName = to.name
+  // let fromName = from.name
+  let is_login = store.state.user_info.login
+
+  if (!is_login && toName !== 'login') {
+    next({
+      name: 'login'
     })
   } else {
-    /* 已登录时判断页面权限 */
-    const permissions = user_info.permissions || []
-    page_permission(permissions, to.path, next)
+    if (is_login && toName === 'login') {
+      next({
+        path: '/'
+      })
+    } else {
+      next()
+    }
   }
+})
+
+//路由完成之后的操作
+router.afterEach(route => {
+  NProgress.done()
 })
 
 export default router

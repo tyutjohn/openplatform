@@ -1,46 +1,28 @@
-/*
- * @Author: johnwang
- * @LastAuthor: Do not edit
- * @Github: https://github.com/tyutjohn
- * 用户相关接口
- * @since: 2019-03-27 16:50:46
- * @lastTime: 2019-03-27 18:39:52
+/**
+ * @file: user.
+ * @intro: 用户请求数据配置.
+ * @author: zzmhot.
+ * @email: zzmhot@163.com.
+ * @Date: 2017/5/8 15:18.
+ * @Copyright(©) 2017 by zzmhot.
+ *
  */
-import {request} from '../utils/request'
 
-export const requestLogin = params => {
-  return request('/api/user/login', params).then(data => {
-    localStorage.setItem('user-token', JSON.stringify(data.token))
-    return data
+import fetch from 'common/fetch'
+import {port_user} from 'common/port_uri'
+
+//登录
+export function login(data) {
+  return fetch({
+    url: port_user.login,
+    method: 'post',
+    data
   })
 }
-
-export const requestRegister = params => {
-  return request('/api/user/register', params)
-}
-
-export const requestUserInfo = params => {
-  return request('/api/user/info', params).then((data) => {
-    sessionStorage.setItem('user-info', JSON.stringify(data))
-    return data
+//登出
+export function logout() {
+  return fetch({
+    url: port_user.logout,
+    method: 'post'
   })
-}
-
-export const requestLogout = params => {
-  return request('/api/user/logout', params)
-}
-
-export const requestChangePassword = params => {
-  return request('/api/user/changePassword', params).then(data => {
-    localStorage.setItem('user-token', JSON.stringify(data.token))
-    return data
-  })
-}
-
-export const requestUserQuery = params => {
-  return request('/api/user/query', params)
-}
-
-export const requestPermissionsQuery = params => {
-  return request('/api/user/permissions', params)
 }
