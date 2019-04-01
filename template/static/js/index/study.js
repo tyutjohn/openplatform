@@ -3,7 +3,7 @@
  * @LastAuthor: Do not edit
  * @Github: https://github.com/tyutjohn
  * @since: 2019-03-30 13:29:20
- * @lastTime: 2019-03-30 13:30:32
+ * @lastTime: 2019-04-01 16:18:38
  */
 
  //导航栏
@@ -68,10 +68,40 @@ $(window).scroll(
         if(scrollTop+windowHeight==scrollHeight){
             alert("加载下一页内容");
             document.querySelector("#loadIndicator1").classList.add("loading");
+            // $.get("/data.json",function(data){
+            //     let str=data.slice(0,9);
+            //     alert(JSON.stringify(str));
+            // })
            /* $.post("url",function(data){
                 alert("加载成功");
             })*/
         }
-        $.ajaxSettings.async=false;
+       // $.ajaxSettings.async=false;
     }
 )
+
+//vue模板渲染接口
+let app=new Vue({
+    el:"#main",
+    data:{
+        lists:[]
+    },
+    mounted:function() {
+        this.get();
+    },
+    methods: {
+        get:function(){
+            let self=this;
+            this.$http.get("/data.json").then(
+                function(res){
+                    self.lists=res.data.slice(0,9);
+                    console.log(res.data.slice(0,9));
+                },function(res){
+                    alert("状态码"+res.status+"网络问题或找不到服务器");
+                }
+            ).catch(function (reason) {
+                console.log(reason);
+            })
+        }
+    },
+})

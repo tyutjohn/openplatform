@@ -148,64 +148,21 @@
                   </nav>
             </section>
             <!--列表-->
-            <section class="content">
+            <section class="content" id="main">
                 <div class="list">
                     <header>
                         <h3 style="display:inline-block"><i class="icon-list-ul"></i> 编辑推荐<small></small></h3>
                         <span class="text-muted" id="time"></span>
                     </header>
                     <div class="items items-hover" id="vue_item">
-                        <div class="item">
+                        <div class="item" v-for="items in lists">
                             <div class="item-heading">
-                                <div class="pull-right"><span class="text-muted">2013-11-11 16:14:37</span> &nbsp; <a
+                                <div class="pull-right"><span class="text-muted">{{items.updatedAt}}</span> &nbsp; <a
                                         href="#" class="text-muted"><i class="icon-comments"></i> 243</a></div>
-                                <h4><a href="###">HTML5 发展历史</a></h4>
+                                <h4><a href="article.html">{{items.title}}</a></h4>
                             </div>
                             <div class="item-content">
-                                <div class="text">HTML 5草案的前身名为Web Applications
-                                    1.0，是在2004年由WHATWG提出。2008年1月22日，第一份正式草案发布。WHATWG表示该规范是目前仍在进行的工作，仍须多年的努力。[8]目前Mozilla
-                                    Firefox、Google Chrome、Opera、Safari（版本4以上）、Internet Explorer（版本9以上）已支持HTML5技术。</div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="item-heading">
-                                <div class="pull-right"><span class="text-muted">2013-11-11 16:14:37</span> &nbsp; <a
-                                        href="#" class="text-muted"><i class="icon-comments"></i> 243</a></div>
-                                <h4><a href="###">人工智能项目</a></h4>
-                            </div>
-                            <div class="item-content">
-                                <div class="text">发布SaaS加速器：我们不做SaaS，我们只做SaaS生态的推进者和守护者 </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="item-heading">
-                                <div class="pull-right"><span class="text-muted">2013-11-11 16:14:37</span> &nbsp; <a
-                                        href="#" class="text-muted"><i class="icon-comments"></i> 243</a></div>
-                                <h4><a href="###">寻找 K8s 1.14 Release 里的“蚌中之珠” </a></h4>
-                            </div>
-                            <div class="item-content">
-                                <div class="text">Kubernetes 1.14.0 Release 已经于3月25日正式发布。相信你也已经注意到，相比于1.13 和 1.12 版本，这次发布包含的重要变更非常多，其对应的 Release Note 的篇幅长度也创下了“新高”。
-                                    面对这样一份“海量信息”的 Release Note，我们该如何从这份文档里进行高效的信息过滤和挖掘，帮助团队更精准、快速的梳理出这次发布最主要的技术脉络呢？</div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="item-heading">
-                                <div class="pull-right"><span class="text-muted">2013-11-11 16:14:37</span> &nbsp; <a
-                                        href="#" class="text-muted"><i class="icon-comments"></i> 243</a></div>
-                                <h4><a href="###">游戏、零售等行业服务单元化部署场景下低成本单库单服解决方案 </a></h4>
-                            </div>
-                            <div class="item-content">
-                                <div class="text">摘要： 在创业型公司或阿米巴模式经营的公司，新项目发布初期存在较大的不确定性，既要考虑项目未来的扩展性，又要衡量项目的运营成本。本解决方案为客户提供低成本，敏捷快捷的最佳实践。 </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="item-heading">
-                                <div class="pull-right"><span class="text-muted">2013-11-11 16:14:37</span> &nbsp; <a
-                                        href="#" class="text-muted"><i class="icon-comments"></i> 243</a></div>
-                                <h4><a href="###">极简日志的分析方法 </a></h4>
-                            </div>
-                            <div class="item-content">
-                                <div class="text">摘要： 极简模式是按照行为单位，把一行日志打包作为一个字段上传到日志服务。对于用户而言，极简模式避免了去配置复杂的正则式，极大的简化了日志接入云端的流程，上传后只需要开启全文索引即可完成搜索。 但是，在某些场景下，我们需要对日志中的某些部分进行分析，例如分析日志中的ip，这种情况下，就需要通过SQL先完成一些字段提取工作，然后再进行分析。 </div>
+                                <div class="text">{{items.content}}</div>
                             </div>
                         </div>
                     </div>
@@ -225,6 +182,8 @@
 
     <!--js-->
     <script src="js/jquery/jquery.min.js"></script>
+    <script src="js/vue/vue.min.js"></script>
+    <script src="js/vue/vue-resource.min.js"></script>
     <script src="js/zui.min.js"></script>
     <script src="js/swiper.min.js"></script>
     <script src="js/index/study.js"></script>
