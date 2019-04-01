@@ -84,7 +84,7 @@ $(window).scroll(
 let app=new Vue({
     el:"#main",
     data:{
-        lists:[],
+        lists:[]
     },
     mounted:function() {
         this.get();
@@ -92,10 +92,10 @@ let app=new Vue({
     methods: {
         get:function(){
             let self=this;
-            this.$http.get("/data.json").then(
+            this.$http.get("http://127.0.0.1:8080/article/queryList").then(
                 function(res){
-                    self.lists=res.data.slice(0,9);
-                    console.log(res.data.slice(0,9));
+                    self.lists=res.data;
+                    console.log(res.data);
                 },function(res){
                     alert("状态码"+res.status+"网络问题或找不到服务器");
                 }

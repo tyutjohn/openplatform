@@ -34,6 +34,12 @@ $(function () {
     });
 
 })
+//获取URL id
+let url=location.search,
+    obj={};
+
+let tar=url.replace("?","");
+
 
 var app=new Vue({
     el:"#app",
@@ -65,7 +71,8 @@ var app=new Vue({
     methods: {
         get:function(){
             let self=this;
-            this.$http.get("/article.json").then(
+            //
+            this.$http.get("http://127.0.0.1:8080/article/query/"+tar).then(
                 function(res){
                     self.article=res.data;
                     console.log(res.data);

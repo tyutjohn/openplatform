@@ -21,13 +21,13 @@ code.onclick = function () {
             let time = 60;
             let timer = setInterval(() => {
                 if (time == 0) {
-                    code.classList.remove("colse", "disabled");
-                    code.setAttribute("value", "获取验证码");
-                } else {
-                    code.value = time + "秒";
-                    time--;
-                }
-            }, 1000);
+                code.classList.remove("colse", "disabled");
+                code.setAttribute("value", "获取验证码");
+            } else {
+                code.value = time + "秒";
+                time--;
+            }
+        }, 1000);
         })
         return false;
 
@@ -36,30 +36,25 @@ code.onclick = function () {
     }
 }
 
-
-//找回密码提交
+//忘记密码提交
 let ReadyRegister = document.querySelector("#ReadyRegister");
 
 ReadyRegister.onclick = function () {
+    // let username = document.querySelector("#exampleInputAccount2").value;
+    let userpassword = document.querySelector("#exampleInputPassword").value;
+    let confirmPassword = document.querySelector("#confirmPassword").value;
     let userphone = document.querySelector("#exampleInputPhone").value;
     let usercode = document.querySelector("#exampleInputCode").value;
-    if (userphone && usercode != '') {
-        //post提交注册表单
-        var xhr = new XMLHttpRequest();
-        xhr.open("post", "url3,jsp", true);
-        var data = {
-            userphone: userphone,
-            usercode: usercode
-        }
-        xhr.setRequestHeader("content-type", "application/json");
-        xhr.send(JSON.stringify(data));
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4) {
-                if (xhr.status >= 200 && xhr.status < 300) {
-                    alert("sucess")
-                }
-            }
-        }
+    if (userpassword && confirmPassword && userphone && usercode != '') {
+        $.post("http://127.0.0.1:8080/user/forget", {
+            "password": userpassword,
+            "confirmPassword": confirmPassword,
+            "mobile": userphone,
+            "code": usercode
+        }, function (data) {
+            alert(JSON.stringify(data))
+        })
+        return false;
 
     } else {
         alert("信息未填写完整")

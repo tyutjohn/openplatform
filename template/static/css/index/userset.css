@@ -3,7 +3,7 @@
  * @LastAuthor: Do not edit
  * @Github: https://github.com/tyutjohn
  * @since: 2019-03-31 20:37:21
- * @lastTime: 2019-04-01 17:28:50
+ * @lastTime: 2019-04-01 21:17:16
  */
 .banner {
     height: 200px;
@@ -69,10 +69,6 @@
 .main .setting-unit .inline{
     display: inline-block;
     margin-left: 50px;
-}
-
-.holder{
-    transition:height 2s;
 }
 
 .main .holder .list{

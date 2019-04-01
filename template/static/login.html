@@ -42,7 +42,7 @@
                     <a href="#" id="login-register">注册</a>
                 </div>
                 <div class="forget">
-                    <a href="#">忘记密码?</a>
+                    <a href="forget.html">忘记密码?</a>
                 </div>
                 <button type="submit" class="btn btn-primary move" id="button">登陆</button>
             </form>
@@ -101,8 +101,8 @@
                     alert(JSON.stringify(data));
                 }
                 if(data.code==0) {
-                    alert(JSON.stringify(data));
-                    // window.location.href="index.html"
+                    //alert(JSON.stringify(data));
+                     window.location.href="index.html"
                 }
             },
             error:function(){
