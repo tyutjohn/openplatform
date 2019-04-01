@@ -108,31 +108,38 @@
     <div class="banner">
         <img src="image/article/nav-banner.png">
     </div>
-    <div class="main">
+    <div class="main" id="app">
         <div class="container">
             <section class="left">
                 <article class="article">
-                    <header>
-                        <h1 class="text-center">HTML5</h1>
+                    <header style="position:relative">
+                        <h1 class="text-center">{{article.data.title}}</h1>
+                        <div style="position:absolute;right:0;top:10px;">
+                            <a href="#">
+                                <h3 style="display:inline-block;margin-right:10px"><span
+                                        class="icon icon-user">{{article.data.publisherNick}}</span></h3>
+                            </a>
+                        </div>
                         <dl class="dl-inline">
                             <dt>来源：</dt>
-                            <dd>维基百科</dd>
+                            <dd>{{article.data.articleType}}</dd>
                             <dt>最后修订：</dt>
-                            <dd>2016年8月12日 (星期五) 12:53</dd>
+                            <dd><span class="icon icon-time">{{article.data.updatedAt}}</span></dd>
                             <dt></dt>
                             <dd class="pull-right"><span class="label label-success">HTML</span> <span
                                     class="label label-warning">网页设计</span> <span class="label label-info">W3C</span>
                                 <span class="label label-danger"><i class="icon-eye-open"></i> 235</span></dd>
                         </dl>
-                        <section class="abstract">
+                        <!-- <section class="abstract">
                             <p><strong>摘要：</strong>HTML5是HTML最新的修订版本，2014年10月由万维网联盟（W3C）完成标准制定。目标是替换1999年所制定的HTML
                                 4.01和XHTML
                                 1.0标准，以期能在互联网应用迅速发展的时候，使网络标准达到匹配当代的网络需求。广义论及HTML5时，实际指的是包括HTML、CSS和JavaScript在内的一套技术组合。
                             </p>
-                        </section>
+                        </section> -->
                     </header>
                     <section class="content">
-                        <p>HTML5是HTML最新的修订版本，2014年10月由<a
+                        {{article.data.content}}
+                        <!-- <p>HTML5是HTML最新的修订版本，2014年10月由<a
                                 href="https://zh.wikipedia.org/wiki/%E4%B8%87%E7%BB%B4%E7%BD%91%E8%81%94%E7%9B%9F"
                                 target="_blank">万维网联盟</a>（W3C）完成标准制定。目标是替换1999年所制定的HTML 4.01和XHTML
                             1.0标准，以期能在互联网应用迅速发展的时候，使网络标准达到匹配当代的网络需求。广义论及HTML5时，实际指的是包括HTML、CSS和JavaScript在内的一套技术组合。它希望能够减少网页浏览器对于需要插件的丰富性网络应用服务（Plug-in-Based
@@ -166,19 +173,14 @@
                             <li>离线存储数据库（离线网络应用程序）</li>
                             <li>编辑</li>
                             <li>拖放</li>
-                        </ul>
+                        </ul> -->
                     </section>
                     <footer>
-                        <p class="pull-right text-muted">本文在知识共享 署名-相同方式共享 3.0协议之条款下提供。</p>
-                        <p class="text-important">本文节选自 Wikipedia HTML5 词条。</p>
-                        <ul class="pager pager-justify">
-                            <li class="previous"><a target="_blank"
-                                    href="https://zh.wikipedia.org/wiki/Category:HTML"><i class="icon-arrow-left"></i>
-                                    HTML</a></li>
-                            <li class="next disabled"><a target="_blank"
-                                    href="https://zh.wikipedia.org/wiki/Category:W3C%E6%A0%87%E5%87%86">W3C 标准 <i
-                                        class="icon-arrow-right"></i></a></li>
-                        </ul>
+                        <p class="text-important">
+                            版权声明：本文内容由互联网用户自发贡献，版权归作者所有，本平台不拥有所有权，也不承担相关法律责任。如果您发现本社区中有涉嫌抄袭的内容，欢迎发送邮件至：tyut@163.com
+                            进行举报，并提供相关证据，一经查实，本平台将立刻删除涉嫌侵权内容。 </p>
+                        <a :href="article.data.accessory+'.txt'" :download="article.data.accessory+'.txt'">点击下载资源</a>
+                        <span class="icon icon-thumbs-o-up footer-love"> 点赞{{article.data.articleLikeVOList.userNick}}</span>
                     </footer>
                 </article>
             </section>
@@ -188,7 +190,7 @@
                         <div class="card-head">达人介绍</div>
                         <hr />
                         <img src="image/index/man1.webp" class="img-circle" alt="圆形图片">
-                        <div class="card-heading" style="color:#494c51"><strong>张无忌</strong></div>
+                        <div class="card-heading" style="color:#494c51"><strong>{{article.data.publisherNick}}</strong></div>
                         <div class="card-content text-muted">分享《九阳真经》，一起研究"乾坤大挪移",加入明教团队</div>
                         <div class="card-actions">
                             <button type="button" class="btn btn-danger share_button" style="margin-left:0"><i
@@ -246,14 +248,14 @@
                             <i class="icon-camera-retro icon-2x"></i>
                         </a>
                         <div class="content">
-                            <div class="pull-right text-muted">3 个小时前</div>
-                            <div><a href="###"><strong>张士超</strong></a></div>
-                            <div class="text">今天玩的真开心！~~~~~~</div>
+                            <div class="pull-right text-muted">{{article.data.articleCommentVOList.createdAt}}</div>
+                            <div><a href="###"><strong>{{article.data.articleCommentVOList.senderName}}</strong></a></div>
+                            <div class="text">{{article.data.articleCommentVOList.content}}</div>
                             <div class="actions">
                                 <a href="##">回复</a>
                             </div>
                         </div>
-                        <div class="comments-list">
+                        <!-- <div class="comments-list">
                             <div class="comment">
                                 <a href="###" class="avatar">
                                     <i class="icon-user icon-2x"></i>
@@ -312,7 +314,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </section>
                 <footer>
@@ -340,38 +342,10 @@
     </footer>
 
     <!--js-->
+    <script src="js/vue/vue.min.js"></script>
+    <script src="js/vue/vue-resource.min.js"></script>
     <script src="js/zui.min.js"></script>
-    <script>
-        $(function () {
-            //超过一定高度导航添加类名
-            var nav = $("header"); //得到导航对象  
-            var win = $(window); //得到窗口对象  
-            var sc = $(document); //得到document文档对象。  
-            win.scroll(function () {
-                if (sc.scrollTop() >= 100) {
-                    nav.addClass("on");
-                } else {
-                    nav.removeClass("on");
-                }
-            })
-
-            //移动端展开nav
-            $('#navToggle').on('click', function () {
-                $('.m_nav').addClass('open');
-            })
-            //关闭nav
-            $('.m_nav .top .closed').on('click', function () {
-                $('.m_nav').removeClass('open');
-            })
-
-            //二级导航  移动端
-            $(".m_nav .ul li").click(function () {
-                $(this).children("div.dropdown_menu").slideToggle('slow')
-                $(this).siblings('li').children('.dropdown_menu').slideUp('slow');
-            });
-
-        })
-    </script>
+    <script src="js/index/article.js"></script>
 </body>
 
 </html>

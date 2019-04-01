@@ -3,7 +3,7 @@
  * @LastAuthor: Do not edit
  * @Github: https://github.com/tyutjohn
  * @since: 2019-03-30 13:29:20
- * @lastTime: 2019-04-01 16:18:38
+ * @lastTime: 2019-04-01 19:42:35
  */
 
  //导航栏
@@ -84,7 +84,7 @@ $(window).scroll(
 let app=new Vue({
     el:"#main",
     data:{
-        lists:[]
+        lists:[],
     },
     mounted:function() {
         this.get();

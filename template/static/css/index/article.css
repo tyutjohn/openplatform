@@ -3,7 +3,7 @@
  * @LastAuthor: Do not edit
  * @Github: https://github.com/tyutjohn
  * @since: 2019-03-30 13:50:32
- * @lastTime: 2019-03-30 16:49:01
+ * @lastTime: 2019-04-01 19:24:12
  */
 .header .navbar_nav li a {
     color: #9c5c5c;
@@ -108,6 +108,11 @@
 .main .bottom{
     width:80%;
     margin: 20px auto;
+}
+
+.main .article .footer-love:hover{
+    cursor: pointer;
+    color: #60a1ecd5;
 }
 
 @media screen and (max-width:580px) {

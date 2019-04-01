@@ -114,64 +114,65 @@
                 <hr>
                 <section class="container" style="width:90%">
                     <div id="_set_profile" class="setting-unit ">
-                        <div class="title">个人资料<div class="preview" style="opacity: 1;">tyutjohn</div>
-                        </div><a class="edit-label">编辑</a>
-                        <div class="holder" style="overflow: hidden;height:0">
-                            <div class="inner">
-                                <form action="/settings/" method="post">
-                                    <table class="list">
-                                        <tbody>
-                                            <tr>
-                                                <td class="name">登录名：</td>
-                                                <td><a class="go-email">修改邮箱»</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="name">昵称：</td>
-                                                <td><input value="tyutjohn" name="user[username]" class="clear-input">
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="name">所在城市：</td>
-                                                <td><input name="profile[location]" class="clear-input"></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="name">性别：</td>
-                                                <td class="sex"><label><input type="radio" name="profile[sex]"
-                                                            value="1">男</label><label><input type="radio"
-                                                            name="profile[sex]" value="2">女</label><label><input
-                                                            type="radio" name="profile[sex]" value="0"
-                                                            checked="checked">保密</label></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="name">生日：</td>
-                                                <td class="birthday"><input maxlength="4" placeholder="年" title="年"
-                                                        value="" class="clear-input"><input maxlength="2"
-                                                        placeholder="月" title="月" value="" class="clear-input"><input
-                                                        maxlength="2" placeholder="日" title="日" value=""
-                                                        class="clear-input"><input type="hidden"
-                                                        name="profile[birthday]" value=""><span>（该信息其他人不可见）</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="name">职业：</td>
-                                                <td><input name="profile[job]" class="clear-input"></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="name">关于自己：</td>
-                                                <td style="height: 110px; position: relative; display: block;">
-                                                    <textarea name="profile[about]"
-                                                        style="position: absolute; width: 580px; height: 86px; left: 0; top: 10px;"
-                                                        class="clear-input"></textarea></td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td><a href="#" onclick="return false;"
-                                                        class="submit-btn btn rbtn"><strong>
-                                                            保存</strong><span></span></a></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </form>
-                            </div>
+                        <div class="title" style="position:relative">
+                            <h3 class="inline">个人资料</h3>
+                            <h5 class="inline">tyutjohn</h5>
+                            <a class="edit-label inline" style="position:absolute;right:60px;top:20px;">编辑<span
+                                    class="icon icon-double-angle-down"></span></a>
+                        </div>
+                        <hr>
+                        <div class="holder" style="overflow: hidden;height:330px">
+                            <form class="container" id="user-form">
+                                <table class="list">
+                                    <tbody>
+                                        <tr>
+                                            <td class="name">登录名：</td>
+                                            <td><a class="go-email">修改邮箱»</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="name">昵称：</td>
+                                            <td><input value="tyutjohn" name="user[username]" class="clear-input">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="name">所在城市：</td>
+                                            <td><input name="profile[location]" class="clear-input"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="name">性别：</td>
+                                            <td class="sex"><label><input type="radio" name="profile[sex]"
+                                                        value="1">男</label><label><input type="radio"
+                                                        name="profile[sex]" value="2">女</label><label><input
+                                                        type="radio" name="profile[sex]" value="0"
+                                                        checked="checked">保密</label></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="name">生日：</td>
+                                            <td class="birthday"><input maxlength="4" placeholder="年" title="年" value=""
+                                                    class="clear-input"><input maxlength="2" placeholder="月" title="月"
+                                                    value="" class="clear-input"><input maxlength="2" placeholder="日"
+                                                    title="日" value="" class="clear-input"><input type="hidden"
+                                                    name="profile[birthday]" value=""><span>（该信息其他人不可见）</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="name">职业：</td>
+                                            <td><input name="profile[job]" class="clear-input"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="name">关于自己：</td>
+                                            <td style="height: 110px; position: relative; display: block;">
+                                                <textarea name="profile[about]"
+                                                    style="position: absolute; width: 580px; height: 86px; left: 0; top: 10px;"
+                                                    class="clear-input"></textarea></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td><a href="#" onclick="return false;" class="submit-btn btn rbtn"><strong>
+                                                        保存</strong><span></span></a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </form>
                         </div>
                     </div>
                     <!-- <div id="_set_avatar" class="setting-unit user-avatar ">
@@ -441,37 +442,7 @@
 
     <!--js-->
     <script src="js/zui.min.js"></script>
-    <script>
-        $(function () {
-            //超过一定高度导航添加类名
-            var nav = $("header"); //得到导航对象  
-            var win = $(window); //得到窗口对象  
-            var sc = $(document); //得到document文档对象。  
-            win.scroll(function () {
-                if (sc.scrollTop() >= 100) {
-                    nav.addClass("on");
-                } else {
-                    nav.removeClass("on");
-                }
-            })
-
-            //移动端展开nav
-            $('#navToggle').on('click', function () {
-                $('.m_nav').addClass('open');
-            })
-            //关闭nav
-            $('.m_nav .top .closed').on('click', function () {
-                $('.m_nav').removeClass('open');
-            })
-
-            //二级导航  移动端
-            $(".m_nav .ul li").click(function () {
-                $(this).children("div.dropdown_menu").slideToggle('slow')
-                $(this).siblings('li').children('.dropdown_menu').slideUp('slow');
-            });
-
-        })
-    </script>
+    <script src="js/index/userset.js"></script>
 </body>
 
 </html>

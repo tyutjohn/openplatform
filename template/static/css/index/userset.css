@@ -3,7 +3,7 @@
  * @LastAuthor: Do not edit
  * @Github: https://github.com/tyutjohn
  * @since: 2019-03-31 20:37:21
- * @lastTime: 2019-03-31 22:58:26
+ * @lastTime: 2019-04-01 17:28:50
  */
 .banner {
     height: 200px;
@@ -66,8 +66,23 @@
     -10px 10px 10px rgb(247, 215, 215);
 }
 
-.main .setting-unit .title{
-    height: 40px;
+.main .setting-unit .inline{
+    display: inline-block;
+    margin-left: 50px;
+}
+
+.holder{
+    transition:height 2s;
+}
+
+.main .holder .list{
+    margin:0 auto;
+    color:#8c7e7e;
+    font-size: 16px;
+}
+
+.main .holder .list tr{
+    margin-top: 10px;
 }
 
 @media screen and (max-width:580px) {
