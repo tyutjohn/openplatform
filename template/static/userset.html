@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/common.css" />
     <link rel="stylesheet" href="css/zui.css" />
     <link rel="stylesheet" href="css/index/userset.css" />
-    <script src="js/jquery/jquery.min.js"></script>
+    <link rel="stylesheet" href="css/zui.uploader.css" />
     <title>个人中心设置</title>
 </head>
 
@@ -127,276 +127,79 @@
                                     <tbody>
                                         <tr>
                                             <td class="name">昵称：</td>
-                                            <td><input value="tyutjohn" name="user[username]" class="clear-input">
+                                            <td class="has-success">
+                                                <input class="form-control" type="text" value="tyutjohn"
+                                                    name="userNick">
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td class="name">关于自己：</td>
-                                            <td style="height: 110px; position: relative; display: block;">
-                                            <textarea style="position: absolute; width: 580px; height: 86px; left: 0; top: 10px;"class="clear-input"></textarea></td>
+                                            <td class="name">学院:</td>
+                                            <td class="has-success">
+                                                <input class="form-control" type="text" value="软件学院" name="academyId">
+                                            </td>
                                         </tr>
                                         <tr>
-                                            <td></td>
-                                            <td><a href="#" onclick="return false;" class="submit-btn btn rbtn"><strong>
-                                                        保存</strong><span></span></a></td>
+                                            <td class="name">学校:</td>
+                                            <td class="has-success">
+                                                <input class="form-control" type="text" value="太原理工大学" name="schoolId">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="name">头像:</td>
+                                            <!-- <td class="has-success">
+                                                <img src="image/index/man1.webp" width="50px" height="50px">
+                                            </td> -->
+                                            <td>
+                                                <div id="uploaderExample" class="uploader">
+                                                    <div class="file-list" data-drag-placeholder="请拖拽文件到此处"></div>
+                                                    <button type="button" class="btn btn-primary uploader-btn-browse"><i
+                                                            class="icon icon-cloud-upload"></i> 选择文件</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="name">邮箱:</td>
+                                            <td class="has-success">
+                                                <input class="form-control" type="email" value="tyutjohnwang@163.com"
+                                                    name="userEmail">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="name">真实姓名</td>
+                                            <td class="has-success">
+                                                <input class="form-control" type="text" value="王浩宇" name="userName">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="name">手机号:</td>
+                                            <td class="has-success">
+                                                <input class="form-control" type="number" value="15503676579"
+                                                    name="userNumber">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="has-success">
+                                                <div class="switch text-left">
+                                                    <input class="form-control" type="checkbox" name="visual">
+                                                    <label>是否可见:</label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="name">个性签名</td>
+                                            <td class="has-success">
+                                                <textarea class="form-control" rows="3"
+                                                    placeholder="可以输入多行文本"></textarea>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><button class="btn btn-danger" type="button">保存</button></td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </form>
                         </div>
                     </div>
-                    <!-- <div id="_set_avatar" class="setting-unit user-avatar ">
-                                <div class="title">头像<div class="preview" style="opacity: 1;"><img id="preview_avatar"
-                                            src="hbimg.huabanimg.com/e36ac2bbea2f45ef29d26170405bb71ee88a70e410d5-OIeBQY_sq75sf"
-                                            data-baiduimageplus-ignore="1"></div>
-                                </div><a class="edit-label">编辑</a>
-                                <div class="holder" style="overflow: hidden; height: 0px;">
-                                    <div class="inner">
-                                        <table class="list">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="avatar">
-                                                        <img
-                                                            id="current_avatar"
-                                                            src="//hbimg.huabanimg.com/e36ac2bbea2f45ef29d26170405bb71ee88a70e410d5-OIeBQY_fw192"
-                                                            suffix="fw192" data-baiduimageplus-ignore="1"><img
-                                                            src="/img/load2.gif" style="display:none;"
-                                                            data-baiduimageplus-ignore="1" class="load"></td>
-                                                    <td class="buttons"><a id="avatar_upload_button" href="#"
-                                                            onclick="return false;"
-                                                            class="upload_avatar btn btn18 wbtn"><strong>
-                                                                上传头像</strong><span></span></a>
-                                                        <div
-                                                            style="position: absolute; opacity: 0.01; overflow: hidden;">
-                                                            <iframe src="javascript:'<html></html>'" border="0"
-                                                                name="IFrame_jtww40il" id="IFrame_jtww40il"
-                                                                style="display: none;" frameborder="no"></iframe><input
-                                                                type="file" name="file" size="1"
-                                                                style="position: absolute; top: 0px; left: 0px; border: 0px none;">
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div> -->
-                    <!-- <div id="_tel_binding" class="setting-unit">
-                                <div class="title">绑定手机<div class="preview" style="opacity: 1;">15503676579</div>
-                                </div><a class="edit-label">编辑</a>
-                                <div style="height: 0px; overflow: hidden;" class="holder">
-                                    <div class="inner">
-                                        <div style="display: none;" class="tel-view bind-new">
-                                            <form class="bind-new-form">
-                                                <table class="list">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td class="name">手机号：</td>
-                                                            <td><input name="tel" placeholder="输入手机号"
-                                                                    class="clear-input"></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td></td>
-                                                            <td><a href="#" onclick="return false;"
-                                                                    class="approve-btn btn rbtn"><span class="text">
-                                                                        绑定手机</span></a></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </form>
-                                        </div>
-                                        <div class="tel-view binding">
-                                            <form class="binding-form">
-                                                <table class="list">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td class="name">你的手机号：</td>
-                                                            <td class="tel-number"></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="name">手机验证码：</td>
-                                                            <td><input name="captcha" placeholder="输入你手机收到的验证码"
-                                                                    class="clear-input"><a href="#"
-                                                                    onclick="return false;" class="send-sms btn"><span
-                                                                        class="text"> 重新发送验证码</span></a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td></td>
-                                                            <td><a href="#" onclick="return false;"
-                                                                    class="approve-btn btn rbtn"><span class="text">
-                                                                        绑定</span></a><a
-                                                                    class="brown-link deny-back">取消</a></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </form>
-                                        </div>
-                                        <div style="display: block;" class="tel-view binded">
-                                            <form class="binded-form">
-                                                <table class="list">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td class="name">已绑定手机：</td>
-                                                            <td><span data-tel="15503676579"
-                                                                    class="tel-number">15503676579</span><i
-                                                                    class="icon checked"></i></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td></td>
-                                                            <td><a href="#" onclick="return false;"
-                                                                    class="approve-btn btn"><span class="text">
-                                                                        更换手机号</span></a></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </form>
-                                        </div>
-                                        <div class="tel-view change-tel">
-                                            <form class="change-tel-form">
-                                                <table class="list">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td class="name">旧手机号：</td>
-                                                            <td data-tel="15503676579" class="tel-number">15503676579
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="name">手机验证码：</td>
-                                                            <td><input name="captcha" placeholder="输入你旧手机号收到的验证码"
-                                                                    class="clear-input"><a href="#"
-                                                                    onclick="return false;" class="send-sms btn"><span
-                                                                        class="text"> 发送验证码</span></a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td></td>
-                                                            <td><a href="#" onclick="return false;"
-                                                                    class="approve-btn btn rbtn"><span class="text">
-                                                                        下一步</span></a><a
-                                                                    class="brown-link deny-back">取消</a></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </form>
-                                        </div>
-                                        <div class="tel-view tel-new">
-                                            <form class="tel-new-form">
-                                                <table class="list">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td class="name">新手机号：</td>
-                                                            <td><input name="tel" placeholder="输入要绑定的新手机号"
-                                                                    class="clear-input"></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td></td>
-                                                            <td><a href="#" onclick="return false;"
-                                                                    class="approve-btn btn rbtn"><span class="text">
-                                                                        下一步</span></a><a
-                                                                    class="brown-link deny-back">取消</a></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </form>
-                                        </div>
-                                        <div class="tel-view tel-code">
-                                            <form class="tel-code-form">
-                                                <table class="list">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td class="name">新手机号：</td>
-                                                            <td class="tel-number"></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="name">验证码：</td>
-                                                            <td><input name="captcha" placeholder="输入你新手机号收到的验证码"
-                                                                    class="clear-input"><a href="#"
-                                                                    onclick="return false;" class="send-sms btn"><span
-                                                                        class="text"> 再发一次</span></a></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td></td>
-                                                            <td><a href="#" onclick="return false;"
-                                                                    class="approve-btn btn rbtn"><span class="text">
-                                                                        绑定</span></a><a
-                                                                    class="brown-link deny-back">取消</a></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="_set_password" class="setting-unit">
-                                <div class="title">密码<div class="preview" style="opacity: 1;">******</div>
-                                </div><a class="edit-label">编辑</a>
-                                <div style="height: 0px; overflow: hidden;" class="holder">
-                                    <div class="inner">
-                                        <form action="/password/change/" method="post">
-                                            <table class="list">
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="name">当前密码：</td>
-                                                        <td><input type="password" name="password[old]"
-                                                                class="clear-input"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="name">新密码：</td>
-                                                        <td><input type="password" name="password[new]"
-                                                                class="clear-input"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="name">确认新密码：</td>
-                                                        <td><input type="password" name="password[confirm]"
-                                                                class="clear-input"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td></td>
-                                                        <td><a href="#" onclick="return false;"
-                                                                class="submit-btn btn rbtn"><strong>
-                                                                    保存</strong><span></span></a></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="_set_privacy" class="setting-unit ">
-                                <div class="title">隐私设置<div class="preview" style="opacity: 1;">设置个人隐私</div>
-                                </div><a class="edit-label">编辑</a>
-                                <div class="holder" style="overflow: hidden; height: 0px;">
-                                    <div class="inner">
-                                        <form action="/settings/" method="post">
-                                            <ul class="privacy-list clearfix"></ul>
-                                            <div class="common-message caution">设置第三方帐号隐私，请先<a
-                                                    class="go-bindings">绑定第三方帐号</a></div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="_set_blocked_conversations" class="setting-unit ">
-                                <div class="title">私信屏蔽<div class="preview" style="opacity: 1;">显示已屏蔽的用户</div>
-                                </div><a class="edit-label">编辑</a>
-                                <div class="holder" style="overflow: hidden; height: 0px;">
-                                    <div class="inner set-blocked-coverstaions">
-                                        <div class="info">
-                                            <p>被你屏蔽的用户不能给你发私信，你也不能给他们发送私信。</p>
-                                        </div>
-                                        <div class="blcoked-users">
-                                            <div id="bolcked_user_temp" style="display: none"><a href="{{link}}"
-                                                    target="_blank"><img data-src="{{avatar}}"
-                                                        data-baiduimageplus-ignore="1" class="blocked-user-avatar"><span
-                                                        class="user-name">{{name}}</span></a><span
-                                                    class="user-info">{{info}}</span><span data-id="{{user_id}}"
-                                                    class="remove-blocked">解除屏蔽</span></div>
-                                            <div class="none-blcoked">
-                                                <h4>你没有屏蔽任何人</h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
                 </section>
             </div>
         </div>
@@ -411,7 +214,9 @@
     </footer>
 
     <!--js-->
+    <script src="js/jquery/jquery.min.js"></script>
     <script src="js/zui.min.js"></script>
+    <script src="js/zui.uploader.min.js"></script>
     <script src="js/index/userset.js"></script>
 </body>
 

@@ -3,7 +3,7 @@
  * @LastAuthor: Do not edit
  * @Github: https://github.com/tyutjohn
  * @since: 2019-04-01 16:29:31
- * @lastTime: 2019-04-01 17:22:20
+ * @lastTime: 2019-04-02 17:09:09
  */
 $(function () {
     //超过一定高度导航添加类名
@@ -35,15 +35,8 @@ $(function () {
 
 })
 
-//点击下拉form修改表单
-let lable=0;
-document.querySelector(".edit-label").addEventListener("click",function(){
-    lable++
-    if(lable %2==1){
-            document.querySelector(".holder").style.height="auto";
-        
-    }else{
-        document.querySelector(".holder").style.height=0;
-    }
-    
-})
+//文件上传初始化
+$('#uploaderExample').uploader({
+    autoUpload: false,            // 当选择文件后立即自动进行上传操作
+    url: ''  // 文件上传提交地址
+});
