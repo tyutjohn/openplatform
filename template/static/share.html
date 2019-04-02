@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/zui.css" />
     <link rel="stylesheet" href="css/common.css" />
     <link rel="stylesheet" href="css/reset.css" />
-    <script src="js/jquery/jquery.min.js"></script>
+    <link rel="stylesheet" href="css/zui.uploader.css" />
     <title>分享</title>
 </head>
 
@@ -155,24 +155,74 @@
                         <!-- 导航项目 -->
                         <div class="collapse navbar-collapse navbar-collapse-example">
                             <!-- 一般导航项目 -->
-                            <ul class="nav navbar-nav">
-                                <li class="active"><a href="#">分享灵感</a></li>
-                                <li><a href="#">上传资源</a></li>
+                            <ul class="nav navbar-nav nav-tabs">
+                                <li class="active"><a data-tab href="#tabContent1">分享灵感</a></li>
+                                <li><a data-tab href="#tabContent2">上传资源</a></li>
                             </ul>
                         </div><!-- END .navbar-collapse -->
                     </div>
                 </nav>
             </section>
-            <!--富文本编辑器-->
-            <section class="editor">
-                <div id="Editor"></div>
-            </section>
-            <div class="hint" style="display:none">
-                <div class="alert alert-danger-inverse with-icon">
-                    <i class="icon-remove-sign"></i>
-                    <div class="content">
-                        <h4>不好了! 遇到了一些问题</h4>
-                        <p>暂且不支持移动端的富文本编辑，请在电脑或平板上发布文章</p>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tabContent1">
+                    <!--富文本编辑器-->
+                    <section class="editor">
+                        <div id="Editor"></div>
+                    </section>
+                    <div class="hint" style="display:none">
+                        <div class="alert alert-danger-inverse with-icon">
+                            <i class="icon-remove-sign"></i>
+                            <div class="content">
+                                <h4>不好了! 遇到了一些问题</h4>
+                                <p>暂且不支持移动端的富文本编辑，请在电脑或平板上发布文章</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!--表单提交-->
+                    <section>
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label for="exampleInputType" class="col-sm-2">标签(文章类型)</label>
+                                <div class="col-md-6 col-sm-10">
+                                    <input type="text" class="form-control" id="exampleInputType"
+                                        placeholder="起一个引人注目的标签吧" name="articleType">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputtitle" class="col-sm-2">文章标题</label>
+                                <div class="col-md-6 col-sm-10">
+                                    <input type="text" class="form-control" id="exampleInputtitle" placeholder="文章标题"
+                                        name="title">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword4" class="col-sm-2">设置文章是否可见</label>
+                                <div>
+                                    <input type="checkbox" class="col-md-1" name="visual" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-default" id="set">发布</button>
+                                </div>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+                <div class="tab-pane" id="tabContent2">
+                    <div id='uploaderHorder' class="uploader" data-ride="uploader" data-url="your/file/upload/url">
+                        <div class="uploader-message text-center">
+                            <div class="content"></div>
+                            <button type="button" class="close">×</button>
+                        </div>
+                        <div class="uploader-files file-list file-list-lg" data-drag-placeholder="请拖拽文件到此处"></div>
+                        <div class="uploader-actions">
+                            <div class="uploader-status pull-right text-muted"></div>
+                            <button type="button" class="btn btn-link uploader-btn-browse"><i
+                                    class="icon icon-plus"></i> 选择文件</button>
+                            <button type="button" class="btn btn-link uploader-btn-start"><i
+                                    class="icon icon-cloud-upload"></i> 开始上传</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -188,44 +238,11 @@
     </footer>
 
     <!--js-->
+    <script src="js/jquery/jquery.min.js"></script>
     <script src="js/zui.min.js"></script>
     <script src="js/wangEditor.min.js"></script>
-    <script>
-        $(function () {
-            //超过一定高度导航添加类名
-            var nav = $("header"); //得到导航对象  
-            var win = $(window); //得到窗口对象  
-            var sc = $(document); //得到document文档对象。  
-            win.scroll(function () {
-                if (sc.scrollTop() >= 100) {
-                    nav.addClass("on");
-                } else {
-                    nav.removeClass("on");
-                }
-            })
-
-            //移动端展开nav
-            $('#navToggle').on('click', function () {
-                $('.m_nav').addClass('open');
-            })
-            //关闭nav
-            $('.m_nav .top .closed').on('click', function () {
-                $('.m_nav').removeClass('open');
-            })
-
-            //二级导航  移动端
-            $(".m_nav .ul li").click(function () {
-                $(this).children("div.dropdown_menu").slideToggle('slow')
-                $(this).siblings('li').children('.dropdown_menu').slideUp('slow');
-            });
-
-        })
-    </script>
-    <script>
-        let E = window.wangEditor
-        let editor = new E('#Editor')
-        editor.create()
-    </script>
+    <script src="js/zui.uploader.min.js"></script>
+    <script src="js/index/share.js"></script>
 </body>
 
 </html>

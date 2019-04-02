@@ -3,7 +3,7 @@
  * @LastAuthor: Do not edit
  * @Github: https://github.com/tyutjohn
  * @since: 2019-03-27 15:15:18
- * @lastTime: 2019-03-30 13:36:45
+ * @lastTime: 2019-04-02 22:41:05
  */
 //短信验证码
 let code = document.querySelector("#code");
@@ -46,13 +46,23 @@ ReadyRegister.onclick = function () {
     let userphone = document.querySelector("#exampleInputPhone").value;
     let usercode = document.querySelector("#exampleInputCode").value;
     if (userpassword && confirmPassword && userphone && usercode != '') {
-        $.post("http://127.0.0.1:8080/user/forget", {
-            "password": userpassword,
-            "confirmPassword": confirmPassword,
-            "mobile": userphone,
-            "code": usercode
-        }, function (data) {
-            alert(JSON.stringify(data))
+        $.ajax({
+            url:"http://127.0.0.1:8080/user/forget",
+            type:"put",
+            data:{
+                "password": userpassword,
+                "confirmPassword": confirmPassword,
+                "mobile": userphone,
+                "code": usercode
+            },
+            method:"put",
+            success:function(data){
+                alert(JSON.stringify(data))
+                //window.location.href="login.html"
+            },
+            error:function(res){
+                alert(JSON.stringify(res));
+            }
         })
         return false;
 
