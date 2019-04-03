@@ -3,7 +3,7 @@
  * @LastAuthor: Do not edit
  * @Github: https://github.com/tyutjohn
  * @since: 2019-03-27 15:15:18
- * @lastTime: 2019-04-02 22:41:05
+ * @lastTime: 2019-04-03 21:18:40
  */
 //短信验证码
 let code = document.querySelector("#code");
@@ -15,7 +15,12 @@ code.onclick = function () {
         $.post("http://127.0.0.1:8080/user/sendCode", {
             "mobile": phone
         }, function (data) {
-            alert(JSON.stringify(data));
+            new $.zui.Messager('提示消息:'+JSON.stringify(data),{
+                type:'success',
+                placement:'center',
+                icon:'icon-ok-sign'
+            }).show();
+            //alert(JSON.stringify(data));
             //设置button效果
             code.classList.add("disabled", "colse");
             let time = 60;
@@ -32,7 +37,12 @@ code.onclick = function () {
         return false;
 
     } else {
-        alert("手机号码不能为空")
+        new $.zui.Messager('手机号码不能为空',{
+            type:'danger',
+            placement:'center',
+            icon:'icon-exclamation-sign'
+        }).show();
+        //alert("手机号码不能为空")
     }
 }
 
@@ -57,11 +67,21 @@ ReadyRegister.onclick = function () {
             },
             method:"put",
             success:function(data){
-                alert(JSON.stringify(data))
+                new $.zui.Messager('提示消息:'+JSON.stringify(data),{
+                    type:'success',
+                    placement:'center',
+                    icon:'icon-ok-sign'
+                }).show();
+                //alert(JSON.stringify(data))
                 //window.location.href="login.html"
             },
             error:function(res){
-                alert(JSON.stringify(res));
+                new $.zui.Messager('网络错误或找不到服务器,错误信息',{
+                    type:'danger',
+                    placement:'center',
+                    icon:'icon-exclamation-sign'
+                }).show();
+               // alert(JSON.stringify(res));
             }
         })
         return false;

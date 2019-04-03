@@ -3,7 +3,7 @@
  * @LastAuthor: Do not edit
  * @Github: https://github.com/tyutjohn
  * @since: 2019-03-30 13:29:20
- * @lastTime: 2019-04-01 19:42:35
+ * @lastTime: 2019-04-03 21:23:27
  */
 
  //导航栏
@@ -66,7 +66,7 @@ $(window).scroll(
         let scrollHeight=$(document).height();
         let windowHeight=$(this).height();
         if(scrollTop+windowHeight==scrollHeight){
-            alert("加载下一页内容");
+            //alert("加载下一页内容");
             document.querySelector("#loadIndicator1").classList.add("loading");
             // $.get("/data.json",function(data){
             //     let str=data.slice(0,9);
@@ -95,9 +95,19 @@ let app=new Vue({
             this.$http.get("http://127.0.0.1:8080/article/queryList").then(
                 function(res){
                     self.lists=res.data;
-                    console.log(res.data);
+                    new $.zui.Messager('加载成功',{
+                        type:'success',
+                        placement:'center',
+                        icon:'icon-ok-sign'
+                    }).show();
+                    //console.log(res.data);
                 },function(res){
-                    alert("状态码"+res.status+"网络问题或找不到服务器");
+                    new $.zui.Messager('网络错误或找不到服务器',{
+                        type:'danger',
+                        placement:'center',
+                        icon:'icon-exclamation-sign'
+                    }).show();
+                    //alert("状态码"+res.status+"网络问题或找不到服务器");
                 }
             ).catch(function (reason) {
                 console.log(reason);

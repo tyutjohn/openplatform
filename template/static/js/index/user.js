@@ -2,9 +2,10 @@
  * @Author: johnwang
  * @LastAuthor: Do not edit
  * @Github: https://github.com/tyutjohn
- * @since: 2019-04-01 19:03:05
- * @lastTime: 2019-04-03 21:21:21
+ * @since: 2019-04-03 11:19:12
+ * @lastTime: 2019-04-03 21:12:07
  */
+//banner设置
 $(function () {
     //超过一定高度导航添加类名
     var nav = $("header"); //得到导航对象  
@@ -34,64 +35,50 @@ $(function () {
     });
 
 })
-//获取URL id
-let url=location.search,
-    obj={};
 
-let tar=url.replace("?","");
-
-
+//vue-resource加载文章
 var app=new Vue({
-    el:"#app",
+    el:'#vue_item',
     data:{
-        article:{
-            data:{
-                publisherNick:{},
-                publisherAvatar:{},
-                articleType:{},
-                title:{},
-                content:{},
-                accessory:{},
-                updatedAt:{},
-                articleLikeVOList:{
-                    likeUserId:{},
-                    userNick:{}
-                },
-                articleCommentVOList:{
-                    createdAt:{},
-                    senderName:{},
-                    content:{}
-                }
-            }
-        }
+        items:[],
+        resource:[],
     },
     mounted:function(){
         this.get();
     },
     methods: {
         get:function(){
-            let self=this;
-            //
-            this.$http.get("http://127.0.0.1:8080/article/query/"+tar).then(
+            let that=this;
+            this.$http.get('data.json').then(
                 function(res){
-                    self.article=res.data;
-                    new $.zui.Messager('加载成功',{
-                        type:'success',
-                        placement:'center',
-                        icon:'icon-ok-sign'
-                    }).show();
-                    //console.log(res.data);
+                    that.items=res.data;
+                    console.log(res.data);
+                    document.querySelector('.main-content').style.height="auto";
                 },function(res){
-                    new $.zui.Messager('网络错误或找不到服务器',{
+                    new $.zui.Messager('网络错误或找不到服务器,错误信息'+JSON.stringify(res),{
                         type:'danger',
-                        placement:'center',
+                        placement:'bottom',
                         icon:'icon-exclamation-sign'
                     }).show();
-                    //console.log("状态码"+res.status+"网络错误或找不到服务器");
                 }
             ).catch(function(reason){
                 console.log(reason);
             })
+        },
+        checktab:function(){
+            //alert("success")
+            this.$http.get('fad.json').then(
+                function(res){
+                   this.resource=res;
+                   console.log(res);
+                },function(res){
+                    new $.zui.Messager('网络错误或找不到服务器,错误信息',{
+                        type:'danger',
+                        placement:'bottom',
+                        icon:'icon-exclamation-sign'
+                    }).show();
+                }
+            )
         }
     },
 })

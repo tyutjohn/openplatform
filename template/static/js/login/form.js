@@ -3,7 +3,7 @@
  * @LastAuthor: Do not edit
  * @Github: https://github.com/tyutjohn
  * @since: 2019-03-27 15:07:29
- * @lastTime: 2019-03-30 13:35:52
+ * @lastTime: 2019-04-03 21:19:30
  */
 
 //登陆注册交互动画
@@ -35,7 +35,12 @@ code.onclick = function () {
         $.post("http://127.0.0.1:8080/user/sendCode", {
             "mobile": phone
         }, function (data) {
-            alert(JSON.stringify(data));
+            new $.zui.Messager('提示消息:'+JSON.stringify(data),{
+                type:'success',
+                placement:'center',
+                icon:'icon-ok-sign'
+            }).show();
+            //alert(JSON.stringify(data));
             //设置button效果
             code.classList.add("disabled", "colse");
             let time = 60;
@@ -52,7 +57,12 @@ code.onclick = function () {
         return false;
 
     } else {
-        alert("手机号码不能为空")
+        new $.zui.Messager('手机号码不能为空',{
+            type:'danger',
+            placement:'center',
+            icon:'icon-exclamation-sign'
+        }).show();
+        //alert("手机号码不能为空")
     }
 }
 
@@ -72,11 +82,21 @@ ReadyRegister.onclick = function () {
             "mobile": userphone,
             "code": usercode
         }, function (data) {
-            alert(JSON.stringify(data))
+            new $.zui.Messager('提示消息:'+JSON.stringify(data),{
+                type:'success',
+                placement:'center',
+                icon:'icon-ok-sign'
+            }).show();
+            //alert(JSON.stringify(data))
         })
         return false;
 
     } else {
-        alert("信息未填写完整")
+        new $.zui.Messager('信息未填写完整',{
+            type:'danger',
+            placement:'center',
+            icon:'icon-exclamation-sign'
+        }).show();
+        //alert("信息未填写完整")
     }
 }
