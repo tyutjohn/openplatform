@@ -87,7 +87,9 @@ ReadyRegister.onclick = function () {
                 placement:'center',
                 icon:'icon-ok-sign'
             }).show();
-            //alert(JSON.stringify(data))
+            if(data.code==0) {
+                window.location.href="index.html"
+            }
         })
         return false;
 

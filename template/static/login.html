@@ -98,15 +98,31 @@
             method:"post",
             success: function(data){
                 if(!data.code==0) {
-                    alert(JSON.stringify(data));
+                    new $.zui.Messager('错误信息:'+JSON.stringify(data),{
+                        type:'danger',
+                        placement:'bottom',
+                        icon:'icon-exclamation-sign'
+                    }).show();
+                    //alert(JSON.stringify(data));
                 }
                 if(data.code==0) {
-                    //alert(JSON.stringify(data));
-                     window.location.href="index.html"
+                    new $.zui.Messager('登陆成功，正在为您跳转',{
+                        type:'success',
+                        placement:'center',
+                        icon:'icon-ok-sign'
+                    }).show();
+                    let token=data.data.accessToken;
+                    document.cookie=token;
+                    window.location.href="index.html"
                 }
             },
             error:function(){
-                alert('网络错误或找不到服务器');
+                new $.zui.Messager('网络错误或找不到服务器,错误信息',{
+                    type:'danger',
+                    placement:'bottom',
+                    icon:'icon-exclamation-sign'
+                }).show();
+                //alert('网络错误或找不到服务器');
             }
         })
         return false;
