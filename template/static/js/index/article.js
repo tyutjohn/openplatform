@@ -3,7 +3,7 @@
  * @LastAuthor: Do not edit
  * @Github: https://github.com/tyutjohn
  * @since: 2019-04-01 19:03:05
- * @lastTime: 2019-04-03 21:21:21
+ * @lastTime: 2019-04-06 22:47:03
  */
 $(function () {
     //超过一定高度导航添加类名
@@ -95,3 +95,25 @@ var app=new Vue({
         }
     },
 })
+
+//markdown文章渲染
+$(function(){
+    editormd.markdownToHTML("markdown", {
+        htmlDecode: "style,script,iframe", //可以过滤标签解码
+        emoji: true,
+        taskList: true,
+        tex: true,               // 默认不解析
+        flowChart: true,         // 默认不解析
+        sequenceDiagram: true, // 默认不解析
+        codeFold: true,
+    });
+})
+//多刷新一次解决渲染不到的bug
+$(document).ready(function () {
+
+    if(location.href.indexOf("#reloaded")==-1){
+        location.href=location.href+"#reloaded";
+        location.reload();
+    }
+})
+

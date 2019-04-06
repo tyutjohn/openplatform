@@ -113,27 +113,71 @@ document.querySelector('#set').addEventListener('click', function () {
     let content = document.querySelector("#exampleMarkdown").value;
     let visual = document.querySelector("#exampleInputcheck").value;
     console.log(UserToken);
-    $.post('http://localhost:8080/article/publish', {
-        articleType: articleType,
-        content: content,
-        title: title,
-        visual: visual,
-        accessToken: UserToken
-    }, function (data) {
-        if (data.code == 0) {
-            new $.zui.Messager('发布成功', {
-                type: 'success',
-                placement: 'center',
-                icon: 'icon-ok-sign'
-            }).show();
-        } else {
-            new $.zui.Messager('发布未成功，'+data.message, {
-                type: 'danger',
-                placement: 'center',
-                icon: 'icon-exclamation-sign'
-            }).show();
+    // $.post('http://localhost:8080/article/publish', {
+    //     articleType: articleType,
+    //     content: content,
+    //     title: title,
+    //     visual: visual,
+    //     accessToken: UserToken
+    // }, function (data) {
+    //     if (data.code == 0) {
+    //         new $.zui.Messager('发布成功', {
+    //             type: 'success',
+    //             placement: 'center',
+    //             icon: 'icon-ok-sign'
+    //         }).show();
+    //     } else {
+    //         new $.zui.Messager('发布未成功，'+data.message, {
+    //             type: 'danger',
+    //             placement: 'center',
+    //             icon: 'icon-exclamation-sign'
+    //         }).show();
+    //     }
+    //     //alert(JSON.stringify(data))
+    // })
+    $.ajax({
+        type:'POST',
+        url:'http://localhost:8080/article/publish',
+        data:{
+            articleType: articleType,
+            content: content,
+            title: title,
+            visual: visual,
+            accessToken: UserToken
+        },
+        success:function(data){
+            if (data.code == 0) {
+                new $.zui.Messager('发布成功', {
+                            type: 'success',
+                            placement: 'center',
+                            icon: 'icon-ok-sign'
+                        }).show();
+                    } else {
+                        new $.zui.Messager('发布未成功，'+data.message, {
+                            type: 'danger',
+                            placement: 'center',
+                            icon: 'icon-exclamation-sign'
+                        }).show();
+            }
+        },
+        error:function(data){
+            if(data.responseJSON.code==1201){
+                new $.zui.Messager('未登陆账号，即将跳转', {
+                    type: 'danger',
+                    placement: 'center',
+                    icon: 'icon-exclamation-sign'
+                }).show();
+                window.location.href='login.html'
+            }else{
+                new $.zui.Messager('网络错误或未找到服务器，请检查网络后重新刷新', {
+                    type: 'danger',
+                    placement: 'center',
+                    icon: 'icon-exclamation-sign'
+                }).show();
+                // alert(JSON.stringify(data))
+                // console.log(data.responseJSON);
+            }
         }
-        //alert(JSON.stringify(data))
     })
     return false;
 })

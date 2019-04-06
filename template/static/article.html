@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/index/article.css" />
     <link rel="stylesheet" href="css/zui-theme.min.css" />
     <link rel="stylesheet" href="css/zui.lite.min.css" />
-    <script src="js/jquery/jquery.min.js"></script>
+    <link rel="stylesheet" href="css/editormd.css" />
     <title>文章</title>
 </head>
 
@@ -130,57 +130,19 @@
                                     class="label label-warning">网页设计</span> <span class="label label-info">W3C</span>
                                 <span class="label label-danger"><i class="icon-eye-open"></i> 235</span></dd>
                         </dl>
-                        <!-- <section class="abstract">
-                            <p><strong>摘要：</strong>HTML5是HTML最新的修订版本，2014年10月由万维网联盟（W3C）完成标准制定。目标是替换1999年所制定的HTML
-                                4.01和XHTML
-                                1.0标准，以期能在互联网应用迅速发展的时候，使网络标准达到匹配当代的网络需求。广义论及HTML5时，实际指的是包括HTML、CSS和JavaScript在内的一套技术组合。
-                            </p>
-                        </section> -->
                     </header>
-                    <section class="content">
-                        {{article.data.content}}
-                        <!-- <p>HTML5是HTML最新的修订版本，2014年10月由<a
-                                href="https://zh.wikipedia.org/wiki/%E4%B8%87%E7%BB%B4%E7%BD%91%E8%81%94%E7%9B%9F"
-                                target="_blank">万维网联盟</a>（W3C）完成标准制定。目标是替换1999年所制定的HTML 4.01和XHTML
-                            1.0标准，以期能在互联网应用迅速发展的时候，使网络标准达到匹配当代的网络需求。广义论及HTML5时，实际指的是包括HTML、CSS和JavaScript在内的一套技术组合。它希望能够减少网页浏览器对于需要插件的丰富性网络应用服务（Plug-in-Based
-                            Rich Internet Application，RIA），例如：AdobeFlash、Microsoft Silverlight与Oracle
-                            JavaFX的需求，并且提供更多能有效加强网络应用的标准集。</p>
-                        <h2>发展历史</h2>
-                        <p>HTML 5草案的前身名为Web Applications
-                            1.0，是在2004年由WHATWG提出。2008年1月22日，第一份正式草案发布。WHATWG表示该规范是目前仍在进行的工作，仍须多年的努力。[8]目前Mozilla
-                            Firefox、Google Chrome、Opera、Safari（版本4以上）、Internet Explorer（版本9以上）已支持HTML5技术。</p>
-                        <p>2014年10月28日，W3C正式发布HTML5.0推荐标准。</p>
-                        <img src="image/index/man3.webp" alt="">
-                        <h3>标准化进程</h3>
-                        <p>2004年6月，Mozilla基金会和Opera软件公司在万维网联盟（W3C）所主办的研讨会上提出了一份联合建议书，这份提案主要针对该技术能向下兼容浏览器的同时，也可以扩展更多新技术[17]，其中Web
-                            Forms
-                            2.0初步规范草案被提出，但因W3C已着力于XHTML的发展，故此建议书于8票赞成，14票反对下被否决[18]，这引起部分人的不满，不久后，一些厂商宣布成立网页超文本技术工作小组（WHATWG）组织，以继续推动该规范的开发工作，该组织再度提出Web
-                            Applications 1.0规范草案，后来这两种规范逐渐合并成今天的HTML5。2007年，获得W3C接纳，并成立了新的HTML工作团队。</p>
-                        <h3>2014计划</h3>
-                        <p>2012年9月，W3C提出计划要在2014年底前发布一个HTML5推荐标准，并在2016年底前发布HTML5.1推荐标准。</p>
-                        <h4>核心HTML标准</h4>
-                        <p>HTML5.0，HTML5.1和HTML5.2的合并时间表：</p>
-                        <h2>新应用程序接口（API）</h2>
-                        <p>除了原先的DOM接口，HTML5增加了更多样化的应用程序接口（API）：</p>
-                        <ul>
-                            <li>
-                                即时二维绘图
-                                <ul>
-                                    <li>Canvas API：有关动态产出与渲染图形、图表、图像和动画的API</li>
-                                </ul>
-                            </li>
-                            <li>定时媒体播放</li>
-                            <li>离线存储数据库（离线网络应用程序）</li>
-                            <li>编辑</li>
-                            <li>拖放</li>
-                        </ul> -->
+                    <section class="content" id="markdown">
+                        <textarea style="display:none;">
+                                {{article.data.content}}
+                        </textarea>
                     </section>
                     <footer>
                         <p class="text-important">
                             版权声明：本文内容由互联网用户自发贡献，版权归作者所有，本平台不拥有所有权，也不承担相关法律责任。如果您发现本社区中有涉嫌抄袭的内容，欢迎发送邮件至：tyut@163.com
                             进行举报，并提供相关证据，一经查实，本平台将立刻删除涉嫌侵权内容。 </p>
                         <a :href="article.data.accessory+'.txt'" :download="article.data.accessory+'.txt'">点击下载资源</a>
-                        <span class="icon icon-thumbs-o-up footer-love"> 点赞{{article.data.articleLikeVOList.userNick}}</span>
+                        <span class="icon icon-thumbs-o-up footer-love">
+                            点赞{{article.data.articleLikeVOList.userNick}}</span>
                     </footer>
                 </article>
             </section>
@@ -190,7 +152,8 @@
                         <div class="card-head">达人介绍</div>
                         <hr />
                         <img src="image/index/man1.webp" class="img-circle" alt="圆形图片">
-                        <div class="card-heading" style="color:#494c51"><strong>{{article.data.publisherNick}}</strong></div>
+                        <div class="card-heading" style="color:#494c51"><strong>{{article.data.publisherNick}}</strong>
+                        </div>
                         <div class="card-content text-muted">分享《九阳真经》，一起研究"乾坤大挪移",加入明教团队</div>
                         <div class="card-actions">
                             <button type="button" class="btn btn-danger share_button" style="margin-left:0"><i
@@ -249,72 +212,13 @@
                         </a>
                         <div class="content">
                             <div class="pull-right text-muted">{{article.data.articleCommentVOList.createdAt}}</div>
-                            <div><a href="###"><strong>{{article.data.articleCommentVOList.senderName}}</strong></a></div>
+                            <div><a href="###"><strong>{{article.data.articleCommentVOList.senderName}}</strong></a>
+                            </div>
                             <div class="text">{{article.data.articleCommentVOList.content}}</div>
                             <div class="actions">
                                 <a href="##">回复</a>
                             </div>
                         </div>
-                        <!-- <div class="comments-list">
-                            <div class="comment">
-                                <a href="###" class="avatar">
-                                    <i class="icon-user icon-2x"></i>
-                                </a>
-                                <div class="content">
-                                    <div class="pull-right text-muted">2 个小时前</div>
-                                    <div><a href="###"><strong>Catouse</strong></a> <span class="text-muted">回复</span>
-                                        <a href="###">张士超</a></div>
-                                    <div class="text">你到底把我家钥匙放哪里了...</div>
-                                    <div class="actions">
-                                        <a href="##">回复</a>
-                                    </div>
-                                </div>
-                                <div class="comments-list">
-                                    <div class="comment">
-                                        <a href="###" class="avatar">
-                                            <i class="icon-yinyang icon-2x"></i>
-                                        </a>
-                                        <div class="content">
-                                            <div class="pull-right text-muted">1 个小时前</div>
-                                            <div><a href="###"><strong>门口大爷</strong></a> <span
-                                                    class="text-muted">回复</span> <a href="###">Catouse</a></div>
-                                            <div class="text">不在我这儿...</div>
-                                            <div class="actions">
-                                                <a href="##">回复</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="comment">
-                                        <a href="###" class="avatar">
-                                            <i class="icon-cube-alt icon-2x"></i>
-                                        </a>
-                                        <div class="content">
-                                            <div class="pull-right text-muted">1 个小时前</div>
-                                            <div><a href="###"><strong>队长</strong></a> <span
-                                                    class="text-muted">回复</span> <a href="###">Catouse</a></div>
-                                            <div class="text">也不在我这儿...</div>
-                                            <div class="actions">
-                                                <a href="##">回复</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="comment">
-                                <a href="###" class="avatar">
-                                    <i class="icon-heart-empty icon-2x"></i>
-                                </a>
-                                <div class="content">
-                                    <div class="pull-right text-muted">30 分钟前</div>
-                                    <div><a href="###"><strong>华师大第一美女</strong></a> <span class="text-muted">回复</span>
-                                        <a href="###">张士超</a></div>
-                                    <div class="text">很开心~~~</div>
-                                    <div class="actions">
-                                        <a href="##">回复</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
                     </div>
                 </section>
                 <footer>
@@ -342,9 +246,20 @@
     </footer>
 
     <!--js-->
+    <script src="js/jquery/jquery.min.js"></script>
     <script src="js/vue/vue.min.js"></script>
     <script src="js/vue/vue-resource.min.js"></script>
     <script src="js/zui.min.js"></script>
+    <!---markdown--begin-->
+    <script src="js/editormd.min.js"></script>
+    <script src="lib/marked.min.js"></script>
+    <script src="lib/prettify.min.js"></script>
+    <script src="lib/raphael.min.js"></script>
+    <script src="lib/underscore.min.js"></script>
+    <script src="lib/sequence-diagram.min.js"></script>
+    <script src="lib/flowchart.min.js"></script>
+    <script src="lib/jquery.flowchart.min.js"></script>
+    <!--markdown-over-->
     <script src="js/index/article.js"></script>
 </body>
 
