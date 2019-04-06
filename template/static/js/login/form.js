@@ -3,7 +3,7 @@
  * @LastAuthor: Do not edit
  * @Github: https://github.com/tyutjohn
  * @since: 2019-03-27 15:07:29
- * @lastTime: 2019-04-03 21:19:30
+ * @lastTime: 2019-04-06 20:48:44
  */
 
 //登陆注册交互动画
@@ -35,7 +35,7 @@ code.onclick = function () {
         $.post("http://127.0.0.1:8080/user/sendCode", {
             "mobile": phone
         }, function (data) {
-            new $.zui.Messager('提示消息:'+JSON.stringify(data),{
+            new $.zui.Messager('提示消息:'+data.message,{
                 type:'success',
                 placement:'center',
                 icon:'icon-ok-sign'
@@ -82,7 +82,7 @@ ReadyRegister.onclick = function () {
             "mobile": userphone,
             "code": usercode
         }, function (data) {
-            new $.zui.Messager('提示消息:'+JSON.stringify(data),{
+            new $.zui.Messager('提示消息:'+data.message,{
                 type:'success',
                 placement:'center',
                 icon:'icon-ok-sign'

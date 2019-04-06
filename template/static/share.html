@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/common.css" />
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/zui.uploader.css" />
+    <link rel="stylesheet" href="css/editormd.css" />
     <title>分享</title>
 </head>
 
@@ -166,15 +167,19 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="tabContent1">
                     <!--富文本编辑器-->
-                    <section class="editor">
-                        <div id="Editor"></div>
-                    </section>
+                    <!-- <section class="editor">
+                                <div id="Editor"></div>
+                            </section> -->
+                    <div id="content-editormd" class="form-group">
+                        <textarea style="display: none;" class="form-control" id="content-editormd-markdown-doc"
+                            name="content-editormd-markdown-doc"></textarea>
+                    </div>
                     <div class="hint" style="display:none">
                         <div class="alert alert-danger-inverse with-icon">
                             <i class="icon-remove-sign"></i>
                             <div class="content">
                                 <h4>不好了! 遇到了一些问题</h4>
-                                <p>暂且不支持移动端的富文本编辑，请在电脑或平板上发布文章</p>
+                                <p>暂且不支持移动端的Markdown编辑，请在电脑或平板上发布文章</p>
                             </div>
                         </div>
                     </div>
@@ -197,13 +202,16 @@
                             </div>
                             <div class="form-group">
                                 <div class="switch" style="margin-left:170px;">
-                                    <input type="checkbox" class="col-md-1" name="visual" checked value="0" id="exampleInputcheck"/>
+                                    <input type="checkbox" class="col-md-1" name="visual" checked value="0"
+                                        id="exampleInputcheck" />
                                     <label>设置文章是否可见</label>
                                 </div>
                             </div>
+                            <textarea id="exampleMarkdown" name="content" value="" style="display:none"></textarea>
+                            <input type="hidden" name="accessToken" id="token"/>
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" class="btn btn-default" id="set">发布</button>
+                                    <button type="button" class="btn btn-default" id="set">发布</button>
                                 </div>
                             </div>
                         </form>
@@ -240,7 +248,8 @@
     <!--js-->
     <script src="js/jquery/jquery.min.js"></script>
     <script src="js/zui.min.js"></script>
-    <script src="js/wangEditor.min.js"></script>
+    <!-- <script src="js/wangEditor.min.js"></script> -->
+    <script src="js/editormd.min.js"></script>
     <script src="js/zui.uploader.min.js"></script>
     <script src="js/index/share.js"></script>
 </body>
