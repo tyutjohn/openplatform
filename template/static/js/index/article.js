@@ -3,7 +3,7 @@
  * @LastAuthor: Do not edit
  * @Github: https://github.com/tyutjohn
  * @since: 2019-04-01 19:03:05
- * @lastTime: 2019-04-06 22:47:03
+ * @lastTime: 2019-04-07 00:59:06
  */
 $(function () {
     //超过一定高度导航添加类名
@@ -111,9 +111,21 @@ $(function(){
 //多刷新一次解决渲染不到的bug
 $(document).ready(function () {
 
-    if(location.href.indexOf("#reloaded")==-1){
-        location.href=location.href+"#reloaded";
-        location.reload();
-    }
+    let begin=setInterval(function(){
+        window.location.reload();
+    },1000)
+    clearInterval(begin)
 })
 
+//设置token
+var token = document.cookie.split(";")[0];
+//点赞接口
+document.querySelector("#article-love").addEventListener('click',function(){
+    console.log(tar);
+    // $.get('http://127.0.0.1:8080/article/likes/'+tar,{
+    //     "accessToken":token,
+    //     "articleId":tar
+    // },function(data){
+    //     alert("success")
+    // })
+})

@@ -1,3 +1,10 @@
+/*
+ * @Author: johnwang
+ * @LastAuthor: Do not edit
+ * @Github: https://github.com/tyutjohn
+ * @since: 2019-03-25 13:27:13
+ * @lastTime: 2019-04-06 23:58:08
+ */
 body{background-color: #f3e4e47d;}
 /*====================导航*********/
 .header{
@@ -347,4 +354,31 @@ body{background-color: #f3e4e47d;}
 .footer .footer-p p:hover{
     color:#fff;
     cursor: pointer;
+}
+
+/*个人头像设置*/
+.header .header_nav_persion{
+	margin-top:4px;
+	margin-left: 10px
+}
+
+.header .header_nav_persion .menu{
+	width:140px;
+	background: #fff;
+	color:#444241;
+}
+
+.header .header_nav_persion .menu .group{
+	height:40px;
+	padding:10px
+}
+
+.header .header_nav_persion .menu .group:hover{
+	background:rgb(158, 157, 157)
+}
+
+
+.header .header_nav_persion .menu .group a{
+	margin-left:4px;
+	text-decoration: none !important;
 }
