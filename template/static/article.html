@@ -206,17 +206,19 @@
                     <h3>所有评论</h3>
                 </header>
                 <section class="comments-list">
-                    <div class="comment">
+                    <div class="comment" v-for="comment in article.data.articleCommentVOList">
                         <a href="###" class="avatar">
                             <i class="icon-camera-retro icon-2x"></i>
                         </a>
                         <div class="content">
-                            <div class="pull-right text-muted">{{article.data.articleCommentVOList.createdAt}}</div>
-                            <div><a href="###"><strong>{{article.data.articleCommentVOList.senderName}}</strong></a>
+                            <div class="pull-right text-muted">{{comment.createdAt}}</div>
+                            <div><a href="###"><strong>{{comment.senderName}}</strong></a>
                             </div>
-                            <div class="text">{{article.data.articleCommentVOList.content}}</div>
+                            <div class="text">{{comment.content}}</div>
                             <div class="actions">
                                 <a href="##">回复</a>
+                                <a href="#" class="text-right" @click="delete_comment">删除</a>
+                                <a href="##" class="pull-right" @click="report">举报</a>
                             </div>
                         </div>
                     </div>
@@ -227,9 +229,10 @@
                         <form class="form">
                             <div class="form-group">
                                 <textarea class="form-control new-comment-text" rows="2"
-                                    placeholder="撰写评论..."></textarea>
+                                    placeholder="撰写评论..." name="content" id="comment-content"></textarea>
                             </div>
-                            <button class="btn btn-primary" type="button">评论</button>
+                            <input type="hidden" name="accessToken" id="token"/>
+                            <button class="btn btn-primary" type="button" @click="putcomment">评论</button>
                         </form>
                     </div>
                 </footer>

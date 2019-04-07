@@ -107,7 +107,7 @@
         <img src="image/index/share-banner.jpg">
     </div>
     <!--main-->
-    <div class="main">
+    <div class="main" id="app">
         <div class="container">
             <div class="content">
                 <h1>帐号设置</h1>
@@ -117,8 +117,8 @@
                         <div class="title" style="position:relative">
                             <h3 class="inline">个人资料</h3>
                             <h5 class="inline">tyutjohn</h5>
-                            <a class="edit-label inline" id="edit-lable" style="position:absolute;right:60px;top:20px;">编辑<span
-                                    class="icon icon-double-angle-down"></span></a>
+                            <a class="edit-label inline" id="edit-lable" style="position:absolute;right:60px;top:20px;"
+                                @click="clickfoll">编辑<span class="icon icon-double-angle-down"></span></a>
                         </div>
                         <hr>
                         <div class="holder" style="overflow: hidden;height:0" id="holder">
@@ -193,17 +193,25 @@
                             </form>
                         </div>
                         <div class="title" style="position:relative">
-                                <h3 class="inline">个人头像</h3>
-                                <img src="image/index/man3.webp" width="50" height="50" style="margin-left:50px" id="sm-img">
-                                <a class="edit-label inline" style="position:absolute;right:60px;top:20px;" id="second-edit-lable">编辑<span
-                                        class="icon icon-double-angle-down"></span></a>
-                            </div>
-                            <hr>
-                            <div class="holder" style="overflow: hidden;height:0" id="second-holder">
-                                <form>
-                                    <input type="file" accept="image/*"/>
-                                </form>
-                            </div>
+                            <h3 class="inline">个人头像</h3>
+                            <img src="image/index/man3.webp" width="50" height="50" style="margin-left:50px"
+                                id="sm-img">
+                            <a class="edit-label inline" style="position:absolute;right:60px;top:20px;"
+                                id="second-edit-lable" @click="clickfoll2">编辑<span
+                                    class="icon icon-double-angle-down"></span></a>
+                        </div>
+                        <hr>
+                        <div class="holder" style="overflow: hidden;height:0" id="second-holder">
+                            <img :src="avatar" width="200" height="200"
+                                style="margin-left:150px;margin-bottom:10px" id="imgname"/>
+                            <form class="img-form">
+                                <div class="fake-file button" @click="setAvatar">上传头像</div>
+                                <input type="file" accept="image/*" class="form-control" style="display:none"
+                                    id="inputfile" @change="changeImage($event)" ref="avatarInput" name="avatar"/>
+                                    <input type="hidden" name="accessToken" id="token1" />
+                                <button class="btn btn-danger" type="button" id="form-button" style="margin-top:50px" @click="edit">确认修改</button>
+                            </form>
+                        </div>
                     </div>
                 </section>
             </div>
@@ -221,6 +229,8 @@
     <!--js-->
     <script src="js/jquery/jquery.min.js"></script>
     <script src="js/zui.min.js"></script>
+    <script src="js/vue/vue.min.js"></script>
+    <script src="js/vue/vue-resource.min.js"></script>
     <script src="js/zui.uploader.min.js"></script>
     <script src="js/index/userset.js"></script>
 </body>

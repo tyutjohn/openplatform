@@ -3,7 +3,7 @@
  * @LastAuthor: Do not edit
  * @Github: https://github.com/tyutjohn
  * @since: 2019-03-31 20:37:21
- * @lastTime: 2019-04-02 17:11:17
+ * @lastTime: 2019-04-07 18:26:42
  */
 .banner {
     height: 200px;
@@ -81,6 +81,28 @@
 
 .main .holder .list td{
     padding-top: 30px;
+}
+
+.main .holder .img-form{
+    display: inline-block;
+    margin-left: 30px;
+}
+
+.main .holder .img-form .fake-file{
+    width: 100px;
+    height: 24px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+    color: brown;
+    background: #ededed;
+    cursor: pointer;
+}
+
+.main .holder .img-form .fake-file:hover{
+    color: rgba(38, 138, 226, 0.74);
+    background: #8b89897a;
+    cursor: pointer;
 }
 
 @media screen and (max-width:580px) {

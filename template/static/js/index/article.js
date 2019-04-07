@@ -3,7 +3,7 @@
  * @LastAuthor: Do not edit
  * @Github: https://github.com/tyutjohn
  * @since: 2019-04-01 19:03:05
- * @lastTime: 2019-04-07 00:59:06
+ * @lastTime: 2019-04-07 23:21:16
  */
 $(function () {
     //超过一定高度导航添加类名
@@ -39,7 +39,9 @@ let url=location.search,
     obj={};
 
 let tar=url.replace("?","");
-
+//设置token
+var token = document.cookie.split(";")[0];
+document.querySelector('#token').setAttribute('value', token);
 
 var app=new Vue({
     el:"#app",
@@ -80,7 +82,7 @@ var app=new Vue({
                         placement:'center',
                         icon:'icon-ok-sign'
                     }).show();
-                    //console.log(res.data);
+                    console.log(res.data);
                 },function(res){
                     new $.zui.Messager('网络错误或找不到服务器',{
                         type:'danger',
@@ -92,6 +94,63 @@ var app=new Vue({
             ).catch(function(reason){
                 console.log(reason);
             })
+        },
+        putcomment:function(){
+            let content=document.querySelector('#comment-content').value;
+            let token=document.querySelector('#token').value;
+            //console.log(token);
+            let formData=new FormData();
+            formData.append('accessToken',token);
+            formData.append('content',content);
+            formData.append('parentId',tar)
+            this.$http.post('http://localhost:8080/artircle/comment/publish',formData,{'Content-Type':'Multipart/form-data'}).then(
+                function(res){
+                    if(res.body.code==1001){
+                        new $.zui.Messager('未填写内容，请重新填写评论',{
+                            type:'danger',
+                            placement:'center',
+                            icon:'icon-exclamation-sign'
+                        }).show();
+                    }else if(res.body.code==0){
+                        new $.zui.Messager('发布成功，刷新加载新评论',{
+                            type:'success',
+                            placement:'center',
+                            icon:'icon-ok-sign'
+                        }).show();
+                    }else{
+                        new $.zui.Messager('评论失败，错误原因:'+res.body.message,{
+                            type:'danger',
+                            placement:'center',
+                            icon:'icon-exclamation-sign'
+                        }).show();
+                    }
+                },function(res){
+                    if(res.body.code==1201){
+                        new $.zui.Messager('未登陆账户，正在跳转',{
+                            type:'danger',
+                            placement:'center',
+                            icon:'icon-exclamation-sign'
+                        }).show();
+                        window.location.href='login.html'
+                    }else{
+                    new $.zui.Messager('网络错误或找不到服务器',{
+                        type:'danger',
+                        placement:'center',
+                        icon:'icon-exclamation-sign'
+                    }).show();
+                    }
+                }
+            ).catch(function(reason){
+                console.log(reason);
+            })
+        },
+        //删除评论
+        delete_comment:function(){
+            
+        },
+        //举报
+        report:function(){
+
         }
     },
 })
@@ -117,15 +176,13 @@ $(document).ready(function () {
     clearInterval(begin)
 })
 
-//设置token
-var token = document.cookie.split(";")[0];
 //点赞接口
 document.querySelector("#article-love").addEventListener('click',function(){
-    console.log(tar);
-    // $.get('http://127.0.0.1:8080/article/likes/'+tar,{
-    //     "accessToken":token,
-    //     "articleId":tar
-    // },function(data){
-    //     alert("success")
-    // })
+    //console.log(tar);
+    $.get('http://localhost:8080/article/likes/'+tar,{
+        "accessToken":token,
+        "articleId":tar
+    },function(data){
+        alert("success")
+    })
 })
