@@ -117,71 +117,62 @@
                         <div class="title" style="position:relative">
                             <h3 class="inline">个人资料</h3>
                             <h5 class="inline">tyutjohn</h5>
-                            <a class="edit-label inline" style="position:absolute;right:60px;top:20px;">编辑<span
+                            <a class="edit-label inline" id="edit-lable" style="position:absolute;right:60px;top:20px;">编辑<span
                                     class="icon icon-double-angle-down"></span></a>
                         </div>
                         <hr>
-                        <div class="holder" style="overflow: hidden;">
+                        <div class="holder" style="overflow: hidden;height:0" id="holder">
                             <form class="container" id="user-form">
                                 <table class="list">
                                     <tbody>
                                         <tr>
                                             <td class="name">昵称：</td>
                                             <td class="has-success">
-                                                <input class="form-control" type="text" value="tyutjohn"
-                                                    name="userNick">
+                                                <input class="form-control" type="text" value="tyutjohn" name="userNick"
+                                                    id="userNick">
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="name">学院:</td>
                                             <td class="has-success">
-                                                <input class="form-control" type="text" value="软件学院" name="academyId">
+                                                <input class="form-control" type="text" value="软件学院" name="academyId"
+                                                    id="academyId">
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="name">学校:</td>
                                             <td class="has-success">
-                                                <input class="form-control" type="text" value="太原理工大学" name="schoolId">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="name">头像:</td>
-                                            <!-- <td class="has-success">
-                                                <img src="image/index/man1.webp" width="50px" height="50px">
-                                            </td> -->
-                                            <td>
-                                                <div id="uploaderExample" class="uploader">
-                                                    <div class="file-list" data-drag-placeholder="请拖拽文件到此处"></div>
-                                                    <button type="button" class="btn btn-primary uploader-btn-browse"><i
-                                                            class="icon icon-cloud-upload"></i> 选择文件</button>
-                                                </div>
+                                                <input class="form-control" type="text" value="太原理工大学" name="schoolId"
+                                                    id="schoolId">
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="name">邮箱:</td>
                                             <td class="has-success">
                                                 <input class="form-control" type="email" value="tyutjohnwang@163.com"
-                                                    name="userEmail">
+                                                    name="userEmail" id="userEmail">
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="name">真实姓名</td>
                                             <td class="has-success">
-                                                <input class="form-control" type="text" value="王浩宇" name="userName">
+                                                <input class="form-control" type="text" value="王浩宇" name="userName"
+                                                    id="userName">
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="name">手机号:</td>
                                             <td class="has-success">
                                                 <input class="form-control" type="number" value="15503676579"
-                                                    name="userNumber">
+                                                    name="userNumber" id="userNumber">
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="has-success">
                                                 <div class="switch text-left">
-                                                    <input class="form-control" type="checkbox" name="visual">
-                                                    <label>是否可见:</label>
+                                                    <input type="checkbox" class="col-md-1" name="visual" checked
+                                                        value="0" id="exampleInputcheck" />
+                                                    <label>设置信息是否对他人可见</label>
                                                 </div>
                                             </td>
                                         </tr>
@@ -192,13 +183,27 @@
                                                     placeholder="可以输入多行文本"></textarea>
                                             </td>
                                         </tr>
+                                        <input type="hidden" name="accessToken" id="token" />
                                         <tr>
-                                            <td><button class="btn btn-danger" type="button">保存</button></td>
+                                            <td><button class="btn btn-danger" type="button"
+                                                    id="form-button">保存</button></td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </form>
                         </div>
+                        <div class="title" style="position:relative">
+                                <h3 class="inline">个人头像</h3>
+                                <img src="image/index/man3.webp" width="50" height="50" style="margin-left:50px" id="sm-img">
+                                <a class="edit-label inline" style="position:absolute;right:60px;top:20px;" id="second-edit-lable">编辑<span
+                                        class="icon icon-double-angle-down"></span></a>
+                            </div>
+                            <hr>
+                            <div class="holder" style="overflow: hidden;height:0" id="second-holder">
+                                <form>
+                                    <input type="file" accept="image/*"/>
+                                </form>
+                            </div>
                     </div>
                 </section>
             </div>

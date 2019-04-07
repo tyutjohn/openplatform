@@ -3,8 +3,13 @@
  * @LastAuthor: Do not edit
  * @Github: https://github.com/tyutjohn
  * @since: 2019-04-03 11:17:29
- * @lastTime: 2019-04-03 19:55:14
+ * @lastTime: 2019-04-07 11:55:54
  */
+.banner img{
+    width: 100%;
+    background-size: cover;
+}
+ 
 .main{
     background: #333a54;
 }

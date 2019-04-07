@@ -3,7 +3,7 @@
  * @LastAuthor: Do not edit
  * @Github: https://github.com/tyutjohn
  * @since: 2019-04-03 11:19:12
- * @lastTime: 2019-04-03 21:12:07
+ * @lastTime: 2019-04-07 13:59:19
  */
 //banner设置
 $(function () {
@@ -36,6 +36,9 @@ $(function () {
 
 })
 
+//设置token
+var token = document.cookie.split(";")[0];
+
 //vue-resource加载文章
 var app=new Vue({
     el:'#vue_item',
@@ -49,17 +52,35 @@ var app=new Vue({
     methods: {
         get:function(){
             let that=this;
-            this.$http.get('data.json').then(
+            this.$http.get('http://localhost:8080/user/queryMyArticleList',{
+                params:{
+                    accessToken:token
+                }
+            }).then(
                 function(res){
+                    new $.zui.Messager('文章加载成功', {
+                        type: 'success',
+                        placement: 'center',
+                        icon: 'icon-ok-sign'
+                    }).show();
                     that.items=res.data;
                     console.log(res.data);
                     document.querySelector('.main-content').style.height="auto";
                 },function(res){
-                    new $.zui.Messager('网络错误或找不到服务器,错误信息'+JSON.stringify(res),{
-                        type:'danger',
-                        placement:'bottom',
-                        icon:'icon-exclamation-sign'
-                    }).show();
+                    if(res.body.code==1201){
+                        new $.zui.Messager('未登陆账号，即将跳转', {
+                            type: 'danger',
+                            placement: 'center',
+                            icon: 'icon-exclamation-sign'
+                        }).show();
+                        window.location.href='login.html'
+                    }else{
+                        new $.zui.Messager('网络错误或找不到服务器,请确认网站状态后重新刷新',{
+                            type:'danger',
+                            placement:'bottom',
+                            icon:'icon-exclamation-sign'
+                        }).show();
+                    }          
                 }
             ).catch(function(reason){
                 console.log(reason);
