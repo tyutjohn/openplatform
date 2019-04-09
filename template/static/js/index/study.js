@@ -100,6 +100,18 @@ let app=new Vue({
                         placement:'center',
                         icon:'icon-ok-sign'
                     }).show();
+                    //markdown文章渲染
+                    $(function(){
+                        editormd.markdownToHTML("markdown", {
+                            htmlDecode: "style,script,iframe", //可以过滤标签解码
+                            emoji: true,
+                            taskList: true,
+                            tex: true,               // 默认不解析
+                            flowChart: true,         // 默认不解析
+                            sequenceDiagram: true, // 默认不解析
+                            codeFold: true,
+                        });
+                    })
                     //console.log(res.data);
                 },function(res){
                     new $.zui.Messager('网络错误或找不到服务器',{
@@ -114,4 +126,11 @@ let app=new Vue({
             })
         }
     },
+    filters:{
+        capitalize:function(value){
+            let d=new Date(value);
+            let times=d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()+'--'+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();
+            return times;
+        }
+    }
 })

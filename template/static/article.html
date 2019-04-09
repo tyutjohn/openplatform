@@ -20,40 +20,28 @@
     <header class="header">
         <div class="container clearfix">
             <div class="left">
-                <a href="#"><img src="image/logo.png" alt="" class="img1" /></a>
+                <a href="index.html"><img src="image/logo.png" alt="" class="img1" /></a>
             </div>
             <p class="header-p">Open Mutual Platform</p>
             <div class="nav">
                 <ul class="navbar_nav" data-in="fadeInDown" data-out="fadeOutUp">
                     <li class="active">
-                        <a href="javascript:void(0)">首页</a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="javascript:void(0)">
-                            功能一
-                        </a>
-                        <div class="dropdown_menu">
-                            <a href="#">Menu-one</a>
-                            <a href="#">Menu-two</a>
-                            <a href="#">Menu-three</a>
-                        </div>
-                    </li>
-                    <li class="dropdown">
-                        <a href="javascript:void(0)">功能二</a>
-                        <div class="dropdown_menu">
-                            <a href="#">Custom Menu</a>
-                            <a href="#">Custom Menu</a>
-                            <a href="#">Custom Menu</a>
-                        </div>
+                        <a href="index.html">首页</a>
                     </li>
                     <li>
-                        <a href="javascript:void(0)">资讯</a>
+                        <a href="study.html">study</a>
                     </li>
                     <li>
-                        <a href="javascript:void(0)">登陆</a>
+                        <a href="share.html">share</a>
                     </li>
                     <li>
-                        <a href="javascript:void(0)">注册</a>
+                        <a href="javascript:void(0)">team</a>
+                    </li>
+                    <li>
+                        <a href="user.html">个人主页</a>
+                    </li>
+                    <li>
+                        <a href="login.html">登陆</a>
                     </li>
                 </ul>
             </div>
@@ -73,34 +61,37 @@
         </div>
         <ul class="ul" data-in="fadeInDown" data-out="fadeOutUp">
             <li class="active">
-                <a href="javascript:void(0)">首页</a>
+                <a href="index.html">首页</a>
             </li>
+            <!--<li class="dropdown">-->
+            <!--<a href="st'">-->
+            <!---->
+            <!--</a>-->
+            <!--&lt;!&ndash;<div class="dropdown_menu">&ndash;&gt;-->
+            <!--&lt;!&ndash;<a href="#">Menu-one</a>&ndash;&gt;-->
+            <!--&lt;!&ndash;<a href="#">Menu-two</a>&ndash;&gt;-->
+            <!--&lt;!&ndash;<a href="#">Menu-three</a>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--</li>-->
             <li class="dropdown">
-                <a href="javascript:void(0)">
-                    功能一
-                </a>
-                <div class="dropdown_menu">
-                    <a href="#">Menu-one</a>
-                    <a href="#">Menu-two</a>
-                    <a href="#">Menu-three</a>
-                </div>
-            </li>
-            <li class="dropdown">
-                <a href="javascript:void(0)">功能二</a>
-                <div class="dropdown_menu">
-                    <a href="#">Custom Menu</a>
-                    <a href="#">Custom Menu</a>
-                    <a href="#">Custom Menu</a>
-                </div>
+                <a href="study.html)">study</a>
+                <!--<div class="dropdown_menu">-->
+                <!--<a href="#">Custom Menu</a>-->
+                <!--<a href="#">Custom Menu</a>-->
+                <!--<a href="#">Custom Menu</a>-->
+                <!--</div>-->
             </li>
             <li>
-                <a href="javascript:void(0)">资讯</a>
+                <a href="share.html">share</a>
             </li>
             <li>
-                <a href="javascript:void(0)">登陆</a>
+                <a href="javascript:void(0)">team</a>
             </li>
             <li>
-                <a href="javascript:void(0)">注册</a>
+                <a href="user.html">个人主页</a>
+            </li>
+            <li>
+                <a href="login.html">登录</a>
             </li>
         </ul>
     </div>
@@ -124,7 +115,7 @@
                             <dt>来源：</dt>
                             <dd>{{article.data.articleType}}</dd>
                             <dt>最后修订：</dt>
-                            <dd><span class="icon icon-time">{{article.data.updatedAt}}</span></dd>
+                            <dd><span class="icon icon-time" id="article_uptime">{{article.data.updatedAt | capitalize}}</span></dd>
                             <dt></dt>
                             <dd class="pull-right"><span class="label label-success">HTML</span> <span
                                     class="label label-warning">网页设计</span> <span class="label label-info">W3C</span>
@@ -141,8 +132,9 @@
                             版权声明：本文内容由互联网用户自发贡献，版权归作者所有，本平台不拥有所有权，也不承担相关法律责任。如果您发现本社区中有涉嫌抄袭的内容，欢迎发送邮件至：tyut@163.com
                             进行举报，并提供相关证据，一经查实，本平台将立刻删除涉嫌侵权内容。 </p>
                         <a :href="article.data.accessory+'.txt'" :download="article.data.accessory+'.txt'">点击下载资源</a>
-                        <span class="icon icon-thumbs-o-up footer-love" id="article-love">
+                        <span class="icon icon-thumbs-o-up footer-love" id="article-love" @click="article_love">
                             点赞{{article.data.articleLikeVOList.userNick}}</span>
+                        <a href="##" class="pull-right" @click="report_article">举报</a>
                     </footer>
                 </article>
             </section>
@@ -206,19 +198,20 @@
                     <h3>所有评论</h3>
                 </header>
                 <section class="comments-list">
-                    <div class="comment" v-for="comment in article.data.articleCommentVOList">
+                    <div class="comment" v-for="(comment,index) in article.data.articleCommentVOList">
                         <a href="###" class="avatar">
                             <i class="icon-camera-retro icon-2x"></i>
                         </a>
                         <div class="content">
-                            <div class="pull-right text-muted">{{comment.createdAt}}</div>
+                            <div class="pull-right text-muted">{{comment.createdAt | capitalize}}</div>
                             <div><a href="###"><strong>{{comment.senderName}}</strong></a>
                             </div>
                             <div class="text">{{comment.content}}</div>
                             <div class="actions">
                                 <a href="##">回复</a>
-                                <a href="#" class="text-right" @click="delete_comment">删除</a>
-                                <a href="##" class="pull-right" @click="report">举报</a>
+                                <a href="#" class="text-right" @click="delete_comment($event)">删除</a>
+                                <div style="display:none" class="commentid">{{comment.id}}</div>
+                                <a href="##" class="pull-right" @click="report($event)">举报</a>
                             </div>
                         </div>
                     </div>
@@ -229,7 +222,7 @@
                         <form class="form">
                             <div class="form-group">
                                 <textarea class="form-control new-comment-text" rows="2"
-                                    placeholder="撰写评论..." name="content" id="comment-content"></textarea>
+                                          placeholder="撰写评论..." name="content" id="comment-content"></textarea>
                             </div>
                             <input type="hidden" name="accessToken" id="token"/>
                             <button class="btn btn-primary" type="button" @click="putcomment">评论</button>

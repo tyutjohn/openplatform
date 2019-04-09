@@ -70,6 +70,12 @@
     margin:10px 10%;
 }
 
+.main .main-content .tab-content .items .item{
+    padding: 10px 50px;
+    height: 66px;
+    overflow: hidden;
+}
+
 @media screen and (max-width:580px) {
     .banner {
         height: 200px;

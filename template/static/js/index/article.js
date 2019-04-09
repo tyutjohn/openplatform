@@ -62,7 +62,8 @@ var app=new Vue({
                 articleCommentVOList:{
                     createdAt:{},
                     senderName:{},
-                    content:{}
+                    content:{},
+                    id:{}
                 }
             }
         }
@@ -82,6 +83,19 @@ var app=new Vue({
                         placement:'center',
                         icon:'icon-ok-sign'
                     }).show();
+
+                    //markdown文章渲染
+                    $(function(){
+                        editormd.markdownToHTML("markdown", {
+                            htmlDecode: "style,script,iframe", //可以过滤标签解码
+                            emoji: true,
+                            taskList: true,
+                            tex: true,               // 默认不解析
+                            flowChart: true,         // 默认不解析
+                            sequenceDiagram: true, // 默认不解析
+                            codeFold: true,
+                        });
+                    })
                     console.log(res.data);
                 },function(res){
                     new $.zui.Messager('网络错误或找不到服务器',{
@@ -95,6 +109,53 @@ var app=new Vue({
                 console.log(reason);
             })
         },
+        //举报文章
+        report_article: function () {
+            let token=document.querySelector('#token').value;
+            let commentForm = new FormData();
+            commentForm.append('accessToken', token);
+            commentForm.append('articleId',tar);
+            this.$http.post('http://localhost:8080/inform/article/publish/' + tar, commentForm, {
+                'Content-Type': 'Multipart/form-data'
+            }).then(
+                function (res) {
+                    if (res.body.code == 0) {
+                        new $.zui.Messager('举报成功', {
+                            type: 'success',
+                            placement: 'center',
+                            icon: 'icon-ok-sign'
+                        }).show();
+                    }else{
+                        new $.zui.Messager('举报未成功，'+res.body.message, {
+                            type: 'danger',
+                            placement: 'center',
+                            icon: 'icon-exclamation-sign'
+                        }).show();
+                    }
+                    console.log(JSON.stringify(res))
+                },
+                function (res) {
+                    if (res.body.code == 1201) {
+                        new $.zui.Messager('未登陆账号，即将跳转', {
+                            type: 'danger',
+                            placement: 'center',
+                            icon: 'icon-exclamation-sign'
+                        }).show();
+                        window.location.href = 'login.html'
+                    } else {
+                        new $.zui.Messager('网络错误或未找到服务器，请检查网络后重新刷新', {
+                            type: 'danger',
+                            placement: 'center',
+                            icon: 'icon-exclamation-sign'
+                        }).show();
+                    }
+                    console.log(JSON.stringify(res))
+                }
+            ).catch(function (reason) {
+                console.log(reason);
+            })
+        },
+        //发布评论
         putcomment:function(){
             let content=document.querySelector('#comment-content').value;
             let token=document.querySelector('#token').value;
@@ -117,6 +178,7 @@ var app=new Vue({
                             placement:'center',
                             icon:'icon-ok-sign'
                         }).show();
+                        window.location.reload();
                     }else{
                         new $.zui.Messager('评论失败，错误原因:'+res.body.message,{
                             type:'danger',
@@ -145,27 +207,144 @@ var app=new Vue({
             })
         },
         //删除评论
-        delete_comment:function(){
-            
+        delete_comment:function(event){
+            let commentId=event.target.nextElementSibling.innerHTML
+            //console.log(event.target.nextElementSibling.innerHTML);
+            let token=document.querySelector('#token').value;
+            let commentForm=new FormData();
+            commentForm.append('accessToken',token);
+            commentForm.append('commentId',commentId)
+            this.$http.delete('http://localhost:8080/artircle/comment/delete/'+commentId,{body:commentForm},{
+                'Content-Type': 'Multipart/form-data'
+            }).then(
+                function (res) {
+                    if(res.body.code==0){
+                        new $.zui.Messager('删除评论成功',{
+                            type:'success',
+                            placement:'center',
+                            icon:'icon-ok-sign'
+                        }).show();
+                        window.location.reload();
+                    }
+                    console.log(res)
+                },function(res){
+                    if(res.body.code==1201){
+                        new $.zui.Messager('未登陆账户，正在跳转',{
+                            type:'danger',
+                            placement:'center',
+                            icon:'icon-exclamation-sign'
+                        }).show();
+                        window.location.href='login.html'
+                    }else{
+                        new $.zui.Messager('网络错误或找不到服务器',{
+                            type:'danger',
+                            placement:'center',
+                            icon:'icon-exclamation-sign'
+                        }).show();
+                    }
+                   // console.log(res)
+                }
+            ).catch(function(reason){
+                console.log(reason);
+            })
         },
-        //举报
-        report:function(){
-
+        //举报评论
+        report: function (event) {
+            let commentId=event.target.previousElementSibling.innerHTML;
+            let token=document.querySelector('#token').value;
+            let commentForm = new FormData();
+            commentForm.append('accessToken', token);
+            commentForm.append('commentId', commentId)
+            this.$http.post('http://localhost:8080/inform/comment/publish/' + commentId, commentForm, {
+                'Content-Type': 'Multipart/form-data'
+            }).then(
+                function (res) {
+                    if (res.body.code == 0) {
+                        new $.zui.Messager('举报成功', {
+                            type: 'success',
+                            placement: 'center',
+                            icon: 'icon-ok-sign'
+                        }).show();
+                        console.log(res)
+                    }else{
+                        new $.zui.Messager('举报未成功，'+res.body.message, {
+                            type: 'danger',
+                            placement: 'center',
+                            icon: 'icon-exclamation-sign'
+                        }).show();
+                    }
+                },
+                function (res) {
+                    if (res.body.code == 1201) {
+                        new $.zui.Messager('未登陆账号，即将跳转', {
+                            type: 'danger',
+                            placement: 'center',
+                            icon: 'icon-exclamation-sign'
+                        }).show();
+                        window.location.href = 'login.html'
+                    } else {
+                        new $.zui.Messager('网络错误或未找到服务器，请检查网络后重新刷新', {
+                            type: 'danger',
+                            placement: 'center',
+                            icon: 'icon-exclamation-sign'
+                        }).show();
+                        console.log(res)
+                    }
+                }
+            ).catch(function (reason) {
+                console.log(reason);
+            })
+         },
+        //点赞文章
+        article_love: function () {
+            let token = document.querySelector('#token').value;
+            let articleId =location.search.replace('?',"");
+            let commentForm = new FormData();
+            commentForm.append('accessToken', token);
+            commentForm.append('commentId', articleId)
+            this.$http.put('http://localhost:8080/article/likes/' + tar,commentForm, {
+                'Content-Type': 'Multipart/form-data'
+            }).then(
+                function(res){
+                    if(res.body.code==0){
+                        let spanlove=document.querySelector('#article-love');
+                        spanlove.innerHTML="已点赞";
+                        spanlove.style.color="#e83737"
+                    }else{
+                        new $.zui.Messager('点赞失败，错误原因:' + res.body.message, {
+                            type: 'danger',
+                            placement: 'center',
+                            icon: 'icon-exclamation-sign'
+                        }).show();
+                    }
+                    console.log(JSON.stringify(res))
+                },
+                function(res){
+                    if (res.body.code == 1201) {
+                        new $.zui.Messager('未登陆账户，正在跳转', {
+                            type: 'danger',
+                            placement: 'center',
+                            icon: 'icon-exclamation-sign'
+                        }).show();
+                        window.location.href = 'login.html'
+                    } else {
+                        new $.zui.Messager('网络错误或找不到服务器', {
+                            type: 'danger',
+                            placement: 'center',
+                            icon: 'icon-exclamation-sign'
+                        }).show();
+                    }
+                }
+            )
         }
     },
-})
-
-//markdown文章渲染
-$(function(){
-    editormd.markdownToHTML("markdown", {
-        htmlDecode: "style,script,iframe", //可以过滤标签解码
-        emoji: true,
-        taskList: true,
-        tex: true,               // 默认不解析
-        flowChart: true,         // 默认不解析
-        sequenceDiagram: true, // 默认不解析
-        codeFold: true,
-    });
+    filters:{
+        capitalize:function(value){
+            let d=new Date(value);
+            let times=d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()+'--'+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();
+            return times;
+        }
+    }
 })
 //多刷新一次解决渲染不到的bug
 $(document).ready(function () {
@@ -174,15 +353,4 @@ $(document).ready(function () {
         window.location.reload();
     },1000)
     clearInterval(begin)
-})
-
-//点赞接口
-document.querySelector("#article-love").addEventListener('click',function(){
-    //console.log(tar);
-    $.get('http://localhost:8080/article/likes/'+tar,{
-        "accessToken":token,
-        "articleId":tar
-    },function(data){
-        alert("success")
-    })
 })
