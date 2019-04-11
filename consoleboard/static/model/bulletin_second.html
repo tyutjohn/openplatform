@@ -1,1 +1,122 @@
-<div>第二个</div>
+<style>
+    .second_header{
+        font-size: 20px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-left: 20px;
+        border-bottom: 2px solid #88878787;
+        color: #424f63;
+    }
+
+    .form-horizontal .form-group {
+        margin-top: 40px;
+    }
+</style>
+
+<div id="bullet_second">
+    <section>
+        <div class="second_header">发布公告</div>
+        <form class="form-horizontal">
+            <div class="form-group has-success" id="label">
+                <label for="accessory" class="col-sm-2">附件</label>
+                <div class="col-md-6 col-sm-10">
+                    <input type="text" class="form-control" id="accessory" name="accessory">
+                </div>
+            </div>
+            <div class="form-group has-success">
+                <label for="title" class="col-sm-2">公告标题</label>
+                <div class="col-md-6 col-sm-10">
+                    <input type="text" class="form-control" id="title" placeholder="公告标题" name="title">
+                </div>
+            </div>
+            <div class="form-group has-success">
+                <label for="content" class="col-sm-2">公告内容</label>
+                <div class="col-md-6 col-sm-10">
+                    <textarea class="form-control" id="content" placeholder="公告内容" name="content"></textarea>
+                </div>
+            </div>
+            <div class="form-group has-success">
+                <label for="rank" class="col-sm-2">公告等级</label>
+                <div class="col-md-6 col-sm-10">
+                    <input type="text" class="form-control" id="rank" placeholder="公告等级" name="rank">
+                </div>
+            </div>
+            <div class="form-group has-success">
+                <label for="type" class="col-sm-2">公告类型</label>
+                <div class="col-md-6 col-sm-10">
+                    <input type="text" class="form-control" id="type" placeholder="公告类型" name="type">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="button" class="btn btn-info" id="set" @click="set">发布</button>
+                </div>
+            </div>
+        </form>
+    </section>
+</div>
+
+<script>
+    let bullet_second = new Vue({
+        el: '#bullet_second',
+        data: {
+
+        },
+        methods: {
+            set:function(){
+                let token=document.querySelector('#token').value;
+                let accessory=document.querySelector("#accessory").value;
+                let title=document.querySelector("#title").value;
+                let content=document.querySelector("#content").value;
+                let rank=document.querySelector("#rank").value;
+                let type=document.querySelector("#type").value;
+                let commentForm = new FormData();
+                commentForm.append('accessToken', token);
+                commentForm.append('accessory', accessory);
+                commentForm.append('title', title);
+                commentForm.append('content', content);
+                commentForm.append('rank', rank);
+                commentForm.append('type', type);
+                this.$http.post('http://localhost:8080/announcement/publish', commentForm, {
+                    'Content-Type': 'Multipart/form-data'
+                }).then(
+                    function (res) {
+                        if (res.body.code == 0) {
+                            new $.zui.Messager('发布成功', {
+                                type: 'success',
+                                placement: 'center',
+                                icon: 'icon-ok-sign'
+                            }).show();
+                        }else{
+                            new $.zui.Messager('发布未成功，'+res.body.message, {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                        }
+                        console.log(res)
+                    },
+                    function (res) {
+                        if (res.body.code == 1201) {
+                            new $.zui.Messager('未登陆账号，即将跳转', {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                            window.location.href = 'login.html'
+                        } else {
+                            new $.zui.Messager('网络错误或未找到服务器，请检查网络后重新刷新', {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                        }
+                        console.log(res)
+                    }
+                ).catch(function (reason) {
+                    console.log(reason);
+                })
+            }
+        },
+    })
+</script>

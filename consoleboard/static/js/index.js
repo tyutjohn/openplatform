@@ -8,6 +8,7 @@
 //设置token
 var token = document.cookie.split(";")[0];
 document.querySelector('#token').setAttribute('value', token);
+console.log(token);
 //判断是否登陆
 let login_token=document.querySelector('#token').value;
 if(login_token==''){
@@ -22,42 +23,90 @@ var app=new Vue({
         
     },
     methods: {
-        bulletin_first:function(){
+        bulletin_first: function () {
             $.ajax({
-                url:'../model/bulletin_first.html',
-                type:'get',
-                success:function(res){
+                url: '../model/bulletin_first.html',
+                type: 'get',
+                success: function (res) {
                     $('#model').html($(res));
                 },
-                error:function(res){
+                error: function (res) {
                     console.log(res)
                 }
             });
             //alert("success")
         },
-        bulletin_second:function(){
+        bulletin_second: function () {
             $.ajax({
-                url:'../model/bulletin_second.html',
-                type:'get',
-                success:function(res){
+                url: '../model/bulletin_second.html',
+                type: 'get',
+                success: function (res) {
                     $('#model').html($(res));
                 },
-                error:function(res){
+                error: function (res) {
                     console.log(res)
                 }
             });
         },
-        bulletin_third:function(){
+        bulletin_third: function () {
             $.ajax({
-                url:'../model/bulletin_third.html',
-                type:'get',
-                success:function(res){
+                url: '../model/bulletin_third.html',
+                type: 'get',
+                success: function (res) {
                     $('#model').html($(res));
                 },
-                error:function(res){
+                error: function (res) {
+                    console.log(res)
+                }
+            });
+        },
+        school_first: function () {
+            $.ajax({
+                url: '../model/schoolroll_add_school.html',
+                type: 'get',
+                success: function (res) {
+                    $('#model').html($(res));
+                },
+                error: function (res) {
+                    console.log(res)
+                }
+            });
+        },
+        college_first:function(){
+            $.ajax({
+                url: '../model/schoolroll_add_college.html',
+                type: 'get',
+                success: function (res) {
+                    $('#model').html($(res));
+                },
+                error: function (res) {
+                    console.log(res)
+                }
+            });
+        },
+        school_second:function(){
+            $.ajax({
+                url: '../model/schoolroll_list_school.html',
+                type: 'get',
+                success: function (res) {
+                    $('#model').html($(res));
+                },
+                error: function (res) {
+                    console.log(res)
+                }
+            });
+        },
+        college_second:function(){
+            $.ajax({
+                url: '../model/schoolroll_list_college.html',
+                type: 'get',
+                success: function (res) {
+                    $('#model').html($(res));
+                },
+                error: function (res) {
                     console.log(res)
                 }
             });
         }
-    },
+    }
 })

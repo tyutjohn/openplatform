@@ -1,1 +1,120 @@
-<div>第三个</div>
+<style>
+.third_header{
+    font-size: 26px;
+    margin-top: 4px;
+    margin-bottom: 10px;
+    margin-left: 4px;
+    color: #f93131;
+    font-weight: 600;
+}
+
+.table{
+    width:100%;
+}
+
+
+</style>
+
+<div id="bulletin_third">
+    <div class="third_header">已删除公告</div>
+    <table class="table table-hove table-bordered table-auto">
+        <thead style="background:#eef1f6">
+        <tr>
+            <th>ID</th>
+            <th>标题</th>
+            <th>内容</th>
+            <!--<th>发布者id</th>-->
+            <th>昵称</th>
+            <th>公告类型</th>
+            <th>联系方式</th>
+            <th>公告等级</th>
+            <th>发布时间</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="deletemegs in deletemeg.data">
+            <td>{{deletemegs.deleterId}}</td>
+            <td>{{deletemegs.title}}</td>
+            <td>{{deletemegs.content}}</td>
+            <td>{{deletemegs.publisherNick}}</td>
+            <td>{{deletemegs.announcementType}}</td>
+            <td>{{deletemegs.deleterMobile}}</td>
+            <td>{{deletemegs.rank}}</td>
+            <td>{{deletemegs.updatedAt | capitalize}}</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <!--<tr>-->
+        <!--<td>...</td>-->
+        <!--<td>...</td>-->
+        <!--</tr>-->
+        </tfoot>
+    </table>
+</div>
+
+<script>
+    let bulletin_third=new Vue({
+        el:'#bulletin_third',
+        data:{
+            deletemeg:{}
+        },
+        created(){
+            this.loadData();
+        },
+        methods:{
+            loadData:function(){
+                let self=this;
+                let token=document.querySelector('#token').value;
+                let commentForm=new FormData();
+                commentForm.append('accessToken',token);
+                this.$http.put('http://localhost:8080/announcement/queryDeletedList',commentForm, {
+                    'Content-Type': 'Multipart/form-data'
+                }).then(
+                    function (res) {
+                        self.deletemeg=res.body;
+                        if (res.body.code == 0) {
+                            new $.zui.Messager('加载成功', {
+                                type: 'success',
+                                placement: 'center',
+                                icon: 'icon-ok-sign'
+                            }).show();
+                        }else{
+                            new $.zui.Messager('加载未成功，'+res.body.message, {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                        }
+                        //console.log(res)
+                    },
+                    function (res) {
+                        if (res.body.code == 1201) {
+                            new $.zui.Messager('未登陆账号，即将跳转', {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                            window.location.href = 'login.html'
+                        } else {
+                            new $.zui.Messager('网络错误或未找到服务器，请检查网络后重新刷新', {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                        }
+                        console.log(res)
+                    }
+                ).catch(function(reason){
+                    console.log(reason)
+                })
+            }
+        },
+        filters:{
+            capitalize:function(value){
+                let d=new Date(value);
+                let times=d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()+'--'+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();
+                return times;
+            }
+        }
+    })
+</script>

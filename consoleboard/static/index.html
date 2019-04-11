@@ -31,8 +31,10 @@
                 <li>
                     <a href="#"><i class="icon icon-tasks"></i>学籍管理</a>
                     <ul>
-                        <li><a href="#"><i class="icon icon-play-sign"></i>添加学校</a></li>
-                        <li><a href="#"><i class="icon icon-ok-sign"></i>添加学院</a></li>
+                        <li @click="school_first"><a href="#"><i class="icon icon-play-sign"></i>添加学校</a></li>
+                        <li @click="college_first"><a href="#"><i class="icon icon-ok-sign"></i>添加学院</a></li>
+                        <li @click="school_second"><a href="#"><i class="icon icon-ok-sign"></i>学校管理</a></li>
+                        <li @click="college_second"><a href="#"><i class="icon icon-ok-sign"></i>学院管理</a></li>
                     </ul>
                 </li>
                 <li>

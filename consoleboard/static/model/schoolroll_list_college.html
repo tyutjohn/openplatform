@@ -1,21 +1,15 @@
 <style>
-.bull_first{
-    background: #fff;
-}
+    .second_header{
+        font-size: 20px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-left: 20px;
+        border-bottom: 2px solid #88878787;
+        color: #424f63;
+    }
 
-.table{
-    width:100%;
-}
-
-.cell{
-    white-space: normal;
-    word-break: break-all;
-    line-height: 24px;
-}
-
-    .cell .button{
-        display:inline-block;
-        margin-left: 10px;
+    .table{
+        width:100%;
     }
 
     .icon-undo{
@@ -23,47 +17,26 @@
         cursor: pointer;
         color:#1970fc;
     }
-
-.second_header{
-    font-size: 20px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 20px;
-    border-bottom: 2px solid #88878787;
-    color: #424f63;
-}
 </style>
 
-<div id="bull_first" class="bull_first">
-    <div class="second_header">公告管理</div>
+<div id="schoolroll_listcollege">
+    <div class="second_header">学院管理</div>
     <table class="table table-hove table-bordered table-auto">
         <thead style="background:#eef1f6">
         <tr>
             <th>ID</th>
-            <th>标题</th>
-            <th>内容</th>
-            <!--<th>发布者id</th>-->
-            <th>昵称</th>
-            <th>公告类型</th>
-            <!--<th>公告状态</th>-->
-            <th>公告等级</th>
-            <th>发布时间</th>
+            <th>学院</th>
             <th>操作<span class="icon icon-undo" @click="refresh"></span> </th>
         </tr>
         </thead>
         <tbody>
-        <tr v-for="metions in metion.data">
-            <td>{{metions.announcementId}}</td>
-            <td>{{metions.title}}</td>
-            <td>{{metions.articleType}}</td>
-            <td>{{metions.publisherNick}}</td>
-            <td>{{metions.announcementType}}</td>
-            <td>{{metions.rank}}</td>
-            <td>{{metions.updatedAt | capitalize}}</td>
+        <tr v-for="collegels in collegel.data">
+            <td>{{collegels.academyId}}</td>
+            <td>{{collegels.academyName}}</td>
             <td>
                 <div class="cell">
                     <button class="btn btn-info " type="button"><span class="icon icon-paint-brush"></span>修改</button>
-                    <div style="display:none">{{metions.announcementId}}</div>
+                    <div style="display:none">{{collegels.academyId}}</div>
                     <button class="btn btn-primary " type="button" @click="delete_comment($event)"><span class="icon icon-trash"></span>删除</button>
                 </div>
             </td>
@@ -71,34 +44,34 @@
         </tbody>
         <tfoot>
         <!--<tr>-->
-            <!--<td>...</td>-->
-            <!--<td>...</td>-->
+        <!--<td>...</td>-->
+        <!--<td>...</td>-->
         <!--</tr>-->
         </tfoot>
     </table>
 </div>
 
 <script>
-    var app1=new Vue({
-        el:'#bull_first',
+    var app3=new Vue({
+        el:'#schoolroll_listcollege',
         data:{
-            metion:{},
+            collegel:{},
         },
         created(){
             this.loadData();
         },
         methods: {
-            //显示公告列表
+            //显示学院列表
             loadData:function(){
                 let self=this;
                 let token=document.querySelector('#token').value;
-                let commentForm=new FormData();
-                commentForm.append('accessToken',token);
-                this.$http.put('http://localhost:8080/announcement/queryNormalList',commentForm, {
-                    'Content-Type': 'Multipart/form-data'
+                this.$http.get("http://localhost:8080/admin/academy/queryNormalList", {
+                    params: {
+                        accessToken: token
+                    }
                 }).then(
                     function (res) {
-                        self.metion=res.body;
+                        self.collegel=res.body;
                         if (res.body.code == 0) {
                             new $.zui.Messager('加载成功', {
                                 type: 'success',
@@ -112,7 +85,7 @@
                                 icon: 'icon-exclamation-sign'
                             }).show();
                         }
-                        //console.log(res)
+                        console.log(res)
                     },
                     function (res) {
                         if (res.body.code == 1201) {
@@ -135,16 +108,16 @@
                     console.log(reason)
                 })
             },
-            //删除公告
+            //删除学校
             delete_comment: function (event) {
-                let commentId=event.target.previousElementSibling.innerHTML;
+                let academyId=event.target.previousElementSibling.innerHTML;
                 let token=document.querySelector('#token').value;
                 let commentForm = new FormData();
                 commentForm.append('accessToken',token);
-                commentForm.append('announcementId',commentId)
+                commentForm.append('academyId',academyId);
                 //console.log(commentId);
                 //console.log(token);
-                this.$http.put('http://localhost:8080/announcement/deleted/'+commentId,commentForm, {
+                this.$http.put('http://localhost:8080/admin/academy/delete/'+academyId,commentForm, {
                     'Content-Type': 'Multipart/form-data'
                 }).then(
                     function (res) {
@@ -161,7 +134,7 @@
                                 icon: 'icon-exclamation-sign'
                             }).show();
                         }
-                        //console.log(res)
+                        console.log(res)
                     },
                     function (res) {
                         if (res.body.code == 1201) {
@@ -187,7 +160,7 @@
             //刷新
             refresh:function(){
                 $.ajax({
-                    url:'../model/bulletin_first.html',
+                    url:'../model/schoolroll_list_college.html',
                     type:'get',
                     success:function(res){
                         $('#model').html($(res));
@@ -198,13 +171,6 @@
                 });
             }
 
-        },
-        filters:{
-            capitalize:function(value){
-                let d=new Date(value);
-                let times=d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()+'--'+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();
-                return times;
-            }
         }
     })
 </script>
