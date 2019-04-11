@@ -1,0 +1,110 @@
+/*
+ * @Author: johnwang
+ * @LastAuthor: Do not edit
+ * @Github: https://github.com/tyutjohn
+ * @since: 2019-04-10 19:42:41
+ * @lastTime: 2019-04-11 09:00:36
+ */
+ body{   
+    background: #eff0f4;
+ }
+
+.left{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 16%;
+    height: 100%;
+    overflow-y: auto;
+    background-color: #424f63;
+}
+
+.left .logo{
+    width:100%;
+    text-align: center;
+    color:#fff;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.left .logo img{
+    width:70px;
+    height: 70px;
+    display:block;
+    margin:10px auto;
+}
+
+.left .menu .tree li:hover{
+    background-color: #353f4f !important;
+    color: #65cea7;
+}
+
+.tree-menu > li > a{
+    color:#fff;
+}
+
+.tree-menu li > a {
+    color: #fff;
+}
+
+.tree-menu li > a:hover, .tree-menu li > a:active, .tree-menu li > a:focus {
+    color: #65cea7;
+}
+
+.tree-menu > li > a {
+    border:none;
+}
+
+.tree-menu li > a > .icon {
+    margin: 14px;
+}
+
+.tree-menu {
+   border:none;
+}
+
+.right{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width:82%;
+    height: 100%;
+    overflow-y: auto;
+    background-color: #eff0f4;
+}
+
+.right .header{
+    position: fixed;
+    top: 0;
+    left: inherit;
+    width: 100%;
+    height: 50px;
+    background-color: #fff;
+    border-bottom: 1px solid #eff0f4;
+    z-index: 100;
+}
+
+.right .footer{
+    position: fixed;
+    bottom: 0;
+    left: inherit;
+    width: 100%;
+    height: 50px;
+    color:#7A7676;
+    background-color: #fff;
+    border-bottom: 1px solid #eff0f4;
+    z-index: 100;
+}
+
+.model{
+    position: fixed;
+    top:60px;
+    left: inherit;
+    width: 100%;
+    color:#7A7676;
+    background-color: #fff;
+    border-bottom: 1px solid #eff0f4;
+    z-index: 100;
+}

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>后台管理</title>
+    <link rel="stylesheet" href="css/zui.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+    <div class="left" id="app">
+        <div class="logo">
+            <img src="images/logo.png">
+            <h1>Open Mutual Platform</h1>
+        </div>
+        <nav class="menu" data-ride="menu">
+            <ul id="treeMenu" class="tree tree-menu" data-ride="tree">
+                <li><a href="#"><i class="icon icon-th"></i>首页</a></li>
+                <li><a href="#"><i class="icon icon-list-ul"></i>公告管理</a>
+                    <ul>
+                        <li @click="bulletin_first"><a href="#"><i class="icon icon-tasks"></i>已就绪</a></li>
+                        <li @click="bulletin_second"><a href="#"><i class="icon icon-circle-blank"></i>发布公告</a></li>
+                        <li @click="bulletin_third"><a href="#"><i class="icon icon-trash"></i>已删除</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="icon icon-tasks"></i>学籍管理</a>
+                    <ul>
+                        <li><a href="#"><i class="icon icon-play-sign"></i>添加学校</a></li>
+                        <li><a href="#"><i class="icon icon-ok-sign"></i>添加学院</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="icon icon-tasks"></i>文章管理</a>
+                    <ul>
+                        <li><a href="#"><i class="icon icon-play-sign"></i>管理文章</a></li>
+                        <li><a href="#"><i class="icon icon-ok-sign"></i>管理类型</a></li>
+                        <li><a href="#"><i class="icon icon-ok-sign"></i>管理评论</a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><i class="icon icon-user"></i>用户管理</a>
+                    <ul>
+                        <li><a href="#"><i class="icon icon-tasks"></i>正常用户</a></li>
+                        <li><a href="#"><i class="icon icon-circle-blank"></i>封禁用户</a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><i class="icon icon-user"></i>管理员</a>
+                    <ul>
+                        <li><a href="#"><i class="icon icon-tasks"></i>账号管理</a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><i class="icon icon-user"></i>管理日志</a>
+                    <ul>
+                        <li><a href="#"><i class="icon icon-tasks"></i>文章日志</a></li>
+                        <li><a href="#"><i class="icon icon-tasks"></i>评论日志</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="right">
+        <section class="header">
+                <input type="hidden" name="accessToken" id="token"/>
+        </section>
+        <!--js-->
+        <script src="js/jquery/jquery.min.js"></script>
+        <script src="js/zui.min.js"></script>
+        <script src="js/vue/vue.min.js"></script>
+        <script src="js/vue/vue-resource.min.js"></script>
+        <script src="js/index.js"></script>
+        <!--ajax加载模板-->
+        <div id="model" class="model"></div>
+        <section class="footer">
+            <div style="margin-top:10px;margin-left:10px">Copyright © 2019 by Open Mutual Platform Team</div>
+        </section>
+    </div>
+
+</body>
+
+</html>
