@@ -10,7 +10,7 @@ var token = document.cookie.split(";")[0];
 document.querySelector('#token').setAttribute('value', token);
 console.log(token);
 //判断是否登陆
-let login_token=document.querySelector('#token').value;
+var login_token=document.querySelector('#token').value;
 if(login_token==''){
     window.location.href="login.html"
 }
@@ -143,6 +143,30 @@ var app=new Vue({
                     console.log(res)
                 }
             });
-        }
+        },
+        user_normal:function(){
+            $.ajax({
+                url: '../model/user_normal.html',
+                type: 'get',
+                success: function (res) {
+                    $('#model').html($(res));
+                },
+                error: function (res) {
+                    console.log(res)
+                }
+            });
+        },
+        user_disable:function(){
+            $.ajax({
+                url: '../model/user_disable.html',
+                type: 'get',
+                success: function (res) {
+                    $('#model').html($(res));
+                },
+                error: function (res) {
+                    console.log(res)
+                }
+            });
+        },
     }
 })

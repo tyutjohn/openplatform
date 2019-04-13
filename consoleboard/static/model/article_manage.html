@@ -1,11 +1,268 @@
 <style>
+    .panel .panel-heading{
+        color: #897676;
+        height: 50px;
+        font-size: 20px;
+        font-weight: 600;
+    }
 
+    .tab-content .table{
+        width:100%;
+    }
+
+    #tab2Content1 tr.active > th {
+        background-color: #03b8cf7a !important;
+        color: #065e61 !important;
+    }
+
+    #tab2Content2 tr.active > th {
+        background-color: #f44336ab !important;
+        color: #670b0b; !important;
+    }
 </style>
 
-<div>
-
+<div id="article_manage">
+    <div class="panel">
+        <div class="panel-heading panel-info">文章管理</div>
+    </div>
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="###" data-target="#tab2Content1" data-toggle="tab">正常状态</a></li>
+        <li><a href="###" data-target="#tab2Content2" data-toggle="tab" @click="show_delete">已删除</a></li>
+        <li><a href="###" data-target="#tab2Content3" data-toggle="tab" @click="show_forbid">已禁用</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane fade active in" id="tab2Content1">
+            <table class="table table-hover table-auto table-bordered">
+                <thead>
+                <tr class="active">
+                    <th>ID</th>
+                    <th>发布者昵称</th>
+                    <th>文章类型</th>
+                    <th>文章标题</th>
+                    <th>是否可见</th>
+                    <th>发布时间</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="manages in manage.data">
+                    <td>{{manages.articleId}}</td>
+                    <td>{{manages.publisherNick}}</td>
+                    <td>{{manages.articleType}}</td>
+                    <td>{{manages.title}}</td>
+                    <td>{{manages.visual}}</td>
+                    <td>{{manages.updatedAt | capitalize}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="tab2Content2">
+            <table class="table table-hover table-auto table-bordered">
+                <thead>
+                <tr class="active">
+                    <th>ID</th>
+                    <th>发布者昵称</th>
+                    <th>文章类型</th>
+                    <th>文章标题</th>
+                    <th>是否可见</th>
+                    <th>发布时间</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="deletedatas in deletedata.data">
+                    <td>{{deletedatas.articleId}}</td>
+                    <td>{{deletedatas.publisherNick}}</td>
+                    <td>{{deletedatas.articleType}}</td>
+                    <td>{{deletedatas.title}}</td>
+                    <td>{{deletedatas.visual}}</td>
+                    <td>{{deletedatas.updatedAt | capitalize}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="tab2Content3">
+            <table class="table table-hover table-auto table-bordered">
+                <thead>
+                <tr class="active">
+                    <th>ID</th>
+                    <th>发布者昵称</th>
+                    <th>文章类型</th>
+                    <th>文章标题</th>
+                    <th>是否可见</th>
+                    <th>发布时间</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="forbiddatas in forbiddata.data">
+                    <td>{{forbiddatas.articleId}}</td>
+                    <td>{{forbiddatas.publisherNick}}</td>
+                    <td>{{forbiddatas.articleType}}</td>
+                    <td>{{forbiddatas.title}}</td>
+                    <td>{{forbiddatas.visual}}</td>
+                    <td>{{forbiddatas.updatedAt | capitalize}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 <script>
-
+    var article_manage=new Vue({
+        el:'#article_manage',
+        data:{
+            manage:{},
+            deletedata:{},
+            forbiddata:{}
+        },
+        created(){
+            this.loadData();
+        },
+        methods:{
+            loadData:function(){
+                let self=this;
+                let token=document.querySelector('#token').value;
+                this.$http.get("http://localhost:8080/admin/article/queryNormalList", {
+                    params: {
+                        accessToken: token
+                    }
+                }).then(
+                    function (res) {
+                        self.manage=res.body;
+                        if (res.body.code == 0) {
+                            new $.zui.Messager('加载成功', {
+                                type: 'success',
+                                placement: 'center',
+                                icon: 'icon-ok-sign'
+                            }).show();
+                        }else{
+                            new $.zui.Messager('加载未成功，'+res.body.message, {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                        }
+                        console.log(res)
+                    },
+                    function (res) {
+                        if (res.body.code == 1201) {
+                            new $.zui.Messager('未登陆账号，即将跳转', {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                            window.location.href = 'login.html'
+                        } else {
+                            new $.zui.Messager('网络错误或未找到服务器，请检查网络后重新刷新', {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                        }
+                        console.log(res)
+                    }
+                ).catch(function(reason){
+                    console.log(reason)
+                })
+            },
+            show_delete:function(){
+                let self=this;
+                let token=document.querySelector('#token').value;
+                this.$http.get("http://localhost:8080/admin/article/queryDeleteList", {
+                    params: {
+                        accessToken: token
+                    }
+                }).then(
+                    function (res) {
+                        self.deletedata=res.body;
+                        if (res.body.code == 0) {
+                            new $.zui.Messager('加载成功', {
+                                type: 'success',
+                                placement: 'center',
+                                icon: 'icon-ok-sign'
+                            }).show();
+                        }else{
+                            new $.zui.Messager('加载未成功，'+res.body.message, {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                        }
+                        console.log(res)
+                    },
+                    function (res) {
+                        if (res.body.code == 1201) {
+                            new $.zui.Messager('未登陆账号，即将跳转', {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                            window.location.href = 'login.html'
+                        } else {
+                            new $.zui.Messager('网络错误或未找到服务器，请检查网络后重新刷新', {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                        }
+                        console.log(res)
+                    }
+                ).catch(function(reason){
+                    console.log(reason)
+                })
+            },
+            show_forbid:function(){
+                let self=this;
+                let token=document.querySelector('#token').value;
+                this.$http.get("http://localhost:8080/admin/article/queryDisabledList", {
+                    params: {
+                        accessToken: token
+                    }
+                }).then(
+                    function (res) {
+                        self.forbiddata=res.body;
+                        if (res.body.code == 0) {
+                            new $.zui.Messager('加载成功', {
+                                type: 'success',
+                                placement: 'center',
+                                icon: 'icon-ok-sign'
+                            }).show();
+                        }else{
+                            new $.zui.Messager('加载未成功，'+res.body.message, {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                        }
+                        console.log(res)
+                    },
+                    function (res) {
+                        if (res.body.code == 1201) {
+                            new $.zui.Messager('未登陆账号，即将跳转', {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                            window.location.href = 'login.html'
+                        } else {
+                            new $.zui.Messager('网络错误或未找到服务器，请检查网络后重新刷新', {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                        }
+                        console.log(res)
+                    }
+                ).catch(function(reason){
+                    console.log(reason)
+                })
+            }
+        },
+        filters:{
+            capitalize:function(value){
+                let d=new Date(value);
+                let times=d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()+'--'+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();
+                return times;
+            }
+        }
+    })
 </script>
