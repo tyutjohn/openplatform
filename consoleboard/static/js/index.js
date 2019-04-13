@@ -107,6 +107,42 @@ var app=new Vue({
                     console.log(res)
                 }
             });
+        },
+        article_first:function(){
+            $.ajax({
+                url: '../model/article_manage.html',
+                type: 'get',
+                success: function (res) {
+                    $('#model').html($(res));
+                },
+                error: function (res) {
+                    console.log(res)
+                }
+            });
+        },
+        article_second:function(){
+            $.ajax({
+                url: '../model/article_type.html',
+                type: 'get',
+                success: function (res) {
+                    $('#model').html($(res));
+                },
+                error: function (res) {
+                    console.log(res)
+                }
+            });
+        },
+        article_third:function(){
+            $.ajax({
+                url: '../model/article_comment.html',
+                type: 'get',
+                success: function (res) {
+                    $('#model').html($(res));
+                },
+                error: function (res) {
+                    console.log(res)
+                }
+            });
         }
     }
 })

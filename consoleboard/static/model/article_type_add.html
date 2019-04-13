@@ -1,0 +1,32 @@
+<!--添加文章-->
+<div id="displaynone" style="margin-left:50px">
+<div style="font-size:20px;margin-bottom:10px;color:cornflowerblue;">添加文章类型</div>
+<input type="text" class="form-control" placeholder="文章类型" id="typeName" name="typeName" style="width:30%">
+<button class="btn btn-success " type="button" style="margin:10px 0" id="btn_button">添加</button>
+</div>
+
+<script>
+    document.querySelector('#btn_button').addEventListener('click',function(){
+        let typeName=document.querySelector('#typeName').value;
+        let accessToken=document.querySelector('#token').value;
+        $.post('http://localhost:8080/article/type/add/'+typeName,{
+            typeName:typeName,
+            accessToken:accessToken
+        },function(res){
+            if (res.code == 0) {
+                new $.zui.Messager('添加成功', {
+                    type: 'success',
+                    placement: 'center',
+                    icon: 'icon-ok-sign'
+                }).show();
+            }else{
+                new $.zui.Messager('添加未成功，'+res.body.message, {
+                    type: 'danger',
+                    placement: 'center',
+                    icon: 'icon-exclamation-sign'
+                }).show();
+            }
+            console.log(res);
+        })
+    })
+</script>

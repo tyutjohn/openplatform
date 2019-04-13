@@ -53,16 +53,16 @@
 </div>
 
 <script>
-    let bulletin_third=new Vue({
+    var bulletin_third=new Vue({
         el:'#bulletin_third',
         data:{
             deletemeg:{}
         },
         created(){
-            this.loadData();
+            this.loadData1();
         },
         methods:{
-            loadData:function(){
+            loadData1:function(){
                 let self=this;
                 let token=document.querySelector('#token').value;
                 let commentForm=new FormData();
