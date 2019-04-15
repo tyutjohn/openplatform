@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <div class="left" id="app">
+<div class="left" id="app">
         <div class="logo">
             <img src="images/logo.png">
             <h1>Open Mutual Platform</h1>
@@ -58,30 +58,32 @@
                 </li>
                 <li><a href="#"><i class="icon icon-user"></i>管理日志</a>
                     <ul>
-                        <li><a href="#"><i class="icon icon-tasks"></i>文章日志</a></li>
-                        <li><a href="#"><i class="icon icon-tasks"></i>评论日志</a></li>
+                        <li @click="article_log"><a href="#"><i class="icon icon-tasks"></i>文章日志</a></li>
+                        <li @click="comment_log"><a href="#"><i class="icon icon-tasks"></i>评论日志</a></li>
                     </ul>
                 </li>
             </ul>
         </nav>
     </div>
-    <div class="right">
+<div class="right">
         <section class="header">
-                <input type="hidden" name="accessToken" id="token"/>
+            <!--<button @click="weatherip">点击</button>-->
+            <!--<div id="mapip" v-show="false">{{ip.adcode}}</div>-->
+            <input type="hidden" name="accessToken" id="token"/>
         </section>
         <!--js-->
         <script src="js/jquery/jquery.min.js"></script>
         <script src="js/zui.min.js"></script>
         <script src="js/vue/vue.min.js"></script>
         <script src="js/vue/vue-resource.min.js"></script>
+        <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.14&key=fcfab862dbeb7bc15e036efbe08dfcd7"></script>
         <script src="js/index.js"></script>
         <!--ajax加载模板-->
         <div id="model" class="model"></div>
         <section class="footer">
             <div style="margin-top:10px;margin-left:10px">Copyright © 2019 by Open Mutual Platform Team</div>
         </section>
-    </div>
-
+</div>
 </body>
 
 </html>

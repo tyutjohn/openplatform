@@ -14,14 +14,11 @@ var login_token=document.querySelector('#token').value;
 if(login_token==''){
     window.location.href="login.html"
 }
+
+//侧边栏导航
 var app=new Vue({
     el:'#app',
-    data:{
-
-    },
-    mounted:function(){
-        
-    },
+    data:{},
     methods: {
         bulletin_first: function () {
             $.ajax({
@@ -168,5 +165,67 @@ var app=new Vue({
                 }
             });
         },
+        article_log:function(){
+            $.ajax({
+                url: '../model/article_log.html',
+                type: 'get',
+                success: function (res) {
+                    $('#model').html($(res));
+                },
+                error: function (res) {
+                    console.log(res)
+                }
+            });
+        },
+        comment_log:function(){
+            $.ajax({
+                url: '../model/comment_log.html',
+                type: 'get',
+                success: function (res) {
+                    $('#model').html($(res));
+                },
+                error: function (res) {
+                    console.log(res)
+                }
+            });
+        },
     }
-})
+});
+
+//主页右边主体
+// var right_app=new Vue({
+//     el:'#right_app',
+//     data:{
+//         ip:{},
+//         weather:{},
+//     },
+//     created(){
+//         this.mapip();
+//         this.weatherip();
+//     },
+//     methods:{
+//         //ip定位
+//         mapip:function(){
+//             let self=this;
+//             this.$http.get("https://restapi.amap.com/v3/ip?key=fcfab862dbeb7bc15e036efbe08dfcd7").then(
+//                 function(res){
+//                     self.ip=res.data;
+//                     console.log(res);
+//                 },function(res){
+//                     console.log(res)
+//                 })
+//         },
+//         weatherip:function(){
+//             let self=this;
+//             let ip=document.querySelector("#mapip").innerHTML;
+//             console.log(ip);
+//             this.$http.get("https://restapi.amap.com/v3/weather/weatherInfo?key=fcfab862dbeb7bc15e036efbe08dfcd7&extensions=all&city="+ip).then(
+//                 function(res){
+//                     self.weather=res.data;
+//                     console.log(res);
+//                 },function(res){
+//                     console.log(res)
+//                 })
+//         },
+//     }
+// });

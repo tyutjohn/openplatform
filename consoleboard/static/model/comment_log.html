@@ -1,0 +1,378 @@
+<style>
+    .panel .panel-heading{
+        color: #897676;
+        height: 50px;
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    .tab-content .table{
+        width:100%;
+    }
+
+    #tab2Content1 tr.active > th {
+        background-color: rgba(238, 19, 38, 0.48) !important;
+        color: #610a0a !important;
+    }
+
+    #tab2Content2 tr.active > th {
+        background-color: rgba(30, 244, 111, 0.67) !important;
+        color: #0c6730 !important;
+    }
+</style>
+
+<div id="articlelog">
+    <div class="panel">
+        <div class="panel-heading panel-info">评论日志</div>
+    </div>
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="###" data-target="#tab2Content1" data-toggle="tab">未处理</a></li>
+        <li><a href="###" data-target="#tab2Content2" data-toggle="tab" @click="show_finish">已处理</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane fade active in" id="tab2Content1">
+            <table class="table table-hover table-auto table-bordered">
+                <thead>
+                <tr class="active">
+                    <th>评论ID</th>
+                    <th>评论内容</th>
+                    <th>被举报者ID</th>
+                    <th>被举报者联系方式</th>
+                    <th>被举报者姓名</th>
+                    <!--<th>举报者ID</th>-->
+                    <th>举报者姓名</th>
+                    <th>创建时间</th>
+                    <th>操作<span class="icon icon-undo" @click="refresh"></span> </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="manages in manage.data">
+                    <td>{{manages.commentId}}</td>
+                    <td>{{manages.commentContent}}</td>
+                    <td>{{manages.informedId}}</td>
+                    <td>{{manages.informedMobile}}</td>
+                    <td>{{manages.informedName}}</td>
+                    <!--<td>{{manages.informerId}}</td>-->
+                    <td>{{manages.informerName}}</td>
+                    <td>{{manages.createdAt | capitalize}}</td>
+                    <td>
+                        <div class="cell">
+                            <button class="btn btn-primary" type="button" @click="ignore($event)"><span class="icon icon-eye-close"></span>忽略</button>
+                            <div style="display:none">{{manages.operationId}}</div>
+                            <button class="btn btn-primary" type="button" @click="disable_comment($event)"><span class="icon icon-ban-circle"></span>禁</button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="tab2Content2">
+            <table class="table table-hover table-auto table-bordered">
+                <thead>
+                <tr class="active">
+                    <!--<th>处理者ID</th>-->
+                    <th>处理者手机号</th>
+                    <th>评论ID</th>
+                    <th>评论内容</th>
+                    <th>被举报者ID</th>
+                    <th>被举报者联系方式</th>
+                    <th>被举报者姓名</th>
+                    <!--<th>举报者ID</th>-->
+                    <th>举报者姓名</th>
+                    <th>创建时间</th>
+                    <th>操作<span class="icon icon-undo" @click="refresh"></span> </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="readys in ready.data">
+                    <!--<td>{{readys.adminId}}</td>-->
+                    <td>{{readys.adminMobile}}</td>
+                    <td>{{readys.commentId}}</td>
+                    <td>{{readys.commentContent}}</td>
+                    <td>{{readys.informedId}}</td>
+                    <td>{{readys.informedMobile}}</td>
+                    <td>{{readys.informedName}}</td>
+                    <!--<td>{{readys.informerId}}</td>-->
+                    <td>{{readys.informerName}}</td>
+                    <!--<td>{{readys.operationId}}</td>-->
+                    <td>{{readys.createdAt | capitalize}}</td>
+                    <td>
+                        <div class="cell">
+                            <div style="display:none">{{readys.operationId}}</div>
+                            <button class="btn btn-primary" type="button" @click="able_comment($event)"><span class="icon icon-check-circle-o"></span>解除</button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    var articlelog=new Vue({
+        el:'#articlelog',
+        data:{
+            manage:{},
+            ready:{},
+        },
+        created(){
+            this.loadData();
+        },
+        methods:{
+            loadData:function(){
+                let self=this;
+                let token=document.querySelector('#token').value;
+                this.$http.get("http://localhost:8080/admin/comment/log/queryNoList", {
+                    params: {
+                        accessToken: token
+                    }
+                }).then(
+                    function (res) {
+                        self.manage=res.body;
+                        if (res.body.code == 0) {
+                            new $.zui.Messager('加载成功', {
+                                type: 'success',
+                                placement: 'center',
+                                icon: 'icon-ok-sign'
+                            }).show();
+                        }else{
+                            new $.zui.Messager('加载未成功，'+res.body.message, {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                        }
+                        console.log(res)
+                    },
+                    function (res) {
+                        if (res.body.code == 1201) {
+                            new $.zui.Messager('未登陆账号，即将跳转', {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                            window.location.href = 'login.html'
+                        } else {
+                            new $.zui.Messager('网络错误或未找到服务器，请检查网络后重新刷新', {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                        }
+                        console.log(res)
+                    }
+                ).catch(function(reason){
+                    console.log(reason)
+                })
+            },
+            show_finish:function(){
+                let self=this;
+                let token=document.querySelector('#token').value;
+                this.$http.get("http://localhost:8080/admin/comment/log/queryList", {
+                    params: {
+                        accessToken: token
+                    }
+                }).then(
+                    function (res) {
+                        self.ready=res.body;
+                        if (res.body.code == 0) {
+                            new $.zui.Messager('加载成功', {
+                                type: 'success',
+                                placement: 'center',
+                                icon: 'icon-ok-sign'
+                            }).show();
+                        }else{
+                            new $.zui.Messager('加载未成功，'+res.body.message, {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                        }
+                        console.log(res)
+                    },
+                    function (res) {
+                        if (res.body.code == 1201) {
+                            new $.zui.Messager('未登陆账号，即将跳转', {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                            window.location.href = 'login.html'
+                        } else {
+                            new $.zui.Messager('网络错误或未找到服务器，请检查网络后重新刷新', {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                        }
+                        console.log(res)
+                    }
+                ).catch(function(reason){
+                    console.log(reason)
+                })
+            },
+            //禁用评论
+            disable_comment:function(event){
+                let operationId=event.target.previousElementSibling.innerHTML;
+                let token=document.querySelector('#token').value;
+                let commentForm = new FormData();
+                commentForm.append('accessToken',token);
+                commentForm.append('operationId',operationId)
+                this.$http.put('http://localhost:8080/admin/artircle/comment/publish/'+operationId,commentForm, {
+                    'Content-Type': 'Multipart/form-data'
+                }).then(
+                    function (res) {
+                        if (res.body.code == 0) {
+                            new $.zui.Messager('禁用成功', {
+                                type: 'success',
+                                placement: 'center',
+                                icon: 'icon-ok-sign'
+                            }).show();
+                        }else{
+                            new $.zui.Messager('禁用失败，'+res.body.message, {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                        }
+                        //console.log(res)
+                    },
+                    function (res) {
+                        if (res.body.code == 1201) {
+                            new $.zui.Messager('未登陆账号，即将跳转', {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                            window.location.href = 'login.html'
+                        } else {
+                            new $.zui.Messager('网络错误或未找到服务器，请检查网络后重新刷新', {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                        }
+                        console.log(res)
+                    }
+                ).catch(function(reason){
+                    console.log(reason)
+                })
+            },
+            //解除
+            able_comment:function(event){
+                let operationId=event.target.previousElementSibling.innerHTML;
+                let token=document.querySelector('#token').value;
+                let commentForm = new FormData();
+                commentForm.append('accessToken',token);
+                commentForm.append('operationId',operationId)
+                this.$http.put('http://localhost:8080/admin/artircle/comment/publish/'+operationId,commentForm, {
+                    'Content-Type': 'Multipart/form-data'
+                }).then(
+                    function (res) {
+                        if (res.body.code == 0) {
+                            new $.zui.Messager('解封成功', {
+                                type: 'success',
+                                placement: 'center',
+                                icon: 'icon-ok-sign'
+                            }).show();
+                        }else{
+                            new $.zui.Messager('解封失败，'+res.body.message, {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                        }
+                        //console.log(res)
+                    },
+                    function (res) {
+                        if (res.body.code == 1201) {
+                            new $.zui.Messager('未登陆账号，即将跳转', {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                            window.location.href = 'login.html'
+                        } else {
+                            new $.zui.Messager('网络错误或未找到服务器，请检查网络后重新刷新', {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                        }
+                        console.log(res)
+                    }
+                ).catch(function(reason){
+                    console.log(reason)
+                })
+            },
+            //忽略处理
+            ignore:function(event){
+                let operationId=event.target.nextElementSibling.innerHTML;
+                let token=document.querySelector('#token').value;
+                let commentForm = new FormData();
+                commentForm.append('accessToken',token);
+                commentForm.append('operationId',operationId)
+                this.$http.put('http://localhost:8080/admin/comment/log/ignore/'+operationId,commentForm, {
+                    'Content-Type': 'Multipart/form-data'
+                }).then(
+                    function (res) {
+                        if (res.body.code == 0) {
+                            new $.zui.Messager('已忽略', {
+                                type: 'success',
+                                placement: 'center',
+                                icon: 'icon-ok-sign'
+                            }).show();
+                        }else{
+                            new $.zui.Messager('操作失败，'+res.body.message, {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                        }
+                        //console.log(res)
+                    },
+                    function (res) {
+                        if (res.body.code == 1201) {
+                            new $.zui.Messager('未登陆账号，即将跳转', {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                            window.location.href = 'login.html'
+                        } else {
+                            new $.zui.Messager('网络错误或未找到服务器，请检查网络后重新刷新', {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                        }
+                        console.log(res)
+                    }
+                ).catch(function(reason){
+                    console.log(reason)
+                })
+            },
+            //刷新
+            refresh:function(){
+                $.ajax({
+                    url:'../model/comment_log.html',
+                    type:'get',
+                    success:function(res){
+                        $('#model').html($(res));
+                    },
+                    error:function(res){
+                        console.log(res)
+                    }
+                });
+            }
+        },
+        filters:{
+            capitalize:function(value){
+                let d=new Date(value);
+                let times=d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()+'--'+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();
+                return times;
+            }
+        }
+    })
+</script>
