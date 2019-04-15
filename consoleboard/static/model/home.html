@@ -1,1 +1,47 @@
-<div>test</div>
+<style>
+
+</style>
+
+<div id="home">
+    <button @click="weatherip">点击</button>
+    <div id="mapip" v-show="false">{{ip.adcode}}</div>
+</div>
+
+<script>
+    var home=new Vue({
+        el:'#home',
+        data:{
+            ip:{},
+            weather:{}
+        },
+        created(){
+        this.mapip();
+        this.weatherip();
+        },
+        methods: {
+//         //ip定位
+            mapip: function () {
+                let self = this;
+                this.$http.get("https://restapi.amap.com/v3/ip?key=fcfab862dbeb7bc15e036efbe08dfcd7").then(
+                    function (res) {
+                        self.ip = res.data;
+                        console.log(res);
+                    }, function (res) {
+                        console.log(res)
+                    })
+            },
+            weatherip: function () {
+                let self = this;
+                let ip = document.querySelector("#mapip").innerHTML;
+                console.log(ip);
+                this.$http.get("https://restapi.amap.com/v3/weather/weatherInfo?key=fcfab862dbeb7bc15e036efbe08dfcd7&extensions=all&city=" + ip).then(
+                    function (res) {
+                        self.weather = res.data;
+                        console.log(res);
+                    }, function (res) {
+                        console.log(res)
+                    })
+            },
+        }
+    })
+</script>

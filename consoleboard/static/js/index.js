@@ -19,7 +19,23 @@ if(login_token==''){
 var app=new Vue({
     el:'#app',
     data:{},
+    mounted(){
+      this.home();
+    },
     methods: {
+        //主页
+        home:function(){
+            $.ajax({
+                url: '../model/home.html',
+                type: 'get',
+                success: function (res) {
+                    $('#model').html($(res));
+                },
+                error: function (res) {
+                    console.log(res)
+                }
+            });
+        },
         bulletin_first: function () {
             $.ajax({
                 url: '../model/bulletin_first.html',
@@ -191,41 +207,3 @@ var app=new Vue({
         },
     }
 });
-
-//主页右边主体
-// var right_app=new Vue({
-//     el:'#right_app',
-//     data:{
-//         ip:{},
-//         weather:{},
-//     },
-//     created(){
-//         this.mapip();
-//         this.weatherip();
-//     },
-//     methods:{
-//         //ip定位
-//         mapip:function(){
-//             let self=this;
-//             this.$http.get("https://restapi.amap.com/v3/ip?key=fcfab862dbeb7bc15e036efbe08dfcd7").then(
-//                 function(res){
-//                     self.ip=res.data;
-//                     console.log(res);
-//                 },function(res){
-//                     console.log(res)
-//                 })
-//         },
-//         weatherip:function(){
-//             let self=this;
-//             let ip=document.querySelector("#mapip").innerHTML;
-//             console.log(ip);
-//             this.$http.get("https://restapi.amap.com/v3/weather/weatherInfo?key=fcfab862dbeb7bc15e036efbe08dfcd7&extensions=all&city="+ip).then(
-//                 function(res){
-//                     self.weather=res.data;
-//                     console.log(res);
-//                 },function(res){
-//                     console.log(res)
-//                 })
-//         },
-//     }
-// });
