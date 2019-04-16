@@ -23,8 +23,21 @@ var app=new Vue({
       this.home();
     },
     methods: {
-        //主页
+        //加载主页
         home:function(){
+            $.ajax({
+                url: '../model/home.html',
+                type: 'get',
+                success: function (res) {
+                    $('#model').html($(res));
+                },
+                error: function (res) {
+                    console.log(res)
+                }
+            });
+        },
+        //ajax加载主页
+        go_home:function(){
             $.ajax({
                 url: '../model/home.html',
                 type: 'get',

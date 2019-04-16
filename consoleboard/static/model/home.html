@@ -1,12 +1,105 @@
 <style>
+.top{
+    width:100%;
+    display:flex;
+    background: #f0ffff4d;
+    justify-content: space-between;
+}
 
+    .top-left,.top-right{
+        flex-direction: column;
+    }
+
+    .top-right-pane{
+        display:block;
+        width:300px;
+        height:200px;
+        margin-right:30px;
+        margin-top: 10px;
+    }
+
+    .bottom{
+        display:flex;
+        justify-content: space-between;
+    }
+
+    .bottom-left,.bottom-right{
+        flex-direction: column;
+        height:300px;
+        width:50%;
+    }
+
+    .weather{
+        background-image: url('../images/weather/sun.jpg');
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center 0;
+    }
+
+    .weather-middle{
+        margin-top: 10px;
+        display: flex;
+    }
+
+    .weather-first{
+        font-size: 30px;
+        color:#fff;
+    }
+
+    .flex-column{
+        margin-left: 50px;
+    }
 </style>
 
 <div id="home">
-    <button @click="weatherip">点击</button>
+    <div class="top">
+        <div class="top-left" id="echarts_table" style="width:50%;"></div>
+        <div class="top-right">
+            <div class="top-right-pane panel">
+                <div class="panel-body">
+                    上面的面板
+                </div>
+            </div>
+            <div class="top-right-pane panel">
+                <div class="panel-body">
+                    下面的面板
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom">
+        <div class="bottom-left panel">
+            <div class="panel-body">
+                左面的面板
+            </div>
+        </div>
+        <div class="bottom-right">
+            <div class="weather">
+                <!--<button @click="weatherip">点击</button>-->
+                <div class="weather-header">
+                    <h1 style="padding-top: 20px;padding-left: 20px;font-size: 20px;">{{ip.city}}</h1>
+                </div>
+                <div v-for="weathers in weather.lives" class="weather-middle">
+                    <div class="flex-column weather-first">
+                        <div>{{weathers.weather}}</div>
+                        <div>{{weathers.temperature}}°</div>
+                    </div>
+                    <div class="flex-column" style="font-size: 14px;">
+                        <div>风向:{{weathers.winddirection}}</div>
+                        <div>风力等级:{{weathers.windpower}}</div>
+                    </div>
+                    <div class="flex-column" style="font-size: 14px;">空气湿度:{{weathers.humidity}}</div>
+                    <div class="flex-column">{{weathers.reporttime}}更新</div>
+                </div>
+                <div></div>
+            </div>
+        </div>
+    </div>
     <div id="mapip" v-show="false">{{ip.adcode}}</div>
 </div>
 
+<script src="../js/echarts.min.js"></script>
 <script>
     var home=new Vue({
         el:'#home',
@@ -15,8 +108,25 @@
             weather:{}
         },
         created(){
-        this.mapip();
-        this.weatherip();
+            this.mapip();
+        },
+        mounted(){},
+        watch:{
+            //数据监听ip传回地址后调用天气接口
+            'ip':function(){
+                this.$nextTick(function(){
+                    let self = this;
+                    let ip = document.querySelector("#mapip").innerHTML;
+                    console.log(ip);
+                    this.$http.get("https://restapi.amap.com/v3/weather/weatherInfo?key=fcfab862dbeb7bc15e036efbe08dfcd7&city=" + ip).then(
+                        function (res) {
+                            self.weather = res.body;
+                            console.log(res);
+                        }, function (res) {
+                            console.log(res)
+                        })
+                })
+            }
         },
         methods: {
 //         //ip定位
@@ -29,19 +139,34 @@
                     }, function (res) {
                         console.log(res)
                     })
-            },
-            weatherip: function () {
-                let self = this;
-                let ip = document.querySelector("#mapip").innerHTML;
-                console.log(ip);
-                this.$http.get("https://restapi.amap.com/v3/weather/weatherInfo?key=fcfab862dbeb7bc15e036efbe08dfcd7&extensions=all&city=" + ip).then(
-                    function (res) {
-                        self.weather = res.data;
-                        console.log(res);
-                    }, function (res) {
-                        console.log(res)
-                    })
-            },
+            }
         }
     })
+
+    //echarts图表
+    var echarts_table=echarts.init(document.getElementById('echarts_table'));
+    var option={
+        title:{
+            text:'管理员操作',
+            textStyle:{
+                color:'#737b80e6',
+                fontStyle:'italic',
+                fontWeight:'700',
+                textShadowColor:'#e2f584',
+            }
+        },
+        xAxis: {
+            type: 'category',
+            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [{
+            data: [820, 932, 901, 934, 1290, 1330, 1320],
+            type: 'line'
+        }]
+    };
+
+    echarts_table.setOption(option);
 </script>
