@@ -64,7 +64,7 @@ var app=new Vue({
     methods: {
         get:function(){
             let that=this;
-            this.$http.get('http://localhost:8080/user/queryMyArticleList',{
+            this.$http.get('http://127.0.0.1:8080/user/queryMyArticleList',{
                 params:{
                     accessToken:token
                 }
@@ -102,7 +102,7 @@ var app=new Vue({
         loadData:function(){
             let self=this;
             let token=document.querySelector('#token').value;
-            this.$http.get("http://localhost:8080/user/queryMyInformation", {
+            this.$http.get("http://127.0.0.1:8080/user/queryMyInformation", {
                 params: {
                     accessToken: token
                 }
@@ -141,7 +141,7 @@ var app=new Vue({
             let commentForm=new FormData();
             commentForm.append('accessToken',token);
             commentForm.append('commentId',articlrId)
-            this.$http.put('http://localhost:8080/article/delete/'+articlrId,commentForm, {
+            this.$http.put('http://127.0.0.1:8080/article/delete/'+articlrId,commentForm, {
                 'Content-Type': 'Multipart/form-data'
             }).then(
                 function (res) {

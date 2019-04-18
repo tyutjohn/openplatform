@@ -67,7 +67,7 @@
                 <a href="share.html">share</a>
             </li>
             <li>
-                <a href="javascript:void(0)">team</a>
+                <a href="team.html">team</a>
             </li>
             <li>
                 <a href="user.html">个人主页</a>
@@ -82,8 +82,9 @@
         <img src="image/index/teamhome.jpg">
     </div>
     <!--main-->
-    <div class="main">
+    <div class="main" id="teamHome">
         <div class="container">
+            <input type="hidden" name="accessToken" id="token"/>
             <!--团队简介-->
             <section class="team">
                 <div class="team-header">
@@ -94,16 +95,24 @@
                         </div>
                     </div>
                     <div class="flex flex-right">
-                        <h1 style="font-size:30px">OpenMutualPlatformTeam</h1>
+                        <h1 style="font-size:30px">{{teammation.teamName}}</h1>
+                        <dd class="pull-right" style="bottom:0px;position:absolute;right:0">
+                            <div style="display:inline-block">
+                                <span class="label label-success"><i class="icon-tag" style="margin-right:4px"></i>类型:{{teammation.type}}</span>
+                            </div>
+                            <div style="display:inline-block">
+                                <span class="label label-info"><i class="icon-time"></i>创建时间:{{teammation.createdAt|capitalize}}</span>
+                            </div>
+                        </dd>
                     </div>
                 </div>
                 <div class="introduction">
                     <div class="container">
                         <div class="intro-left"><img src="image/index/team.jpg" style="margin-top:0"></div>
                         <div class="intro-right">
-                            <p>大家好，这里是OpenMutualPlatform团队</p>
+                            <p>大家好，这里是{{teammation.teamName}}团队</p>
                             <h style="color:#858282;;font-size:14px;letter-spacing:2px">
-                                我们的队伍是由太原理工大学软件学院的学生组成，本团队的初衷是进行javaspring和vue技术讨论和交流，同时也通过运行这些语言进行开发一系列的程序和产品，我们可以做平面的设计，后台系统的开发，前台的交互等等
+                              {{teammation.description}}
                             </h>
                         </div>
                     </div>
@@ -111,10 +120,11 @@
                 <div class="user">
                     <h1 style="margin-top:0;padding-top:30px;color: #e95e78;">Our Team</h1>
                     <div>
-                        <div class="share_exp">
+                        <div class="share_exp" v-for="teammations in teammation.teamMemberVOList">
                             <a class="card" href="#">
                                 <div class="card-header">
-                                    <img src="image/index/man1.webp" class="img-circle card-inline" alt="圆形图片">
+                                    <div style="display:none">{{teammations.memberId}}</div>
+                                    <img :src="'avatar/'+teammations.memberAvatar" class="img-circle card-inline" alt="圆形图片">
                                     <div class="card-inline">
                                         <div class="card-content text-muted"><span
                                                 class="icon icon-star"></span>&nbsp;学校:太原理工大学
@@ -124,7 +134,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card-heading" style="color:#494c51"><strong>张无忌</strong></div>
+                                <div class="card-heading" style="color:#494c51"><strong>{{teammations.memberNick}}</strong></div>
                                 <div class="card-content text-muted">分享《九阳真经》，一起研究"乾坤大挪移",加入明教团队</div>
                                 <div class="card-actions">
                                     <div class="pull-left text-danger" style="margin-right:30px"><i
@@ -134,53 +144,11 @@
                                 </div>
                             </a>
                         </div>
-                        <div class="share_exp">
-                            <a class="card" href="#">
-                                <div class="card-header">
-                                    <img src="image/index/man2.webp" class="img-circle card-inline" alt="圆形图片">
-                                    <div class="card-inline">
-                                        <div class="card-content text-muted"><span
-                                                class="icon icon-star"></span>&nbsp;学校:太原理工大学
-                                        </div>
-                                        <div class="card-content text-muted"><span
-                                                class="icon icon-star"></span>&nbsp;学院:软件学院
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-heading" style="color:#494c51"><strong>赵敏</strong></div>
-                                <div class="card-content text-muted">我分享了一个idea,关于如何召集六大门派</div>
-                                <div class="card-actions">
-                                    <div class="pull-left text-danger" style="margin-right:30px"><i
-                                            class="icon icon-diamond"></i>粉丝:10</div>
-                                    <div class="pull-left text-danger"><i class="icon icon-star"></i>关注:100</div>
-                                    <div class="pull-right text-danger"><i class="icon-heart-empty"></i> 被赞次数:210</div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="share_exp">
-                            <a class="card" href="###">
-                                <div class="card-header">
-                                    <img src="image/index/man3.webp" class="img-circle card-inline" alt="圆形图片">
-                                    <div class="card-inline">
-                                        <div class="card-content text-muted"><span
-                                                class="icon icon-star"></span>&nbsp;学校:太原理工大学
-                                        </div>
-                                        <div class="card-content text-muted"><span
-                                                class="icon icon-star"></span>&nbsp;学院:软件学院
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-heading" style="color:#494c51"><strong>杨逍</strong></div>
-                                <div class="card-content text-muted">加入明教团队，一起为张教主护法。刚刚分享了“乾坤大挪移秘籍”</div>
-                                <div class="card-actions">
-                                    <div class="pull-left text-danger" style="margin-right:30px"><i
-                                            class="icon icon-diamond"></i>粉丝:10</div>
-                                    <div class="pull-left text-danger"><i class="icon icon-star"></i>关注:100</div>
-                                    <div class="pull-right text-danger"><i class="icon-heart-empty"></i> 被赞次数:210</div>
-                                </div>
-                            </a>
-                        </div>
                     </div>
+                </div>
+                <div class="join">
+                    <h1>立即加入我们</h1>
+                    <button class="btn btn-info btn-block" style="margin: 20px auto;width: 60%;" @click="joinTeam"><i class="icon-plus"></i>加入</button>
                 </div>
             </section>
         </div>

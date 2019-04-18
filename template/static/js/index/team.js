@@ -3,7 +3,7 @@
  * @LastAuthor: Do not edit
  * @Github: https://github.com/tyutjohn
  * @since: 2019-04-10 08:54:27
- * @lastTime: 2019-04-10 08:56:52
+ * @lastTime: 2019-04-18 09:44:50
  */
 $(function () {
     //超过一定高度导航添加类名
@@ -33,4 +33,46 @@ $(function () {
         $(this).siblings('li').children('.dropdown_menu').slideUp('slow');
     });
 
+})
+
+var team=new Vue({
+    el:'#team',
+    data:{
+        teamlist:{}
+    },
+    created(){
+        this.teamList();
+    },
+    methods:{
+        teamList:function(){
+            let self=this;
+            this.$http.get("http://127.0.0.1:8080/team/queryList").then(
+                function(res){
+                    self.teamlist=res.body.data;
+                    new $.zui.Messager('加载成功',{
+                        type:'success',
+                        placement:'center',
+                        icon:'icon-ok-sign'
+                    }).show();
+                    console.log(res);
+                },function(res){
+                    new $.zui.Messager('网络错误或找不到服务器',{
+                        type:'danger',
+                        placement:'center',
+                        icon:'icon-exclamation-sign'
+                    }).show();
+                    console.log(res)
+                }
+            ).catch(function (reason) {
+                console.log(reason);
+            })
+        }
+    },
+    filters:{
+        capitalize:function(value){
+            let d=new Date(value);
+            let times=d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()+'--'+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();
+            return times;
+        }
+    }
 })

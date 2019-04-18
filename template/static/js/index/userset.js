@@ -39,76 +39,6 @@ $(function () {
 var token = document.cookie.split(";")[0];
 document.querySelector('#token').setAttribute('value', token);
 
-//设置是否可见的开关
-// let count = 0;
-// document.querySelector("#exampleInputcheck").addEventListener('click', function () {
-//     if (count % 2 == 1) {
-//         document.querySelector("#exampleInputcheck").setAttribute("value", 0);
-//         console.log(visual)
-//     } else {
-//         document.querySelector("#exampleInputcheck").setAttribute("value", 1);
-//         console.log(visual);
-//     }
-//     count++;
-// })
-
-//提交个人资料表单
-// document.querySelector("#form-button1").addEventListener('click', function () {
-//     let UserToken = document.querySelector('#token').value;
-//     let academyId = document.querySelector('#academyId').value;
-//     let schoolId = document.querySelector('#schoolId').value;
-//     let userEmail = document.querySelector("#userEmail").value;
-//     let userName = document.querySelector('#userName').value;
-//     let userNick = document.querySelector("#userNick").value;
-//     let userNumber = document.querySelector("#userNumber").value;
-//     let visual = document.querySelector("#exampleInputcheck").value;
-//     $.ajax({
-//         type: 'POST',
-//         url: 'http://localhost:8080/user/infor',
-//         data: {
-//             accessToken: UserToken,
-//             academyId: academyId,
-//             schoolId: schoolId,
-//             userEmail: userEmail,
-//             userName: userName,
-//             userNick: userNick,
-//             userNumber: userNumber,
-//             visual: visual
-//         },
-//         success: function (data) {
-//             if (data.code == 0) {
-//                 new $.zui.Messager('发布成功', {
-//                     type: 'success',
-//                     placement: 'center',
-//                     icon: 'icon-ok-sign'
-//                 }).show();
-//             } else {
-//                 new $.zui.Messager('发布未成功，' + data.message, {
-//                     type: 'danger',
-//                     placement: 'center',
-//                     icon: 'icon-exclamation-sign'
-//                 }).show();
-//             }
-//         },
-//         error: function (data) {
-//             if (data.responseJSON.code == 1201) {
-//                 new $.zui.Messager('未登陆账号，即将跳转', {
-//                     type: 'danger',
-//                     placement: 'center',
-//                     icon: 'icon-exclamation-sign'
-//                 }).show();
-//                 window.location.href = 'login.html'
-//             } else {
-//                 new $.zui.Messager('网络错误或未找到服务器，请检查网络后重新刷新', {
-//                     type: 'danger',
-//                     placement: 'center',
-//                     icon: 'icon-exclamation-sign'
-//                 }).show();
-//             }
-//         }
-//     })
-//     return false;
-// })
 //设置开启隐藏计数
 let num = 1;
 let num2 = 1;
@@ -120,7 +50,9 @@ let app = new Vue({
         avatar: 'image/index/man3.webp',
         school:{},
         college:{},
-        user:{}
+        user:{
+            userAvatar:{}
+        },
     },
     mounted:function(){
         this.get();
@@ -129,12 +61,16 @@ let app = new Vue({
         this.loadData();
         this.userData();
     },
+    watch:{
+        'user.userAvatar':function(){
+            console.log("change")
+        }
+    },
     methods: {
+        //加载学校option
         get:function(){
             let self=this;
             let token=document.querySelector('#token').value;
-            //let formData=new FormData();
-            //formData.append('accessToken',token);
             this.$http.get("http://localhost:8080/school/queryList", {
                 params: {
                     accessToken: token
@@ -154,13 +90,13 @@ let app = new Vue({
         userData:function(){
             let self=this;
             let token=document.querySelector('#token').value;
-            this.$http.get("http://localhost:8080/user/queryMyInformation", {
+            this.$http.get("http://127.0.0.1:8080/user/queryMyInformation", {
                 params: {
                     accessToken: token
                 }
             }).then(
                 function(res){
-                    self.user=res.body;
+                    self.user=res.body.data;
                     console.log(res);
                 },function(res){
                     console.log(res);
@@ -200,13 +136,15 @@ let app = new Vue({
         setAvatar:function(){
             this.$refs.avatarInput.click()
         },
-        changeImage(e) {
-            var file = e.target.files[0]
-            var reader = new FileReader()
-            var that = this
-            reader.readAsDataURL(file)
-            reader.onload = function(e) {
-              that.avatar = this.result
+        //改变头像
+        changeImage(event) {
+            var file = event.target.files[0];
+            var reader = new FileReader();
+            var that = this;
+            reader.readAsDataURL(file);
+            reader.onload = function(event) {
+              //that.avatar = this.result
+                that.avatar=this.result;
             }
           },
         //上传头像
@@ -214,9 +152,12 @@ let app = new Vue({
             if (this.$refs.avatarInput.files.length !== 0) {
                 let image = new FormData();
                 let token=document.querySelector('#token').value;
+                let file=document.querySelector('#inputfile').value;
+                file=file.replace('C:\\fakepath\\','');
+                console.log(file);
                 image.append('accessToken',token);
                 image.append('file', this.$refs.avatarInput.files[0]);
-                this.$http.put('http://localhost:8080/user/updateAvatar/man2.webp',image,{
+                this.$http.put('http://127.0.0.1:8080/user/updateAvatar/'+file,image,{
                     'Content-Type': 'Multipart/form-data'
                 }).then(
                     function(res){
@@ -226,6 +167,7 @@ let app = new Vue({
                                 placement:'center',
                                 icon:'icon-ok-sign'
                             }).show();
+                            console.log(res)
                         }else{
                             new $.zui.Messager('修改失败，错误原因:'+res.body.message,{
                                 type:'danger',
@@ -249,7 +191,7 @@ let app = new Vue({
                                 icon:'icon-exclamation-sign'
                             }).show();
                         }
-                        //console.log(res)
+                        console.log(res)
                     }
                 ).catch(function(reason){
                     console.log(reason)

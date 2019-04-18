@@ -52,9 +52,10 @@
 
 .main .team-header .flex-right{
     margin-top: 50px;
-    padding-right: 20px;
+    padding-right: 46px;
     color: #a4a9af;
     letter-spacing: 2px;
+    position: relative;
 }
 
 .main .introduction{
@@ -114,6 +115,18 @@
     color: rgba(243, 228, 14, 0.863);
 }
 
+.main .team .join{
+    background: #fafafa;
+    color: #2f3044;
+    text-align: center;
+}
+
+.main .team .join h1{
+    font-size: 26px;
+    margin-top: 0;
+    padding-top: 30px;
+}
+
 @media screen and (max-width:580px) {
     .banner {
         height: 100px;
@@ -126,7 +139,8 @@
     }
 
     .main .team-header .flex-right h1{
-        font-size: 20px !important;
+        font-size: 30px !important;
+        padding-bottom: 30px;
     }
 
     .main .introduction .container .intro-left {
@@ -146,7 +160,7 @@
 
     .main .team .share_exp {
         width: 90%;
-        height: 300px;
+        height: 380px;
         margin: 10px auto;
     }
 

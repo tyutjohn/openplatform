@@ -103,7 +103,7 @@
             <section class="main_header">
                 <div class="share_exp">
                     <a class="card" href="#">
-                        <img src="image/index/man1.webp" alt="圆形图片">
+                        <img :src="'avatar/'+user.data.userAvatar" alt="圆形图片"/>
                         <div class="card-heading" style="color:#494c51"><strong>{{user.data.userNick}}</strong></div>
                         <div class="card-content text-muted">分享《九阳真经》，一起研究"乾坤大挪移",加入明教团队</div>
                         <div class="card-actions">

@@ -70,6 +70,7 @@ var app=new Vue({
     },
     mounted:function(){
         this.get();
+        this.other_article();
     },
     methods: {
         get:function(){
@@ -87,8 +88,10 @@ var app=new Vue({
                     //markdown文章渲染
                     $(function(){
                         editormd.markdownToHTML("markdown", {
+                            // placeholder:"第一行为标题，此处编辑您要发布的内容",
+                            path:'../../lib/',
                             htmlDecode: "style,script,iframe", //可以过滤标签解码
-                            emoji: true,
+                            emoji:true,
                             taskList: true,
                             tex: true,               // 默认不解析
                             flowChart: true,         // 默认不解析
@@ -108,6 +111,10 @@ var app=new Vue({
             ).catch(function(reason){
                 console.log(reason);
             })
+        },
+        //作者的其他文章
+        other_article:function(){
+
         },
         //举报文章
         report_article: function () {
@@ -347,10 +354,10 @@ var app=new Vue({
     }
 })
 //多刷新一次解决渲染不到的bug
-$(document).ready(function () {
-
-    let begin=setInterval(function(){
-        window.location.reload();
-    },1000)
-    clearInterval(begin)
-})
+// $(document).ready(function () {
+//
+//     let begin=setInterval(function(){
+//         window.location.reload();
+//     },1000)
+//     clearInterval(begin)
+// })

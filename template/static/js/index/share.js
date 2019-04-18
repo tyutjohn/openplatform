@@ -35,18 +35,6 @@ $(function () {
 
 })
 
-//富文本编辑器设置
-// let E = window.wangEditor
-// let editor = new E('#Editor')
-// editor.customConfig.uploadImgShowBase64 = true // 使用 base64 保存图片
-// editor.create()
-// editor.txt.html('<p>开始编辑你的文章</p>')
-// editor.customConfig.linkImgCallback = function (url) {
-//     console.log(url) // url 即插入图片的地址
-// }
-// document.querySelector("#set").addEventListener('click', function () {
-//     alert(editor.txt.text())
-// }, false)
 $(function () {
     md_edit = editormd("content-editormd", {
         placeholder: '此处开始编写您要发布的内容',
@@ -115,7 +103,7 @@ document.querySelector('#set').addEventListener('click', function () {
     //console.log(UserToken);
     $.ajax({
         type:'POST',
-        url:'http://localhost:8080/article/publish',
+        url:'http://127.0.0.1:8080/article/publish',
         data:{
             articleType: articleType,
             content: content,
@@ -173,7 +161,7 @@ let label=new Vue({
         get:function(){
             let self=this;
             let token=document.querySelector('#token').value;
-            this.$http.get("http://localhost:8080/article/type/queryArticleTypeList", {
+            this.$http.get("http://127.0.0.1:8080/article/type/queryArticleTypeList", {
                 params: {
                     accessToken: token
                 }
