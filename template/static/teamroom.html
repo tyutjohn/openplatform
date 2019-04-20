@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>OpenMutualPlatform--TeamRoom</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/zui.css">
+    <link rel="stylesheet" href="css/index/teamroom.css">
+</head>
+
+<body>
+    <!-- 导航 -->
+    <header class="header">
+        <div class="container clearfix">
+            <div class="left">
+                <a href="index.html"><img src="image/logo.png" alt="" class="img1" /></a>
+            </div>
+            <p class="header-p">Open Mutual Platform</p>
+            <div class="nav">
+                <ul class="navbar_nav" data-in="fadeInDown" data-out="fadeOutUp">
+                    <li class="active">
+                        <a href="index.html">首页</a>
+                    </li>
+                    <li>
+                        <a href="study.html">study</a>
+                    </li>
+                    <li>
+                        <a href="share.html">share</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">team</a>
+                    </li>
+                    <li>
+                        <a href="user.html">个人主页</a>
+                    </li>
+                    <li>
+                        <a href="login.html">登陆</a>
+                    </li>
+                </ul>
+            </div>
+            <a href="javascript:void(0)" id="navToggle">
+                <span></span>
+            </a>
+        </div>
+    </header>
+    <!--移动端的导航-->
+    <div class="m_nav">
+        <div class="top clearfix">
+            <img src="image/closed.png" alt="" class="closed" />
+        </div>
+        <div class="logo">
+            <img src="image/logo.png" alt="" />
+            <p>Open Mutual Playform</p>
+        </div>
+        <ul class="ul" data-in="fadeInDown" data-out="fadeOutUp">
+            <li class="active">
+                <a href="index.html">首页</a>
+            </li>
+            <li class="dropdown">
+                <a href="study.html)">study</a>
+            </li>
+            <li>
+                <a href="share.html">share</a>
+            </li>
+            <li>
+                <a href="team.html">team</a>
+            </li>
+            <li>
+                <a href="user.html">个人主页</a>
+            </li>
+            <li>
+                <a href="login.html">登录</a>
+            </li>
+        </ul>
+    </div>
+    <!--banner-->
+    <div class="banner">
+        <img src="image/index/teamhome.jpg">
+    </div>
+    <!--main-->
+    <div class="main" id="teamroom">
+        <div class="container">
+            <!--main-header-->
+            <input type="hidden" name="accessToken" id="token" />
+            <section class="main-header">
+                <div class="header-block">
+                    <h1>{{teammation.teamName}}</h1>
+                    <p style="color:#494949bf">{{teammation.description}}</p>
+                    <span class="label label-success"><i class="icon-tag"
+                            style="margin-right:4px"></i>类型:{{teammation.type}}</span>
+                    <span class="label label-info pull-right"><i
+                            class="icon-time"></i>创建时间:{{teammation.createdAt |capitalize}}</span>
+                </div>
+            </section>
+            <section class="main-middle">
+                <div class="header-nav">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="###" data-target="#tab2Content1" data-toggle="tab"><i
+                                    class="icon-list-alt" style="margin-right:4px"></i>资源 {{ResNum}}</a></li>
+                        <li><a href="###" data-target="#tab2Content2" data-toggle="tab"><i class="icon-plus"
+                                    style="margin-right:4px"></i>发布</a></li>
+                        <li><a href="###" data-target="#tab2Content3" data-toggle="tab" @click="teamNumber"><i class="icon-group"
+                                    style="margin-right:4px"></i>人员 {{TeamNum}}</a></li>
+                        <li><a href="###" data-target="#tab2Content4" data-toggle="tab"><i class="icon-cogs"
+                                    style="margin-right:4px"></i>设置</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade active in" id="tab2Content1">
+                            <div class="list">
+                                <div class="item" v-for="resourcelists in resourcelist">
+                                    <h2>{{resourcelists.resourceName}}</h2>
+                                    <span class="label label-warning"><i class="icon-user"
+                                            style="margin-right:4px"></i>{{resourcelists.publisherNick}}</span>
+                                    <span style="margin-left:10px"><i class="icon-time"
+                                            style="margin-right:4px"></i>创建时间:{{resourcelists.createdAt|capitalize}}</span>
+                                    <span class="label label-danger pull-right" style="cursor:pointer;margin-right:10px" @click="deleteR($event)"><i class="icon-trash"></i>删除</span>
+                                    <div style="display:none">{{resourcelists.resourceId}}</div>
+                                    <span class="label label-primary pull-right" style="cursor: pointer;"
+                                        @click="downloadR($event)"><i class="icon-download-alt"></i>下载</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab2Content2">
+                            <form class="form" style="margin:20px auto">
+                                <div class="form-group">
+                                    <label for="redourceName">资源名称</label>
+                                    <input type="text" class="form-control" id="redourceName" placeholder="此处填写资源名称"
+                                        name="redourceName">
+                                </div>
+                                <div class="form-group">
+                                    <div class="file-wrapper" style="display:none" id="file-show">
+                                        <div class="file-icon" style="color: rgb(173, 31, 62);margin-right:10px"><i
+                                                class="icon icon-file-code file-icon-css" data-type="text/css"
+                                                data-ext="css"></i></div>
+                                        <div class="content">
+                                            <div class="file-name" id="file-name"></div>
+                                        </div>
+                                        <div class="actions">
+                                            <button type="button"
+                                                data-toggle="tooltip" class="btn btn-link btn-rename-file pull-right" title=""
+                                                data-original-title="重命名"><i
+                                                    class="icon icon-pencil"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="btn btn-info btn-block" @click="setadd">点击上传资源</div>
+                                    <input type="file" class="form-control" id="file" name="file" placeholder="点击上传"
+                                        style="display:none" ref="resourceadd" @change="tirggerFile" />
+                                </div>
+                                <button type="button" class="btn btn-primary" @click="pushResource">发布资源</button>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="tab2Content3">
+                            <div class="list" style="margin: 20px auto">
+                                <header>
+                                    <h1 style="color: #2a3c05b0;">成员信息</h1>
+                                </header>
+                                <section class="items items-hover">
+                                    <div class="item" v-for="teamnumbers in teamnumber" style="height: auto">
+                                        <div class="item-heading">
+                                            <div class="pull-right label label-success">队长</div>
+                                            <img :src="'avatar/'+teamnumbers.memberAvatar" width="50px" height="50px">
+                                            <h4 style="display:inline;margin-left:20px;color:#0a2350">{{teamnumbers.memberNick}}</h4>
+                                        </div>
+                                        <div class="item-content">
+                                            <span class="label label-danger pull-right" style="cursor: pointer;" @click="deleteSel($event)"><i class="icon-trash" style="margin-right: 4px"></i>移除成员</span>
+                                        </div>
+                                        <div class="item-footer" style="display:none">
+                                            <div class="has-error" style="margin-bottom:10px">
+                                                <input class="form-control" type="password" placeholder="输入队伍密码" name="password">
+                                            </div>
+                                            <button class="btn btn-danger" @click="deleteNum($event)">确认移除</button>
+                                            <div style="display: none;">{{teamnumbers.memberId}}</div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab2Content4">
+                            <div class="list">
+                                <header>
+                                    <h1>队伍设置</h1>
+                                </header>
+                                <section class="items" style="margin-top: 20px;">
+                                        <div class="row">
+                                            <div class="col-xs-3">
+                                                <ul class="nav nav-tabs nav-stacked" style="width: 120px;">
+                                                    <li class="active"><a href="###" data-target="#tab3Content1" data-toggle="tab">修改队伍信息</a></li>
+                                                    <li><a href="###" data-target="#tab3Content2" data-toggle="tab">修改队伍密码</a></li>
+                                                    <li><a href="###" data-target="#tab3Content3" data-toggle="tab">忘记队伍密码</a></li>
+                                                    <li><a href="###" data-target="#tab3Content4" data-toggle="tab">删除队伍</a></li>
+                                                    <li><a href="###" data-target="#tab3Content5" data-toggle="tab">转让队伍</a></li>
+                                                    <li><a href="###" data-target="#tab3Content6" data-toggle="tab">退出队伍</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-xs-9">
+                                                <div class="tab-content col-xs-9">
+                                                    <div class="tab-pane fade active in" id="tab3Content1">
+                                                        <form class="form-horizontal">
+                                                            <div class="form-group">
+                                                                <label for="XteamName" class="col-sm-2 required">团队名称</label>
+                                                                <div class="col-md-6 col-sm-10">
+                                                                    <input type="text" class="form-control" id="XteamName" name="XteamName" placeholder="请输入团队名称" :value="teammation.teamName">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="Xpassword" class="col-sm-2 required">密码</label>
+                                                                <div class="col-md-6 col-sm-10">
+                                                                    <input type="password" class="form-control" id="Xpassword" placeholder="队伍密码" name="Xpassword">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="Xdescription" class="col-sm-2 required">团队简介</label>
+                                                                <div class="col-md-6 col-sm-10">
+                                                                    <textarea class="form-control" rows="3" placeholder="这里输入队伍简介" id="Xdescription" name="Xdescription" :value="teammation.description"></textarea>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="Xnumber" class="col-sm-2 required">团队人数</label>
+                                                                <div class="col-md-6 col-sm-10">
+                                                                    <input type="number" class="form-control" id="Xnumber" placeholder="这里限制团队人数" name="Xnumber">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="Xtype" class="col-sm-2 required">团队类型</label>
+                                                                <div class="col-md-6 col-sm-10">
+                                                                    <select style="width:100%;height:30px;border-radius:4px;border:1px solid #38b03f;" id="Xtype"
+                                                                            class="form-control" @change="changeType()" value="1">
+                                                                        <!--<option v-for="teamTypes in teamType.data" :value="teamTypes.typeId">{{teamTypes.typeName}}</option>-->
+                                                                        <option>1</option>
+                                                                        <option>2</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div class="switch" style="margin-left:170px;">
+                                                                    <input type="checkbox" class="col-md-1" name="visual" checked
+                                                                           value="0" id="visual" @click="Switch"/>
+                                                                    <label>设置团队是否可见</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div class="col-sm-offset-2 col-sm-10">
+                                                                    <button type="button" class="btn btn-info" @click="teamInforUpdata">立即修改</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="tab-pane fade" id="tab3Content2">
+                                                        <form class="form-condensed">
+                                                            <div class="form-group">
+                                                                <label for="UformerPassword">原密码</label>
+                                                                <input type="password" class="form-control" id="UformerPassword" placeholder="请输入原密码">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="Upassword">密码</label>
+                                                                <input type="password" class="form-control" id="Upassword" placeholder="请输入新密码">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="UconfirmPassword">确认新密码</label>
+                                                                <input type="password" class="form-control" id="UconfirmPassword" placeholder="请再次确认新密码">
+                                                            </div>
+                                                            <button type="button" class="btn btn-primary" @click="teamPasUpdate">确认修改</button>
+                                                        </form>
+                                                    </div>
+                                                    <div class="tab-pane fade" id="tab3Content3">
+                                                        <form class="form-condensed">
+                                                            <div class="form-group">
+                                                                <label for="Fpassword">密码</label>
+                                                                <input type="password" class="form-control" id="Fpassword" placeholder="请输入新密码">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="FconfirmPassword">确认新密码</label>
+                                                                <input type="password" class="form-control" id="FconfirmPassword" placeholder="请再次确认密码">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="Fcode">验证码</label>
+                                                                <div style="display: flex;">
+                                                                    <input type="password" class="form-control" id="Fcode" placeholder="请输入验证码">
+                                                                    <input type="button" value="获取验证码" class="code" id="code" @click="setcode">
+                                                                </div>
+                                                            </div>
+                                                            <button type="button" class="btn btn-primary" @click="teamForgetpas">确认修改</button>
+                                                        </form>
+                                                    </div>
+                                                    <div class="tab-pane fade" id="tab3Content4">
+                                                        <form class="form-condensed">
+                                                            <div class="form-group">
+                                                                <label for="Dpassword">密码</label>
+                                                                <input type="password" class="form-control" id="Dpassword" placeholder="请输入队伍密码">
+                                                            </div>
+                                                            <button type="button" class="btn btn-danger" @click="teamDelete">确认删除</button>
+                                                        </form>
+                                                    </div>
+                                                    <div class="tab-pane fade" id="tab3Content5">
+                                                        <form class="form-condensed">
+                                                            <div class="form-group">
+                                                                <label for="Mpassword">密码</label>
+                                                                <input type="password" class="form-control" id="Mpassword" placeholder="请输入队伍密码">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="Newmobile">手机号</label>
+                                                                <input type="number" class="form-control" id="Newmobile" placeholder="请输入新队长注册手机号">
+                                                            </div>
+                                                            <button type="button" class="btn btn-warning" @click="teamMove">确认转让</button>
+                                                        </form>
+                                                    </div>
+                                                    <div class="tab-pane fade" id="tab3Content6">
+                                                        <div class="alert alert-danger-inverse with-icon">
+                                                            <i class="icon-remove-sign"></i>
+                                                            <div class="content">
+                                                                <h4>确认退出团队？</h4>
+                                                                <button class="btn btn-danger" @click="teamOut">确认退出</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <!-- 尾部-->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-p">
+                <p>©2018-2019 Powered By open-mutual-platform team</p>
+            </div>
+        </div>
+    </footer>
+    <!--js-->
+    <script src="js/jquery/jquery.min.js"></script>
+    <script src="js/zui.min.js"></script>
+    <script src="js/vue/vue.min.js"></script>
+    <script src="js/vue/vue-resource.min.js"></script>
+    <script src="js/index/teamroom.js"></script>
+</body>
+
+</html>
