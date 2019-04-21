@@ -1,0 +1,16 @@
+INSERT INTO `mp_academy` VALUES (1, 0, '软件学院', '2019-04-05 00:25:23', '2019-04-05 00:25:26');
+INSERT INTO `mp_academy` VALUES (2, 1, '物理学院', '2019-04-05 00:25:44', '2019-04-05 00:25:49');
+INSERT INTO `mp_academy` VALUES (3, 0, '大数据学院', '2019-04-05 00:26:01', '2019-04-05 00:26:04');
+INSERT INTO `mp_academy` VALUES (4, 1, '数学学院', '2019-04-06 20:58:59', '2019-04-06 21:42:35');
+INSERT INTO `mp_academy` VALUES (5, 0, '艺术学院', '2019-04-06 21:01:18', '2019-04-06 21:01:18');
+INSERT INTO `mp_admin` VALUES ('4028b88169ec5ffd0169ec6067330000', 'tyutjohn', 'tyutjohn', '15503676579', NULL, NULL, '15534446431', 2, NULL, NULL, NULL, 0, '1', NULL, NULL, '2019-04-05 15:22:14', '2019-04-06 13:56:23');
+INSERT INTO `mp_article_type` VALUES (1, '科技', '2019-03-31 14:39:03', '2019-03-31 14:39:06');
+INSERT INTO `mp_article_type` VALUES (2, '资料', '2019-03-31 14:40:57', '2019-03-31 14:41:00');
+INSERT INTO `mp_school` VALUES (1, '太原理工大学', 0, '2019-04-04 23:16:46', '2019-04-04 23:16:49');
+INSERT INTO `mp_school` VALUES (2, '太原师范学院', 0, '2019-04-04 23:17:09', '2019-04-04 23:17:11');
+INSERT INTO `mp_school` VALUES (3, '山西大学', 1, '2019-04-04 23:21:38', '2019-04-04 23:21:45');
+INSERT INTO `mp_school` VALUES (4, '北京大学', 0, '2019-04-06 20:29:30', '2019-04-06 20:29:30');
+INSERT INTO `mp_school` VALUES (5, '清华大学', 1, '2019-04-06 20:30:07', '2019-04-06 21:32:32');
+INSERT INTO `mp_school` VALUES (6, '晋中学院', 0, '2019-04-06 20:38:21', '2019-04-06 20:38:21');
+INSERT INTO `mp_team_type` VALUES (1, '艺术', '2019-04-13 12:16:59', '2019-04-13 12:17:07');
+INSERT INTO `mp_team_type` VALUES (2, 'IT', '2019-04-13 12:17:18', '2019-04-13 12:17:20');

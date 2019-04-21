@@ -42,10 +42,19 @@ document.querySelector('#token').setAttribute('value', token);
 var app=new Vue({
     el:'#app',
     data:{
-        user:{}
+        user:{
+            userAvatar:{}
+        }
     },
     created(){
         this.init();
+    },
+    watch:{
+        //登陆头像监听
+        'user.userAvatar':function(){
+            var defalutimg=document.querySelector('#header_nav_img').src;
+            console.log(defalutimg);
+        }
     },
     methods: {
         init:function(){

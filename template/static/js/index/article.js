@@ -66,11 +66,13 @@ var app=new Vue({
                     id:{}
                 }
             }
-        }
+        },
+        followpeople:{}
     },
     mounted:function(){
         this.get();
         this.other_article();
+        this.followuser();
     },
     methods: {
         get:function(){
@@ -314,9 +316,15 @@ var app=new Vue({
             }).then(
                 function(res){
                     if(res.body.code==0){
-                        let spanlove=document.querySelector('#article-love');
-                        spanlove.innerHTML="已点赞";
-                        spanlove.style.color="#e83737"
+                        if(res.body.data==0){
+                            let spanlove=document.querySelector('#article-love');
+                            spanlove.innerHTML="已点赞";
+                            spanlove.style.color="#e83737"
+                        }else{
+                            let spanlove=document.querySelector('#article-love');
+                            spanlove.innerHTML="点赞";
+                            spanlove.style.color="#353535;"
+                        }
                     }else{
                         new $.zui.Messager('点赞失败，错误原因:' + res.body.message, {
                             type: 'danger',
@@ -343,6 +351,71 @@ var app=new Vue({
                     }
                 }
             )
+        },
+        //关注作者
+        follow:function(){
+            let token=document.querySelector('#token').value;
+            let userId=document.querySelector('#userid').innerHTML;
+            let commentForm = new FormData();
+            commentForm.append('accessToken', token);
+            commentForm.append('userId',userId);
+            this.$http.post('http://localhost:8080/follow/'+userId, commentForm, {
+                'Content-Type': 'Multipart/form-data'
+            }).then(
+                function (res) {
+                    if (res.body.code == 0) {
+                        // new $.zui.Messager('关注成功', {
+                        //     type: 'success',
+                        //     placement: 'center',
+                        //     icon: 'icon-ok-sign'
+                        // }).show();
+                        if(res.body.data==0){
+                            let FollowArticle=document.querySelector('#FollowArticle');
+                            FollowArticle.innerHTML='已关注'
+                        }else{
+                            let FollowArticle=document.querySelector('#FollowArticle');
+                            FollowArticle.innerHTML='关注'
+                        }
+                    }else{
+                        new $.zui.Messager('关注未成功，'+res.body.message, {
+                            type: 'danger',
+                            placement: 'center',
+                            icon: 'icon-exclamation-sign'
+                        }).show();
+                    }
+                    console.log(res)
+                },
+                function (res) {
+                    console.log(res)
+                }
+            ).catch(function (reason) {
+                console.log(reason);
+            })
+        },
+        //关注作者列表
+        followuser:function(){
+            let self=this;
+            let token=document.querySelector('#token').value;
+            this.$http.get("http://localhost:8080/user/queryFollowedMeList", {
+                params: {
+                    accessToken: token
+                }
+            }).then(
+                function(res){
+                    self.followpeople=res.body.data;
+                    //console.log(res);
+                },function(res){
+                    console.log(res);
+                }
+            ).catch(function(reason){
+                console.log(reason);
+            })
+        }
+    },
+    computed:{
+        //计算被关注人数
+        FollowUser:function(){
+            return this.followpeople.length;
         }
     },
     filters:{
@@ -353,11 +426,3 @@ var app=new Vue({
         }
     }
 })
-//多刷新一次解决渲染不到的bug
-// $(document).ready(function () {
-//
-//     let begin=setInterval(function(){
-//         window.location.reload();
-//     },1000)
-//     clearInterval(begin)
-// })

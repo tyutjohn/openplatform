@@ -99,23 +99,23 @@
         <img src="image/index/share-banner.jpg">
     </div>
     <!--main-->
-    <div class="main">
+    <div class="main" id="share">
         <div class="container">
             <section class="main-nav">
                 <div class="persion">
                     <div class="persionbox">
                         <a class="card" href="###">
-                            <img src="image/index/man1.webp">
+                            <img :src="'avatar/'+user.userAvatar">
                             <div class="card-actions">
                                 <button type="button" class="btn btn-danger share_button" style="margin-left:0"><i
-                                        class="icon-heart"></i> 喜欢</button>
-                                <div class="pull-right text-danger"><i class="icon-heart-empty"></i> 520 人喜欢</div>
+                                        class="icon-heart"></i> 关注</button>
+                                <div class="pull-right text-danger"><i class="icon-heart-empty"></i> {{FollowUser}}人关注</div>
                             </div>
                         </a>
                     </div>
                     <div class="persionbox">
                         <a class="card" href="###">
-                            <div class="card-heading" style="color:#494c51;font-size:20px"><strong>张无忌</strong></div>
+                            <div class="card-heading" style="color:#494c51;font-size:20px"><strong>{{user.userNick}}</strong></div>
                             <div class="card-content text-muted">
                                 <h1 style="border-bottom:1px solid #e5e5e5;margin:10px auto">个人签名</h1>
                                 分享《九阳真经》，一起研究"乾坤大挪移",加入明教团队
@@ -197,7 +197,7 @@
                             <div class="form-group">
                                 <div class="switch" style="margin-left:170px;">
                                     <input type="checkbox" class="col-md-1" name="visual" checked value="0"
-                                        id="exampleInputcheck" />
+                                        id="exampleInputcheck" @click="check"/>
                                     <label>设置文章是否可见</label>
                                 </div>
                             </div>
@@ -205,7 +205,7 @@
                             <input type="hidden" name="accessToken" id="token"/>
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="button" class="btn btn-default" id="set">发布</button>
+                                    <button type="button" class="btn btn-default" id="set" @click="setarticle">发布</button>
                                 </div>
                             </div>
                         </form>

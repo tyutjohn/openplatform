@@ -147,9 +147,10 @@
                         </div>
                         <div class="card-content text-muted">分享《九阳真经》，一起研究"乾坤大挪移",加入明教团队</div>
                         <div class="card-actions">
-                            <button type="button" class="btn btn-danger share_button" style="margin-left:0"><i
-                                    class="icon-heart"></i> 喜欢</button>
-                            <div class="pull-right text-danger"><i class="icon-heart-empty"></i> 520 人喜欢</div>
+                            <button type="button" class="btn btn-danger share_button" style="margin-left:0" @click="follow" id="FollowArticle"><i
+                                    class="icon-heart"></i>关注</button>
+                            <div style="display:none" id="userid">{{article.data.publisherId}}</div>
+                            <div class="pull-right text-danger"><i class="icon-heart-empty"></i>{{FollowUser}}人关注</div>
                         </div>
                     </a>
                 </div>

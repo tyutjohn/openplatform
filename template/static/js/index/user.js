@@ -52,14 +52,17 @@ var app=new Vue({
                 schoolName:{},
                 userNick:{}
             }
-
-        }
+        },
+        followpeople:{},
+        ilove:{}
     },
     mounted:function(){
         this.get();
     },
     created(){
         this.loadData();
+        this.Mefollow();
+        this.BfollowMe();
     },
     methods: {
         get:function(){
@@ -75,8 +78,8 @@ var app=new Vue({
                         placement: 'center',
                         icon: 'icon-ok-sign'
                     }).show();
-                    that.items=res.data;
-                    console.log(res.data);
+                    that.items=res.body.data;
+                   // console.log(res);
                     document.querySelector('.main-content').style.height="auto";
                 },function(res){
                     if(res.body.code==1201){
@@ -109,7 +112,7 @@ var app=new Vue({
             }).then(
                 function(res){
                     self.user=res.body;
-                    console.log(res);
+                   // console.log(res);
                 },function(res){
                     console.log(res);
                 }
@@ -174,6 +177,58 @@ var app=new Vue({
             ).catch(function(reason){
                 console.log(reason);
             })
+        },
+        //被关注人列表
+        BfollowMe:function(){
+            let self=this;
+            let token=document.querySelector('#token').value;
+            this.$http.get("http://localhost:8080/user/queryFollowedMeList", {
+                params: {
+                    accessToken: token
+                }
+            }).then(
+                function(res){
+                    self.followpeople=res.body.data;
+                   // console.log(res);
+                },function(res){
+                    console.log(res);
+                }
+            ).catch(function(reason){
+                console.log(reason);
+            })
+        },
+        //我关注的人列表
+        Mefollow:function(){
+            let self=this;
+            let token=document.querySelector('#token').value;
+            this.$http.get("http://localhost:8080/user/queryMyFollowList", {
+                params: {
+                    accessToken: token
+                }
+            }).then(
+                function(res){
+                    self.ilove=res.body.data;
+                    //console.log(res);
+                },function(res){
+                    console.log(res);
+                }
+            ).catch(function(reason){
+                console.log(reason);
+            })
+        }
+    },
+    computed:{
+        //计算被关注人数
+        FollowUsernum:function(){
+            return this.followpeople.length;
+        },
+        //计算文章数量
+        ArticleNum:function(){
+            return this.items.length;
+        },
+        //计算我喜欢的人数
+        Ilove:function(){
+            return this.ilove.length;
         }
     },
     filters:{
