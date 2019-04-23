@@ -57,7 +57,8 @@ var app=new Vue({
         ilove:{},
         collect:{},
         teamM:{},
-        teamJoin:{}
+        teamJoin:{},
+        mfollow:{}
     },
     mounted:function(){
         this.get();
@@ -173,6 +174,25 @@ var app=new Vue({
             }).then(
                 function(res){
                     self.teamJoin=res.body.data;
+                    console.log(res);
+                },function(res){
+                    console.log(res);
+                }
+            ).catch(function(reason){
+                console.log(reason);
+            })
+        },
+        //我的关注
+        checktab4:function(){
+            let self=this;
+            let token=document.querySelector('#token').value;
+            this.$http.get("http://127.0.0.1:8080/user/queryMyFollowList", {
+                params: {
+                    accessToken: token
+                }
+            }).then(
+                function(res){
+                    self.mfollow=res.body.data;
                     console.log(res);
                 },function(res){
                     console.log(res);

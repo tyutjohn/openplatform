@@ -134,6 +134,8 @@
                                 class="icon icon-tag"></i>我创建的团队</a></li>
                     <li><a href="###" data-target="#tab2Content4" data-toggle="tab" id="tabclick4" @click="checktab3"><i
                                 class="icon icon-tags"></i>我加入的团队</a></li>
+                    <li><a href="###" data-target="#tab2Content5" data-toggle="tab" id="tabclick5" @click="checktab4"><i
+                            class="icon icon-tags"></i>我的关注</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade active in" id="tab2Content1">
@@ -197,6 +199,15 @@
                                 <div class="item-content">
                                     <div class="text">{{teamJoins.description}}</div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="tab2Content5">
+                        <div class="item itemnew" v-for="mfollows in mfollow">
+                            <div class="item-content">
+                                <img :src="'avatar/'+mfollows.followerAvatar"/>
+                                <p>{{mfollows.followerNick}}</p>
+                                <span class="label">{{mfollows.followerCreatedAt| capitalize}}</span>
                             </div>
                         </div>
                     </div>

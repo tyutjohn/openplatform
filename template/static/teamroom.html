@@ -133,7 +133,9 @@
                                         @click="deleteR($event)"><i class="icon-trash"></i>删除</span>
                                     <div style="display:none">{{resourcelists.resourceId}}</div>
                                     <span class="label label-primary pull-right" style="cursor: pointer;"
-                                        @click="downloadR($event)"><i class="icon-download-alt"></i>下载</span>
+                                        @click="downloadR($event)"
+                                          :href="'accessory/'"
+                                          :download="'accessory/'"><i class="icon-download-alt"></i>下载</span>
                                 </div>
                             </div>
                         </div>

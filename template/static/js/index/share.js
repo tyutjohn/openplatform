@@ -58,33 +58,6 @@ $(function () {
     });
 })
 
-
-//文件上传设置
-// let Horderoption = {
-//     autoUpload: false,
-//     url: '',
-//     filters: {
-//         max_file_size: '10mb',
-//         prevent_duplicates: true,
-//         mime_types: [{
-//                 title: '图片',
-//                 extensions: 'jpg,gif,png,webp'
-//             },
-//             {
-//                 title: '图标',
-//                 extensions: 'ico'
-//             }
-//         ]
-//     },
-//     limitFilesCount: 10,
-//     deleteConfirm: true,
-//     removeUploaded: true,
-//
-// }
-// $('#uploaderHorder').uploader(Horderoption);
-// let Uploader = $('#uploaderHorder').data('zui.uploader');
-// console.log(Uploader);
-
 //设置token
 var token = document.cookie.split(";")[0];
 document.querySelector('#token').setAttribute('value', token);
@@ -97,11 +70,13 @@ var share=new Vue({
     data:{
         label:{},
         user:{},
-        followpeople:{}
+        followpeople:{},
+        panelList:{}
     },
     created(){
         this.userinfor();
         this.followMe();
+        this.panel();
     },
     mounted:function(){
         this.get();
@@ -119,6 +94,25 @@ var share=new Vue({
                 function(res){
                     self.label=res.body;
                    // console.log(JSON.stringify(res));
+                },function(res){
+                    console.log(res);
+                }
+            ).catch(function(reason){
+                console.log(reason);
+            })
+        },
+        //加载公告
+        panel:function(){
+            let self=this;
+            let token=document.querySelector('#token').value;
+            this.$http.get("http://localhost:8080/announcement/queryList", {
+                params: {
+                    accessToken: token
+                }
+            }).then(
+                function(res){
+                    self.panelList=res.body.data;
+                    console.log(res);
                 },function(res){
                     console.log(res);
                 }

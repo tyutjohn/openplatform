@@ -1,0 +1,57 @@
+<style>
+    .panel .panel-heading{
+        color: #897676;
+        height: 50px;
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    .tab-content .table{
+        width:100%;
+    }
+</style>
+
+<div id="adminset">
+    <div class="panel">
+        <div class="panel-heading panel-info">管理员设置</div>
+    </div>
+    <div class="tab-content">
+        <table class="table table-hover table-auto table-bordered">
+            <thead>
+                <tr class="active">
+                    <th>ID</th>
+                    <th>姓名</th>
+                    <th>联系方式</th>
+                    <th>类型</th>
+                    <th>最后登陆时间</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>1</th>
+                    <th>王浩宇</th>
+                    <th>110</th>
+                    <th>0</th>
+                    <th>2019-10-1</th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    var adminset=new Vue({
+        el:'#adminset',
+        data:{
+
+        },
+        created(){
+            //this.loadData();
+        },
+        methods:{
+            //loadData:function(){
+                
+            //}
+        }
+    })
+</script>

@@ -3,7 +3,7 @@
  * @LastAuthor: Do not edit
  * @Github: https://github.com/tyutjohn
  * @since: 2019-04-11 09:03:00
- * @lastTime: 2019-04-11 10:32:47
+ * @lastTime: 2019-04-23 18:58:19
  */
 //设置token
 var token = document.cookie.split(";")[0];
@@ -218,5 +218,17 @@ var app=new Vue({
                 }
             });
         },
+        adminset:function(){
+            $.ajax({
+                url: '../model/adminset.html',
+                type: 'get',
+                success: function (res) {
+                    $('#model').html($(res));
+                },
+                error: function (res) {
+                    console.log(res)
+                }
+            });
+        }
     }
 });
