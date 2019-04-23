@@ -410,6 +410,101 @@ var app=new Vue({
             ).catch(function(reason){
                 console.log(reason);
             })
+        },
+        //下载资源
+        downloadR:function(){
+            let self=this;
+            let token=document.querySelector('#token').value;
+            this.$http.get("http://localhost:8080/teamResource/download/"+tar, {
+                params: {
+                    accessToken: token
+                }
+            }).then(
+                function(res){
+                    // if (res.body.code == 0) {
+                    //     new $.zui.Messager('正在下载', {
+                    //         type: 'success',
+                    //         placement: 'center',
+                    //         icon: 'icon-ok-sign'
+                    //     }).show();
+                    // }else{
+                    //     new $.zui.Messager('下载失败，'+res.body.message, {
+                    //         type: 'danger',
+                    //         placement: 'center',
+                    //         icon: 'icon-exclamation-sign'
+                    //     }).show();
+                    // }
+                    console.log(res);
+                },function(res){
+                    if (res.body.code == 1201) {
+                        new $.zui.Messager('未登陆账号，即将跳转', {
+                            type: 'danger',
+                            placement: 'center',
+                            icon: 'icon-exclamation-sign'
+                        }).show();
+                        window.location.href = 'login.html'
+                    } else {
+                        new $.zui.Messager('网络错误或未找到服务器，请检查网络后重新刷新', {
+                            type: 'danger',
+                            placement: 'center',
+                            icon: 'icon-exclamation-sign'
+                        }).show();
+                    }
+                    //console.log(res);
+                }
+            ).catch(function(reason){
+                console.log(reason);
+            })
+        },
+        //收藏文章
+        collectA:function(){
+            let token=document.querySelector('#token').value;
+            let commentForm = new FormData();
+            commentForm.append('accessToken', token);
+            commentForm.append('articleId ', tar)
+            this.$http.post('http://localhost:8080/article/collect/' + tar, commentForm, {
+                'Content-Type': 'Multipart/form-data'
+            }).then(
+                function (res) {
+                    if (res.body.code == 0) {
+                        if(res.body.data==0){
+                            let spancollect=document.querySelector('#article-collect');
+                            spancollect.innerHTML="已收藏";
+                            spancollect.style.color="#e83737"
+                        }else{
+                            let spancollect=document.querySelector('#article-collect');
+                            spancollect.innerHTML="收藏";
+                            spancollect.style.color="#353535;"
+                        }
+                        console.log(res)
+                    }else{
+                        new $.zui.Messager('收藏失败，'+res.body.message, {
+                            type: 'danger',
+                            placement: 'center',
+                            icon: 'icon-exclamation-sign'
+                        }).show();
+                    }
+                },
+                function (res) {
+                    if (res.body.code == 1201) {
+                        new $.zui.Messager('未登陆账号，即将跳转', {
+                            type: 'danger',
+                            placement: 'center',
+                            icon: 'icon-exclamation-sign'
+                        }).show();
+                        window.location.href = 'login.html'
+                    } else {
+                        new $.zui.Messager('网络错误或未找到服务器，请检查网络后重新刷新', {
+                            type: 'danger',
+                            placement: 'center',
+                            icon: 'icon-exclamation-sign'
+                        }).show();
+                        console.log(res)
+                    }
+                }
+            ).catch(function (reason) {
+                console.log(reason);
+            })
         }
     },
     computed:{

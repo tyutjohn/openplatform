@@ -140,23 +140,22 @@ var teamroom=new Vue({
             this.$http.get("http://localhost:8080/teamResource/download/"+resourceId,{
                 params:{
                     accessToken:token,
-                    resourceId:resourceId
                 }
             }).then(
                 function (res) {
-                    if(res.body.code==0){
-                    new $.zui.Messager('正在下载', {
-                        type: 'success',
-                        placement: 'center',
-                        icon: 'icon-ok-sign'
-                    }).show();
-                    }else{
-                        new $.zui.Messager('下载失败，'+res.body.message, {
-                            type: 'danger',
-                            placement: 'center',
-                            icon: 'icon-exclamation-sign'
-                        }).show();
-                    }
+                    // if(res.body.code==0){
+                    // new $.zui.Messager('正在下载', {
+                    //     type: 'success',
+                    //     placement: 'center',
+                    //     icon: 'icon-ok-sign'
+                    // }).show();
+                    // }else{
+                    //     new $.zui.Messager('下载失败，'+res.body.message, {
+                    //         type: 'danger',
+                    //         placement: 'center',
+                    //         icon: 'icon-exclamation-sign'
+                    //     }).show();
+                    // }
                     console.log(res)
                 },
                 function (res) {

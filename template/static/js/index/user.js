@@ -54,7 +54,10 @@ var app=new Vue({
             }
         },
         followpeople:{},
-        ilove:{}
+        ilove:{},
+        collect:{},
+        teamM:{},
+        teamJoin:{}
     },
     mounted:function(){
         this.get();
@@ -122,19 +125,61 @@ var app=new Vue({
         },
         //资源列表
         checktab:function(){
-            //alert("success")
-            this.$http.get('data.json').then(
-                function(res){
-                   this.resource=res;
-                   console.log(res);
-                },function(res){
-                    new $.zui.Messager('网络错误或找不到服务器,错误信息',{
-                        type:'danger',
-                        placement:'bottom',
-                        icon:'icon-exclamation-sign'
-                    }).show();
+            let that=this;
+            let token=document.querySelector('#token').value;
+            let commentForm = new FormData();
+            commentForm.append('accessToken', token);
+            this.$http.post('http://localhost:8080/user/queryMyCollectList', commentForm, {
+                'Content-Type': 'Multipart/form-data'
+            }).then(
+                function (res) {
+                    that.collect=res.body.data;
+                    console.log(res);
+                },
+                function (res) {
+                    console.log(res)
+                    }
+                    ).catch(function (reason) {
+                        console.log(reason);
+            })
+        },
+        //我创建的团队
+        checktab2:function(){
+            let self=this;
+            let token=document.querySelector('#token').value;
+            this.$http.get("http://127.0.0.1:8080/user/queryMyTeamList", {
+                params: {
+                    accessToken: token
                 }
-            )
+            }).then(
+                function(res){
+                    self.teamM=res.body.data;
+                    console.log(res);
+                },function(res){
+                    console.log(res);
+                }
+            ).catch(function(reason){
+                console.log(reason);
+            })
+        },
+        //我加入的团队
+        checktab3:function(){
+            let self=this;
+            let token=document.querySelector('#token').value;
+            this.$http.get("http://127.0.0.1:8080/user/queryMyJoinTeamList", {
+                params: {
+                    accessToken: token
+                }
+            }).then(
+                function(res){
+                    self.teamJoin=res.body.data;
+                    console.log(res);
+                },function(res){
+                    console.log(res);
+                }
+            ).catch(function(reason){
+                console.log(reason);
+            })
         },
         //删除文章
         delete_article:function(event) {

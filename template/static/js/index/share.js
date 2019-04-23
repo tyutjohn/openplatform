@@ -43,7 +43,18 @@ $(function () {
         codeFold: true,
         syncScrolling: "single",
         path: "lib/",
+        emoji:true,
+        theme: "dark",//工具栏主题
+        //previewTheme: "dark",//预览主题
+        //editorTheme: "pastel-on-dark",//编辑主题
+        tex: true,                   // 开启科学公式TeX语言支持，默认关闭
+        flowChart: true,             // 开启流程图支持，默认关闭
+        sequenceDiagram: true,       // 开启时序/序列图支持，默认关闭,
         //saveHTMLToTextarea: true, // 保存HTML到Textarea
+        //上传图片设置
+        imageUpload:true,
+        imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+        imageUploadURL : "/articleImg/",//后端的上传图片服务地址
     });
 })
 
@@ -119,6 +130,10 @@ var share=new Vue({
             let lable=document.querySelector('#exampleInputType').value;
            // console.log(lable);
         },
+        changeLable2:function(){
+            let lable=document.querySelector('#resourceType').value;
+            console.log(lable)
+        },
         //发送文章
         setarticle:function(){
             let articleType = document.querySelector("#exampleInputType").value;
@@ -191,9 +206,22 @@ var share=new Vue({
             }).then(
                 function(res){
                     self.user=res.body.data;
-                    console.log(res);
+                    //console.log(res);
                 },function(res){
-                    console.log(res);
+                    if(res.body.code==1201){
+                        new $.zui.Messager('未登陆账户，正在跳转',{
+                            type:'danger',
+                            placement:'center',
+                            icon:'icon-exclamation-sign'
+                        }).show();
+                        window.location.href='login.html'
+                    }else{
+                        new $.zui.Messager('网络错误或找不到服务器',{
+                            type:'danger',
+                            placement:'center',
+                            icon:'icon-exclamation-sign'
+                        }).show();
+                    }
                 }
             ).catch(function(reason){
                 console.log(reason);
@@ -218,7 +246,74 @@ var share=new Vue({
             ).catch(function(reason){
                 console.log(reason);
             })
-        }
+        },
+        //调用Input file
+        setadd:function(){
+            this.$refs.resourceadd.click();
+        },
+        //添加上传文件样式
+        tirggerFile:function(){
+            let filename=document.querySelector('#file').value;
+            if(!filename==''){
+                document.querySelector('#file-show').style.display='flex';
+            }
+            document.querySelector('#file-name').innerHTML=filename;
+        },
+        //发布资源
+        pushResource:function(){
+            let token=document.querySelector('#token').value;
+            let file=document.querySelector('#file').files[0];
+            let title=document.querySelector('#redourceTitle').value;
+            let content=document.querySelector('#redourceContent').value;
+            let articleType=document.querySelector('#resourceType').value;
+            let commentForm = new FormData();
+            commentForm.append('accessToken', token);
+            commentForm.append('file',file);
+            commentForm.append('title',title);
+            commentForm.append('content',content);
+            commentForm.append('articleType',articleType);
+            commentForm.append('visual','0');
+            this.$http.post('http://localhost:8080/article/publish', commentForm, {
+                'Content-Type': 'Multipart/form-data'
+            }).then(
+                function (res) {
+                    if (res.body.code == 0) {
+                        new $.zui.Messager('发布成功', {
+                            type: 'success',
+                            placement: 'center',
+                            icon: 'icon-ok-sign'
+                        }).show();
+                        window.location.reload();
+                    }else{
+                        new $.zui.Messager('发布失败，'+res.body.message, {
+                            type: 'danger',
+                            placement: 'center',
+                            icon: 'icon-exclamation-sign'
+                        }).show();
+                    }
+                    console.log(res);
+                },
+                function (res) {
+                    if (res.body.code == 1201) {
+                        new $.zui.Messager('未登陆账号，即将跳转', {
+                            type: 'danger',
+                            placement: 'center',
+                            icon: 'icon-exclamation-sign'
+                        }).show();
+                        window.location.href = 'login.html'
+                    } else {
+                        new $.zui.Messager('网络错误或未找到服务器，请检查网络后重新刷新', {
+                            type: 'danger',
+                            placement: 'center',
+                            icon: 'icon-exclamation-sign'
+                        }).show();
+                    }
+                    console.log(JSON.stringify(res))
+                }
+            ).catch(function (reason) {
+                console.log(reason);
+            })
+        },
     },
     computed:{
         //计算被关注人数
