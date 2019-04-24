@@ -54,7 +54,8 @@
                     <td>{{manages.updatedAt | capitalize}}</td>
                     <td>
                         <div class="cell">
-                            <button class="btn btn-primary" type="button"><span class="icon icon-ban-circle"></span>禁</button>
+                            <div style="display:none">{{manages.articleId}}</div>
+                            <button class="btn btn-primary" type="button" @click="disableArt($event)"><span class="icon icon-ban-circle"></span>禁</button>
                         </div>
                     </td>
                 </tr>
@@ -108,7 +109,8 @@
                     <td>{{forbiddatas.updatedAt | capitalize}}</td>
                     <td>
                         <div class="cell">
-                            <button class="btn btn-primary" type="button"><span class="icon icon-check-circle-o"></span>解除</button>
+                            <div style="display:none">{{forbiddatas.articleId}}</div>
+                            <button class="btn btn-primary" type="button" @click="ableArt($event)"><span class="icon icon-check-circle-o"></span>解除</button>
                         </div>
                     </td>
                 </tr>
@@ -240,6 +242,98 @@
                             }).show();
                         }else{
                             new $.zui.Messager('加载未成功，'+res.body.message, {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                        }
+                        console.log(res)
+                    },
+                    function (res) {
+                        if (res.body.code == 1201) {
+                            new $.zui.Messager('未登陆账号，即将跳转', {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                            window.location.href = 'login.html'
+                        } else {
+                            new $.zui.Messager('网络错误或未找到服务器，请检查网络后重新刷新', {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                        }
+                        console.log(res)
+                    }
+                ).catch(function(reason){
+                    console.log(reason)
+                })
+            },
+            //禁用文章
+            disableArt:function(event){
+                let token=document.querySelector('#token').value;
+                let articleId=event.target.previousElementSibling.innerHTML;
+                this.$http.get("http://localhost:8080/admin/article/disabled/"+articleId, {
+                    params: {
+                        accessToken: token
+                    }
+                }).then(
+                    function (res) {
+                        if (res.body.code == 0) {
+                            new $.zui.Messager('禁用成功', {
+                                type: 'success',
+                                placement: 'center',
+                                icon: 'icon-ok-sign'
+                            }).show();
+                        }else{
+                            new $.zui.Messager('禁用未成功，'+res.body.message, {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                        }
+                        console.log(res)
+                    },
+                    function (res) {
+                        if (res.body.code == 1201) {
+                            new $.zui.Messager('未登陆账号，即将跳转', {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                            window.location.href = 'login.html'
+                        } else {
+                            new $.zui.Messager('网络错误或未找到服务器，请检查网络后重新刷新', {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                        }
+                        console.log(res)
+                    }
+                ).catch(function(reason){
+                    console.log(reason)
+                })
+            },
+            //解除文章
+            ableArt:function(event){
+                let token=document.querySelector('#token').value;
+                let articleId=event.target.previousElementSibling.innerHTML;
+                this.$http.get("http://localhost:8080/admin/article/relieve/"+articleId, {
+                    params: {
+                        accessToken: token
+                    }
+                }).then(
+                    function (res) {
+                        if (res.body.code == 0) {
+                            new $.zui.Messager('解除成功', {
+                                type: 'success',
+                                placement: 'center',
+                                icon: 'icon-ok-sign'
+                            }).show();
+                        }else{
+                            new $.zui.Messager('解除未成功，'+res.body.message, {
                                 type: 'danger',
                                 placement: 'center',
                                 icon: 'icon-exclamation-sign'

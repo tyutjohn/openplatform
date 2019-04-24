@@ -128,7 +128,7 @@ var team_type=new Vue({
             let commentForm = new FormData();
             commentForm.append('accessToken',token);
             commentForm.append('typeId',typeId);
-            this.$http.delete('http://localhost:8080/teamType/deleted/'+typeId,{body:commentForm}, {
+            this.$http.put('http://localhost:8080/teamType/deleted/'+typeId,commentForm, {
                 'Content-Type': 'Multipart/form-data'
             }).then(
                 function(res){
