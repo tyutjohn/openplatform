@@ -1,0 +1,318 @@
+<style>
+    .panel .panel-heading{
+        color: #897676;
+        height: 50px;
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    .tab-content .table{
+        width:100%;
+    }
+
+    #tab2Content1 tr.active > th {
+        background-color: #03b8cf7a !important;
+        color: #065e61 !important;
+    }
+
+    #tab2Content2 tr.active > th {
+        background-color: #f44336ab !important;
+        color: #670b0b !important;
+    }
+</style>
+
+<div id="team_manage">
+    <div class="panel">
+        <div class="panel-heading panel-info">队伍管理</div>
+    </div>
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="###" data-target="#tab2Content1" data-toggle="tab">正常状态</a></li>
+        <li><a href="###" data-target="#tab2Content2" data-toggle="tab" @click="show_delete">已删除</a></li>
+        <li><a href="###" data-target="#tab2Content3" data-toggle="tab" @click="show_forbid">已禁用</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane fade active in" id="tab2Content1">
+            <table class="table table-hover table-auto table-bordered">
+                <thead>
+                <tr class="active">
+                    <th>ID</th>
+                    <th>队伍名称</th>
+                    <th>队伍类型</th>
+                    <th>队长</th>
+                    <th>简介</th>
+                    <th>是否可见</th>
+                    <th>发布时间</th>
+                    <th>操作<span class="icon icon-undo" @click="refresh"></span> </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="manages in manage">
+                    <td>{{manages.teamId}}</td>
+                    <td>{{manages.teamName}}</td>
+                    <td>{{manages.type}}</td>
+                    <td>{{manages.headerNick}}</td>
+                    <td>{{manages.description}}</td>
+                    <td>{{manages.visual}}</td>
+                    <td>{{manages.createdAt | capitalize}}</td>
+                    <td>
+                        <div class="cell">
+                            <button class="btn btn-primary" type="button"><span class="icon icon-ban-circle"></span>禁</button>
+                            <div style="display:none">{{manages.teamId}}</div>
+                            <button class="btn btn-primary" type="button" @click="showmore($event)"><span class="icon icon-zoom-in"></span>查看详情</button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="tab2Content2">
+            <table class="table table-hover table-auto table-bordered">
+                <thead>
+                <tr class="active">
+                    <th>ID</th>
+                    <th>队伍名称</th>
+                    <th>队伍类型</th>
+                    <th>队长</th>
+                    <th>简介</th>
+                    <th>是否可见</th>
+                    <th>发布时间</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="deletedatas in deletedata">
+                    <td>{{deletedatas.teamId}}</td>
+                    <td>{{deletedatas.teamName}}</td>
+                    <td>{{deletedatas.type}}</td>
+                    <td>{{deletedatas.headerNick}}</td>
+                    <td>{{deletedatas.description}}</td>
+                    <td>{{deletedatas.visual}}</td>
+                    <td>{{deletedatas.createdAt | capitalize}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="tab2Content3">
+            <table class="table table-hover table-auto table-bordered">
+                <thead>
+                <tr class="active">
+                    <th>ID</th>
+                    <th>队伍名称</th>
+                    <th>队伍类型</th>
+                    <th>队长</th>
+                    <th>简介</th>
+                    <th>是否可见</th>
+                    <th>发布时间</th>
+                    <th>操作<span class="icon icon-undo" @click="refresh"></span> </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="forbiddatas in forbiddata">
+                    <td>{{forbiddatas.teamId}}</td>
+                    <td>{{forbiddatas.teamName}}</td>
+                    <td>{{forbiddatas.type}}</td>
+                    <td>{{forbiddatas.headerNick}}</td>
+                    <td>{{forbiddatas.description}}</td>
+                    <td>{{forbiddatas.visual}}</td>
+                    <td>{{forbiddatas.createdAt | capitalize}}</td>
+                    <td>
+                        <div class="cell">
+                            <button class="btn btn-primary" type="button"><span class="icon icon-check-circle-o"></span>解除</button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+var team_manage=new Vue({
+    el:'#team_manage',
+    data:{
+        manage:{},
+        deletedata:{},
+        forbiddata:{}
+    },
+    created(){
+        this.normal();
+    },
+    methods:{
+        normal:function(){
+            let self=this;
+            let token=document.querySelector('#token').value;
+            this.$http.get("http://localhost:8080/team/queryNormalList", {
+                params: {
+                    accessToken: token
+                }
+            }).then(
+                function (res) {
+                    self.manage=res.body.data;
+                    if (res.body.code == 0) {
+                        new $.zui.Messager('加载成功', {
+                            type: 'success',
+                            placement: 'center',
+                            icon: 'icon-ok-sign'
+                        }).show();
+                    }else{
+                        new $.zui.Messager('加载未成功，'+res.body.message, {
+                            type: 'danger',
+                            placement: 'center',
+                            icon: 'icon-exclamation-sign'
+                        }).show();
+                    }
+                    console.log(res)
+                },
+                function (res) {
+                    if (res.body.code == 1201) {
+                        new $.zui.Messager('未登陆账号，即将跳转', {
+                            type: 'danger',
+                            placement: 'center',
+                            icon: 'icon-exclamation-sign'
+                        }).show();
+                        window.location.href = 'login.html'
+                    } else {
+                        new $.zui.Messager('网络错误或未找到服务器，请检查网络后重新刷新', {
+                            type: 'danger',
+                            placement: 'center',
+                            icon: 'icon-exclamation-sign'
+                        }).show();
+                    }
+                    console.log(res)
+                }
+            ).catch(function(reason){
+                console.log(reason)
+            })
+        },
+        //删除列表
+        show_delete:function(){
+            let self=this;
+            let token=document.querySelector('#token').value;
+            this.$http.get("http://localhost:8080/team/queryDeleteList", {
+                params: {
+                    accessToken: token
+                }
+            }).then(
+                function (res) {
+                    self.deletedata=res.body.data;
+                    if (res.body.code == 0) {
+                        new $.zui.Messager('加载成功', {
+                            type: 'success',
+                            placement: 'center',
+                            icon: 'icon-ok-sign'
+                        }).show();
+                    }else{
+                        new $.zui.Messager('加载未成功，'+res.body.message, {
+                            type: 'danger',
+                            placement: 'center',
+                            icon: 'icon-exclamation-sign'
+                        }).show();
+                    }
+                    console.log(res)
+                },
+                function (res) {
+                    if (res.body.code == 1201) {
+                        new $.zui.Messager('未登陆账号，即将跳转', {
+                            type: 'danger',
+                            placement: 'center',
+                            icon: 'icon-exclamation-sign'
+                        }).show();
+                        window.location.href = 'login.html'
+                    } else {
+                        new $.zui.Messager('网络错误或未找到服务器，请检查网络后重新刷新', {
+                            type: 'danger',
+                            placement: 'center',
+                            icon: 'icon-exclamation-sign'
+                        }).show();
+                    }
+                    console.log(res)
+                }
+            ).catch(function(reason){
+                console.log(reason)
+            })
+        },
+        //禁用列表
+        show_forbid:function(){
+            let self=this;
+            let token=document.querySelector('#token').value;
+            this.$http.get("http://localhost:8080/team/queryDisabledList", {
+                params: {
+                    accessToken: token
+                }
+            }).then(
+                function (res) {
+                    self.forbiddata=res.body.data;
+                    if (res.body.code == 0) {
+                        new $.zui.Messager('加载成功', {
+                            type: 'success',
+                            placement: 'center',
+                            icon: 'icon-ok-sign'
+                        }).show();
+                    }else{
+                        new $.zui.Messager('加载未成功，'+res.body.message, {
+                            type: 'danger',
+                            placement: 'center',
+                            icon: 'icon-exclamation-sign'
+                        }).show();
+                    }
+                    console.log(res)
+                },
+                function (res) {
+                    if (res.body.code == 1201) {
+                        new $.zui.Messager('未登陆账号，即将跳转', {
+                            type: 'danger',
+                            placement: 'center',
+                            icon: 'icon-exclamation-sign'
+                        }).show();
+                        window.location.href = 'login.html'
+                    } else {
+                        new $.zui.Messager('网络错误或未找到服务器，请检查网络后重新刷新', {
+                            type: 'danger',
+                            placement: 'center',
+                            icon: 'icon-exclamation-sign'
+                        }).show();
+                    }
+                    console.log(res)
+                }
+            ).catch(function(reason){
+                console.log(reason)
+            })
+        },
+        //查看详情
+        showmore:function(event){
+            let teamId=event.target.previousElementSibling.innerHTML;
+            $.ajax({
+                url:'../model/team_resource.html',
+                type:'get',
+                success:function(res){
+                    $('#empty').html(teamId);
+                    $('#model').html($(res));
+                },
+                error:function(res){
+                    console.log(res)
+                }
+            });
+        },
+        //刷新
+        refresh:function(){
+            $.ajax({
+                url:'../model/team_manage.html',
+                type:'get',
+                success:function(res){
+                    $('#model').html($(res));
+                },
+                error:function(res){
+                    console.log(res)
+                }
+            });
+        }
+    },
+    filters:{
+        capitalize:function(value){
+            let d=new Date(value);
+            let times=d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()+'--'+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();
+            return times;
+        }
+    }
+})
+</script>

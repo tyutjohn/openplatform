@@ -229,6 +229,70 @@ var app=new Vue({
                     console.log(res)
                 }
             });
+        },
+        adminuserset:function(){
+            $.ajax({
+                url: '../model/adminuserset.html',
+                type: 'get',
+                success: function (res) {
+                    $('#model').html($(res));
+                },
+                error: function (res) {
+                    console.log(res)
+                }
+            });
+        },
+        team_first:function(){
+            $.ajax({
+                url: '../model/team_manage.html',
+                type: 'get',
+                success: function (res) {
+                    $('#model').html($(res));
+                },
+                error: function (res) {
+                    console.log(res)
+                }
+            });
+        },
+        team_second:function(){
+            $.ajax({
+                url: '../model/team_type.html',
+                type: 'get',
+                success: function (res) {
+                    $('#model').html($(res));
+                },
+                error: function (res) {
+                    console.log(res)
+                }
+            });
+        },
+        //退出登陆
+        out:function(){
+            let appendForm = new FormData();
+            let token=document.querySelector('#token').value;
+            appendForm.append('accessToken',token);
+            this.$http.put('http://localhost:8080/admin/logout',appendForm,{
+                'Content-Type': 'Multipart/form-data'
+            }).then(
+                function(res){
+                        new $.zui.Messager('正在退出',{
+                            type:'success',
+                            placement:'center',
+                            icon:'icon-ok-sign'
+                        }).show();
+                        window.location.href='login.html';
+                        console.log(res)
+                },function(res){
+                        new $.zui.Messager('网络错误或找不到服务器',{
+                            type:'danger',
+                            placement:'center',
+                            icon:'icon-exclamation-sign'
+                        }).show();
+                    console.log(res)
+                }
+            ).catch(function(reason){
+                console.log(reason)
+            })
         }
     }
 });

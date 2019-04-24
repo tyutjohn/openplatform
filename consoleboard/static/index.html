@@ -51,9 +51,17 @@
                         <li @click="user_disable"><a href="#"><i class="icon icon-circle-blank"></i>封禁用户</a></li>
                     </ul>
                 </li>
+                <li>
+                    <a href="#"><i class="icon icon-group"></i>队伍管理</a>
+                    <ul>
+                        <li @click="team_first"><a href="#"><i class="icon icon-flag"></i>管理队伍</a></li>
+                        <li @click="team_second"><a href="#"><i class="icon icon-ok-sign"></i>管理类型</a></li>
+                    </ul>
+                </li>
                 <li><a href="#"><i class="icon icon-user"></i>管理员</a>
                     <ul>
                         <li @click="adminset"><a href="#"><i class="icon icon-tasks"></i>账号管理</a></li>
+                        <li @click="adminuserset"><a href="#"><i class="icon icon-tasks"></i>个人信息管理</a></li>
                     </ul>
                 </li>
                 <li><a href="#"><i class="icon icon-user"></i>管理日志</a>
@@ -62,6 +70,7 @@
                         <li @click="comment_log"><a href="#"><i class="icon icon-tasks"></i>评论日志</a></li>
                     </ul>
                 </li>
+                <li @click="out"><a href="#"><i class="icon icon-off"></i>退出登陆</a>
             </ul>
         </nav>
     </div>
@@ -77,6 +86,7 @@
         <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.14&key=fcfab862dbeb7bc15e036efbe08dfcd7"></script>
         <script src="js/index.js"></script>
         <!--ajax加载模板-->
+        <div style="display:none" id="empty"></div>
         <div id="model" class="model"></div>
         <section class="footer">
             <div style="margin-top:10px;margin-left:10px">Copyright © 2019 by Open Mutual Platform Team</div>

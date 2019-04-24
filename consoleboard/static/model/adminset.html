@@ -15,43 +15,221 @@
     <div class="panel">
         <div class="panel-heading panel-info">管理员设置</div>
     </div>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-tab href="#tabContent1">正常状态</a></li>
+        <li><a data-tab href="#tabContent2" @click="disablelist">禁用状态</a></li>
+    </ul>
     <div class="tab-content">
-        <table class="table table-hover table-auto table-bordered">
-            <thead>
-                <tr class="active">
-                    <th>ID</th>
-                    <th>姓名</th>
-                    <th>联系方式</th>
-                    <th>类型</th>
-                    <th>最后登陆时间</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th>1</th>
-                    <th>王浩宇</th>
-                    <th>110</th>
-                    <th>0</th>
-                    <th>2019-10-1</th>
-                </tr>
-            </tbody>
-        </table>
+        <div class="tab-pane active" id="tabContent1">
+            <div class="tab-content">
+                <table class="table table-hover table-auto table-bordered">
+                    <thead>
+                    <tr class="active">
+                        <th>姓名</th>
+                        <th>联系方式</th>
+                        <th>邮箱</th>
+                        <th>学校</th>
+                        <th>最后登陆时间</th>
+                        <th>操作<span class="icon icon-undo" @click="refresh"></span> </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="adminlists in adminlist">
+                        <th>{{adminlists.adminName}}</th>
+                        <th>{{adminlists.adminMobile}}</th>
+                        <th>{{adminlists.adminEmail}}</th>
+                        <th>{{adminlists.schoolName}}</th>
+                        <th>{{adminlists.createdAt |capitalize}}</th>
+                        <td>
+                            <div class="cell">
+                                <button class="btn btn-primary" type="button" @click="admindisable"><span class="icon icon-ban-circle"></span>禁</button>
+                                <button class="btn btn-primary" type="button" @click="adminalter"><span class="icon icon-pencil"></span>修改权限</button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="tab-pane" id="tabContent2">
+            <div class="tab-content">
+                <table class="table table-hover table-auto table-bordered">
+                    <thead>
+                    <tr class="active">
+                        <th>姓名</th>
+                        <th>联系方式</th>
+                        <th>邮箱</th>
+                        <th>学校</th>
+                        <th>最后登陆时间</th>
+                        <th>操作<span class="icon icon-undo" @click="refresh"></span> </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="admindisablelists in admindisablelist">
+                        <th>{{admindisablelists.adminName}}</th>
+                        <th>{{admindisablelists.adminMobile}}</th>
+                        <th>{{admindisablelists.adminEmail}}</th>
+                        <th>{{admindisablelists.schoolName}}</th>
+                        <th>{{admindisablelists.createdAt |capitalize}}</th>
+                        <td>
+                            <div class="cell">
+                                <button class="btn btn-primary" type="button" @click="adminable"><span class="icon icon-check-circle-o"></span>解</button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
+
 </div>
 
 <script>
     var adminset=new Vue({
         el:'#adminset',
         data:{
-
+            adminlist:{},
+            admindisablelist:{}
         },
         created(){
-            //this.loadData();
+            this.loadData();
         },
         methods:{
-            //loadData:function(){
-                
-            //}
+            loadData:function(){
+                let self=this;
+                let token=document.querySelector('#token').value;
+                this.$http.get("http://localhost:8080/admin/queryNormalList", {
+                    params: {
+                        accessToken: token
+                    }
+                }).then(
+                    function (res) {
+                        self.adminlist=res.body.data;
+                        if (res.body.code == 0) {
+                            new $.zui.Messager('加载成功', {
+                                type: 'success',
+                                placement: 'center',
+                                icon: 'icon-ok-sign'
+                            }).show();
+                        }else{
+                            new $.zui.Messager('加载未成功，'+res.body.message, {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                        }
+                        console.log(res)
+                    },
+                    function (res) {
+                        if (res.body.code == 1201) {
+                            new $.zui.Messager('未登陆账号，即将跳转', {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                            window.location.href = 'login.html'
+                        } else {
+                            new $.zui.Messager('网络错误或未找到服务器，请检查网络后重新刷新', {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                        }
+                        console.log(res)
+                    }
+                ).catch(function(reason){
+                    console.log(reason)
+                })
+            },
+            //刷新
+            refresh:function(){
+                $.ajax({
+                    url:'../model/adminset.html',
+                    type:'get',
+                    success:function(res){
+                        $('#model').html($(res));
+                    },
+                    error:function(res){
+                        console.log(res)
+                    }
+                });
+            },
+            //禁用管理员
+            admindisable:function(){
+
+            },
+            //解除禁用
+            adminable:function(){
+
+            },
+            //修改管理员权限
+            adminalter:function(){
+                $.ajax({
+                    url:'../model/adminalter.html',
+                    type:'get',
+                    success:function(res){
+                        $('#adminset').html($(res));
+                    },
+                    error:function(res){
+                        console.log(res)
+                    }
+                });
+            },
+            //禁用列表
+            disablelist:function(){
+                let self=this;
+                let token=document.querySelector('#token').value;
+                this.$http.get("http://localhost:8080/admin/queryDeletedList", {
+                    params: {
+                        accessToken: token
+                    }
+                }).then(
+                    function (res) {
+                        self.admindisablelist=res.body.data;
+                        if (res.body.code == 0) {
+                            new $.zui.Messager('加载成功', {
+                                type: 'success',
+                                placement: 'center',
+                                icon: 'icon-ok-sign'
+                            }).show();
+                        }else{
+                            new $.zui.Messager('加载未成功，'+res.body.message, {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                        }
+                        console.log(res)
+                    },
+                    function (res) {
+                        if (res.body.code == 1201) {
+                            new $.zui.Messager('未登陆账号，即将跳转', {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                            window.location.href = 'login.html'
+                        } else {
+                            new $.zui.Messager('网络错误或未找到服务器，请检查网络后重新刷新', {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                        }
+                        console.log(res)
+                    }
+                ).catch(function(reason){
+                    console.log(reason)
+                })
+            }
+        },
+        filters:{
+            capitalize:function(value){
+                let d=new Date(value);
+                let times=d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()+'--'+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();
+                return times;
+            }
         }
     })
 </script>

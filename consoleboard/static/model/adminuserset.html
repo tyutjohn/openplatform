@@ -1,0 +1,403 @@
+<style>
+    .panel .panel-heading{
+        color: #897676;
+        height: 50px;
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    .table{
+        width:100%;
+    }
+
+    .second_header{
+        font-size: 20px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-left: 20px;
+        border-bottom: 2px solid #88878787;
+        color: #424f63;
+    }
+
+    .form-group{
+        margin-top:20px;
+    }
+</style>
+
+<div id="adminuser">
+    <div class="panel">
+        <div class="panel-heading panel-info">管理员个人中心</div>
+    </div>
+    <div class="row">
+        <div class="col-xs-2">
+            <ul class="nav nav-tabs nav-stacked">
+                <li class="active"><a href="###" data-target="#tab3Content1" data-toggle="tab">个人信息</a></li>
+                <li><a href="###" data-target="#tab3Content2" data-toggle="tab">修改个人信息</a></li>
+                <li><a href="###" data-target="#tab3Content3" data-toggle="tab">修改密码</a></li>
+            </ul>
+        </div>
+        <div class="col-xs-9">
+            <div class="tab-content col-xs-9">
+                <div class="tab-pane fade active in" id="tab3Content1">
+                    <div>
+                        <table class="table table-hover table-auto table-bordered">
+                            <tbody>
+                                <tr>
+                                    <th>昵称</th>
+                                    <th>{{adminuserinfor.adminNick}}</th>
+                                    <th>姓名</th>
+                                    <th>{{adminuserinfor.adminName}}</th>
+                                </tr>
+                                <tr>
+                                    <th>手机号</th>
+                                    <th>{{adminuserinfor.adminMobile}}</th>
+                                    <th>邮箱</th>
+                                    <th>{{adminuserinfor.adminEmail}}</th>
+                                </tr>
+                                <tr>
+                                    <th>授权者姓名</th>
+                                    <th>{{adminuserinfor.giverName}}</th>
+                                    <th>授权等级</th>
+                                    <th>{{adminuserinfor.rank}}</th>
+                                </tr>
+                                <tr>
+                                    <th>学校</th>
+                                    <th>{{adminuserinfor.schoolName}}</th>
+                                    <th>学院</th>
+                                    <th>{{adminuserinfor.academyName}}</th>
+                                </tr>
+                                <tr>
+                                    <th>学号</th>
+                                    <th>{{adminuserinfor.adminNumber}}</th>
+                                    <th>更新时间</th>
+                                    <th>{{adminuserinfor.createdAt |capitalize}}</th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="tab3Content2">
+                    <section>
+                        <div class="second_header">修改个人信息</div>
+                        <form class="form-horizontal">
+                            <div class="form-group has-info">
+                                <label for="adminNick" class="col-sm-2">昵称</label>
+                                <div class="col-md-6 col-sm-10">
+                                    <input type="text" class="form-control" id="adminNick" placeholder="昵称" name="adminNick" :value="adminuserinfor.adminNick">
+                                </div>
+                            </div>
+                            <div class="form-group has-info">
+                                <label for="adminName" class="col-sm-2">姓名</label>
+                                <div class="col-md-6 col-sm-10">
+                                    <input type="text" class="form-control" id="adminName" placeholder="姓名" name="adminName" :value="adminuserinfor.adminName">
+                                </div>
+                            </div>
+                            <div class="form-group has-info">
+                                <label for="adminEmail" class="col-sm-2">邮箱</label>
+                                <div class="col-md-6 col-sm-10">
+                                    <input type="email" class="form-control" id="adminEmail" placeholder="邮箱" name="adminEmail" :value="adminuserinfor.adminEmail">
+                                </div>
+                            </div>
+                            <div class="form-group has-info">
+                                <label for="adminNumber" class="col-sm-2">学号</label>
+                                <div class="col-md-6 col-sm-10">
+                                    <input type="number" class="form-control" id="adminNumber" placeholder="学号" name="adminNumber" :value="adminuserinfor.adminNumber">
+                                </div>
+                            </div>
+                            <div class="form-group has-info">
+                                <label for="school" class="col-sm-2">学校</label>
+                                <select
+                                        style="width:48%;height:30px;border-radius:4px;border:1px solid #38b03f;"
+                                        id="school" @change="changeSchool()" value="1">
+                                    <option v-for="schools in school.data"
+                                            :value="schools.schoolId">{{schools.schoolName}}</option>
+                                </select>
+                            </div>
+                            <div class="form-group has-info">
+                                <label for="academyId" class="col-sm-2">学院</label>
+                                <select
+                                        style="width:48%;height:30px;border-radius:4px;border:1px solid #38b03f;"
+                                        id="academyId" @change="changeCollage()" value="1">
+                                    <option v-for="collages in collage.data" :value="collages.academyId">
+                                        {{collages.academyName}}</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="button" class="btn btn-success" id="add" @click="putinfor">修改</button>
+                                </div>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+                <div class="tab-pane fade" id="tab3Content3">
+                    <section>
+                        <div class="second_header">修改密码</div>
+                        <form class="form-horizontal">
+                            <div class="form-group has-info">
+                                <label for="formerPassword" class="col-sm-2">原密码</label>
+                                <div class="col-md-6 col-sm-10">
+                                    <input type="password" class="form-control" id="formerPassword" placeholder="请输入原密码" name="formerPassword">
+                                </div>
+                            </div>
+                            <div class="form-group has-info">
+                                <label for="password" class="col-sm-2">新密码</label>
+                                <div class="col-md-6 col-sm-10">
+                                    <input type="password" class="form-control" id="password" placeholder="请输入新密码" name="password">
+                                </div>
+                            </div>
+                            <div class="form-group has-info">
+                                <label for="confirmPassword" class="col-sm-2">确认密码</label>
+                                <div class="col-md-6 col-sm-10">
+                                    <input type="password" class="form-control" id="confirmPassword" placeholder="请再次输入新密码" name="confirmPassword">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="button" class="btn btn-success" @click="putpassword">确认修改</button>
+                                </div>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var adminuser=new Vue({
+        el:'#adminuser',
+        data:{
+            adminuserinfor:{},
+            school:{},
+            collage:{}
+
+        },
+        created(){
+            this.loadData();
+            this.setschool();
+            this.setcollage();
+        },
+        methods:{
+            loadData:function(){
+                let self=this;
+                let token=document.querySelector('#token').value;
+                this.$http.get("http://localhost:8080/admin/queryMyInformation", {
+                    params: {
+                        accessToken: token
+                    }
+                }).then(
+                    function (res) {
+                        self.adminuserinfor=res.body.data;
+                        if (res.body.code == 0) {
+                            new $.zui.Messager('加载成功', {
+                                type: 'success',
+                                placement: 'center',
+                                icon: 'icon-ok-sign'
+                            }).show();
+                        }else{
+                            new $.zui.Messager('加载未成功，'+res.body.message, {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                        }
+                        console.log(res)
+                    },
+                    function (res) {
+                        if (res.body.code == 1201) {
+                            new $.zui.Messager('未登陆账号，即将跳转', {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                            window.location.href = 'login.html'
+                        } else {
+                            new $.zui.Messager('网络错误或未找到服务器，请检查网络后重新刷新', {
+                                type: 'danger',
+                                placement: 'center',
+                                icon: 'icon-exclamation-sign'
+                            }).show();
+                        }
+                        console.log(res)
+                    }
+                ).catch(function(reason){
+                    console.log(reason)
+                })
+            },
+            //获取学校的值
+            changeSchool:function(){
+                let School=document.querySelector('#school').value;
+                console.log(School);
+            },
+            changeCollage:function(){
+                let collage=document.querySelector('#academyId').value;
+                console.log(collage);
+            },
+            //获取学校列表
+            setschool:function(){
+                let self=this;
+                let token=document.querySelector('#token').value;
+                this.$http.get("http://localhost:8080/admin/school/queryNormalList", {
+                    params: {
+                        accessToken: token
+                    }
+                }).then(
+                    function(res){
+                        self.school=res.body;
+                        //console.log(JSON.stringify(res));
+                    },function(res){
+                        console.log(res);
+                    }
+                ).catch(function(reason){
+                    console.log(reason);
+                })
+            },
+            //获取学院列表
+            setcollage:function(){
+                let self=this;
+                let token=document.querySelector('#token').value;
+                this.$http.get("http://localhost:8080/admin/academy/queryNormalList", {
+                    params: {
+                        accessToken: token
+                    }
+                }).then(
+                    function(res){
+                        self.collage=res.body;
+                        //console.log(JSON.stringify(res));
+                    },function(res){
+                        console.log(res);
+                    }
+                ).catch(function(reason){
+                    console.log(reason);
+                })
+            },
+            //修改个人信息
+            putinfor:function(){
+                let appendForm = new FormData();
+                let token=document.querySelector('#token').value;
+                let adminNick=document.querySelector('#adminNick').value;
+                let adminName=document.querySelector('#adminName').value;
+                let adminEmail=document.querySelector('#adminEmail').value;
+                let adminNumber=document.querySelector('#adminNumber').value;
+                let schoolId=document.querySelector('#school').value;
+                let academyId=document.querySelector('#academyId').value;
+                appendForm.append('accessToken',token);
+                appendForm.append('adminNick',adminNick);
+                appendForm.append('adminName',adminName);
+                appendForm.append('adminEmail',adminEmail);
+                appendForm.append('adminNumber',adminNumber);
+                appendForm.append('schoolId',schoolId);
+                appendForm.append('academyId',academyId);
+                this.$http.put('http://localhost:8080/admin/infor',appendForm,{
+                    'Content-Type': 'Multipart/form-data'
+                }).then(
+                    function(res){
+                        if(res.body.code==0){
+                            new $.zui.Messager('修改成功',{
+                                type:'success',
+                                placement:'center',
+                                icon:'icon-ok-sign'
+                            }).show();
+                            $.ajax({
+                                url:'../model/adminuserset.html',
+                                type:'get',
+                                success:function(res){
+                                    $('#adminuser').html($(res));
+                                },
+                                error:function(res){
+                                    console.log(res)
+                                }
+                            });
+                            console.log(res)
+                        }else{
+                            new $.zui.Messager('修改失败，错误原因:'+res.body.message,{
+                                type:'danger',
+                                placement:'center',
+                                icon:'icon-exclamation-sign'
+                            }).show();
+                        }
+                        //console.log(res)
+                    },function(res){
+                        if(res.body.code==1201){
+                            new $.zui.Messager('未登陆账户，正在跳转',{
+                                type:'danger',
+                                placement:'center',
+                                icon:'icon-exclamation-sign'
+                            }).show();
+                            window.location.href='login.html'
+                        }else{
+                            new $.zui.Messager('网络错误或找不到服务器',{
+                                type:'danger',
+                                placement:'center',
+                                icon:'icon-exclamation-sign'
+                            }).show();
+                        }
+                        console.log(res)
+                    }
+                ).catch(function(reason){
+                    console.log(reason)
+                })
+            },
+            //修改密码
+            putpassword:function(){
+                let appendForm = new FormData();
+                let token=document.querySelector('#token').value;
+                let formerPassword=document.querySelector('#formerPassword').value;
+                let password=document.querySelector('#password').value;
+                let confirmPassword=document.querySelector('#confirmPassword').value;
+                appendForm.append('accessToken',token);
+                appendForm.append('formerPassword',formerPassword);
+                appendForm.append('password',password);
+                appendForm.append('confirmPassword',confirmPassword);
+                this.$http.put('http://localhost:8080/admin/changePassword',appendForm,{
+                    'Content-Type': 'Multipart/form-data'
+                }).then(
+                    function(res){
+                        if(res.body.code==0){
+                            new $.zui.Messager('修改密码成功',{
+                                type:'success',
+                                placement:'center',
+                                icon:'icon-ok-sign'
+                            }).show();
+                            console.log(res)
+                        }else{
+                            new $.zui.Messager('修改密码失败，错误原因:'+res.body.message,{
+                                type:'danger',
+                                placement:'center',
+                                icon:'icon-exclamation-sign'
+                            }).show();
+                        }
+                        //console.log(res)
+                    },function(res){
+                        if(res.body.code==1201){
+                            new $.zui.Messager('未登陆账户，正在跳转',{
+                                type:'danger',
+                                placement:'center',
+                                icon:'icon-exclamation-sign'
+                            }).show();
+                            window.location.href='login.html'
+                        }else{
+                            new $.zui.Messager('网络错误或找不到服务器',{
+                                type:'danger',
+                                placement:'center',
+                                icon:'icon-exclamation-sign'
+                            }).show();
+                        }
+                        console.log(res)
+                    }
+                ).catch(function(reason){
+                    console.log(reason)
+                })
+            }
+       },
+        filters:{
+            capitalize:function(value){
+                let d=new Date(value);
+                let times=d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()+'--'+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();
+                return times;
+            }
+        }
+    })
+</script>
