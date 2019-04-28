@@ -94,7 +94,7 @@
                 let token=document.querySelector('#token').value;
                 let commentForm=new FormData();
                 commentForm.append('accessToken',token);
-                this.$http.put('http://localhost:8080/announcement/queryNormalList',commentForm, {
+                this.$http.put('/announcement/queryNormalList',commentForm, {
                     'Content-Type': 'Multipart/form-data'
                 }).then(
                     function (res) {
@@ -144,7 +144,7 @@
                 commentForm.append('announcementId',commentId)
                 //console.log(commentId);
                 //console.log(token);
-                this.$http.put('http://localhost:8080/announcement/deleted/'+commentId,commentForm, {
+                this.$http.put('/announcement/deleted/'+commentId,commentForm, {
                     'Content-Type': 'Multipart/form-data'
                 }).then(
                     function (res) {

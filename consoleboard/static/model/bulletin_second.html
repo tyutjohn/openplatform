@@ -77,7 +77,7 @@
                 commentForm.append('content', content);
                 commentForm.append('rank', rank);
                 commentForm.append('type', type);
-                this.$http.post('http://localhost:8080/announcement/publish', commentForm, {
+                this.$http.post('/announcement/publish', commentForm, {
                     'Content-Type': 'Multipart/form-data'
                 }).then(
                     function (res) {

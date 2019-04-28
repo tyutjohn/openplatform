@@ -135,7 +135,7 @@
             loadData:function(){
                 let self=this;
                 let token=document.querySelector('#token').value;
-                this.$http.get("http://localhost:8080/admin/article/queryNormalList", {
+                this.$http.get("/admin/article/queryNormalList", {
                     params: {
                         accessToken: token
                     }
@@ -181,7 +181,7 @@
             show_delete:function(){
                 let self=this;
                 let token=document.querySelector('#token').value;
-                this.$http.get("http://localhost:8080/admin/article/queryDeleteList", {
+                this.$http.get("/admin/article/queryDeleteList", {
                     params: {
                         accessToken: token
                     }
@@ -227,7 +227,7 @@
             show_forbid:function(){
                 let self=this;
                 let token=document.querySelector('#token').value;
-                this.$http.get("http://localhost:8080/admin/article/queryDisabledList", {
+                this.$http.get("/admin/article/queryDisabledList", {
                     params: {
                         accessToken: token
                     }
@@ -274,7 +274,7 @@
             disableArt:function(event){
                 let token=document.querySelector('#token').value;
                 let articleId=event.target.previousElementSibling.innerHTML;
-                this.$http.get("http://localhost:8080/admin/article/disabled/"+articleId, {
+                this.$http.get("/admin/article/disabled/"+articleId, {
                     params: {
                         accessToken: token
                     }
@@ -320,7 +320,7 @@
             ableArt:function(event){
                 let token=document.querySelector('#token').value;
                 let articleId=event.target.previousElementSibling.innerHTML;
-                this.$http.get("http://localhost:8080/admin/article/relieve/"+articleId, {
+                this.$http.get("/admin/article/relieve/"+articleId, {
                     params: {
                         accessToken: token
                     }

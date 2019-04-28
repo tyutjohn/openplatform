@@ -71,7 +71,7 @@
             loadData:function(){
                 let self=this;
                 let token=document.querySelector('#token').value;
-                this.$http.get("http://localhost:8080/admin/user/queryNormalList", {
+                this.$http.get("/admin/user/queryNormalList", {
                     params: {
                         accessToken: token
                     }
@@ -121,7 +121,7 @@
                 let commentForm=new FormData();
                 commentForm.append('accessToken',token);
                 commentForm.append('userId',userId);
-                this.$http.put('http://localhost:8080/admin/user/updateStatus/'+userId,commentForm, {
+                this.$http.put('/admin/user/updateStatus/'+userId,commentForm, {
                     'Content-Type': 'Multipart/form-data'
                 }).then(
                     function (res) {

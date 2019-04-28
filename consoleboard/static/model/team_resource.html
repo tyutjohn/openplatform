@@ -126,7 +126,7 @@ var team_resource=new Vue({
         loadData:function(){
             let self=this;
             let token=document.querySelector('#token').value;
-            this.$http.get("http://localhost:8080/teamResource/queryNormalList/"+tar, {
+            this.$http.get("/teamResource/queryNormalList/"+tar, {
                 params: {
                     accessToken: token
                 }
@@ -173,7 +173,7 @@ var team_resource=new Vue({
         show_delete:function(){
             let self=this;
             let token=document.querySelector('#token').value;
-            this.$http.get("http://localhost:8080/teamResource/queryDeleteList/"+tar, {
+            this.$http.get("/teamResource/queryDeleteList/"+tar, {
                 params: {
                     accessToken: token
                 }
@@ -220,7 +220,7 @@ var team_resource=new Vue({
         show_forbid:function(){
             let self=this;
             let token=document.querySelector('#token').value;
-            this.$http.get("http://localhost:8080/teamResource/queryDisabledList/"+tar, {
+            this.$http.get("/teamResource/queryDisabledList/"+tar, {
                 params: {
                     accessToken: token
                 }
@@ -270,7 +270,7 @@ var team_resource=new Vue({
             let commentForm = new FormData();
             commentForm.append('accessToken',token);
             commentForm.append('resourceId',resourceId)
-            this.$http.post('http://localhost:8080/admin/teamResource/log/forbidden/'+resourceId,commentForm, {
+            this.$http.post('/admin/teamResource/log/forbidden/'+resourceId,commentForm, {
                 'Content-Type': 'Multipart/form-data'
             }).then(
                 function (res) {
@@ -317,7 +317,7 @@ var team_resource=new Vue({
             let commentForm = new FormData();
             commentForm.append('accessToken',token);
             commentForm.append('resourceId',resourceId)
-            this.$http.post('http://localhost:8080/admin/teamResource/log/relieveForbidden/'+resourceId,commentForm, {
+            this.$http.post('/admin/teamResource/log/relieveForbidden/'+resourceId,commentForm, {
                 'Content-Type': 'Multipart/form-data'
             }).then(
                 function (res) {

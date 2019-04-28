@@ -127,7 +127,7 @@
             loadData:function(){
                 let self=this;
                 let token=document.querySelector('#token').value;
-                this.$http.get("http://localhost:8080/admin/artircle/comment/queryNormalList", {
+                this.$http.get("/admin/artircle/comment/queryNormalList", {
                     params: {
                         accessToken: token
                     }
@@ -173,7 +173,7 @@
             show_delete:function(){
                 let self=this;
                 let token=document.querySelector('#token').value;
-                this.$http.get("http://localhost:8080/admin/artircle/comment/queryDeleteList", {
+                this.$http.get("/admin/artircle/comment/queryDeleteList", {
                     params: {
                         accessToken: token
                     }
@@ -219,7 +219,7 @@
             show_forbid:function(){
                 let self=this;
                 let token=document.querySelector('#token').value;
-                this.$http.get("http://localhost:8080/admin/artircle/comment/queryDisabledList", {
+                this.$http.get("/admin/artircle/comment/queryDisabledList", {
                     params: {
                         accessToken: token
                     }

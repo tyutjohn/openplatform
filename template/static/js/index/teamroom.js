@@ -64,7 +64,7 @@ var teamroom=new Vue({
     created(){
         this.teamlist();
         this.resourceList();
-       // this.teamtype();
+        this.teamtype();
     },
     methods:{
         teamlist:function(){
@@ -397,38 +397,38 @@ var teamroom=new Vue({
             })
         },
         //加载队伍类型
-        // teamtype:function(){
-        //     let self=this;
-        //     let token=document.querySelector('#token').value;
-        //     this.$http.get("/teamType/queryList", {
-        //         params: {
-        //             accessToken: token
-        //         }
-        //     }).then(
-        //         function(res){
-        //             self.teamType=res.body;
-        //             console.log(res);
-        //         },function(res){
-        //             if (res.body.code == 1201) {
-        //                 new $.zui.Messager('未登陆账号，即将跳转', {
-        //                     type: 'danger',
-        //                     placement: 'center',
-        //                     icon: 'icon-exclamation-sign'
-        //                 }).show();
-        //                 window.location.href = 'login.html'
-        //             } else {
-        //                 new $.zui.Messager('网络错误或未找到服务器，请检查网络后重新刷新', {
-        //                     type: 'danger',
-        //                     placement: 'center',
-        //                     icon: 'icon-exclamation-sign'
-        //                 }).show();
-        //             }
-        //             console.log(res);
-        //         }
-        //     ).catch(function(reason){
-        //         console.log(reason);
-        //     })
-        // },
+        teamtype:function(){
+            let self=this;
+            let token=document.querySelector('#token').value;
+            this.$http.get("/teamType/queryList", {
+                params: {
+                    accessToken: token
+                }
+            }).then(
+                function(res){
+                    self.teamType=res.body;
+                    console.log(res);
+                },function(res){
+                    if (res.body.code == 1201) {
+                        new $.zui.Messager('未登陆账号，即将跳转', {
+                            type: 'danger',
+                            placement: 'center',
+                            icon: 'icon-exclamation-sign'
+                        }).show();
+                        window.location.href = 'login.html'
+                    } else {
+                        new $.zui.Messager('网络错误或未找到服务器，请检查网络后重新刷新', {
+                            type: 'danger',
+                            placement: 'center',
+                            icon: 'icon-exclamation-sign'
+                        }).show();
+                    }
+                    console.log(res);
+                }
+            ).catch(function(reason){
+                console.log(reason);
+            })
+        },
         //获取类型的值
         changeType:function(){
             let School=document.querySelector('#Xtype').value;

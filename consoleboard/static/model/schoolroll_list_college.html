@@ -112,7 +112,7 @@
             loadData:function(){
                 let self=this;
                 let token=document.querySelector('#token').value;
-                this.$http.get("http://localhost:8080/admin/academy/queryNormalList", {
+                this.$http.get("/admin/academy/queryNormalList", {
                     params: {
                         accessToken: token
                     }
@@ -164,7 +164,7 @@
                 commentForm.append('academyId',academyId);
                 //console.log(commentId);
                 //console.log(token);
-                this.$http.put('http://localhost:8080/admin/academy/delete/'+academyId,commentForm, {
+                this.$http.put('/admin/academy/delete/'+academyId,commentForm, {
                     'Content-Type': 'Multipart/form-data'
                 }).then(
                     function (res) {
@@ -208,7 +208,7 @@
             loadDelete:function(){
                 let self=this;
                 let token=document.querySelector('#token').value;
-                this.$http.get("http://localhost:8080/admin/academy/queryDeleteList", {
+                this.$http.get("/admin/academy/queryDeleteList", {
                     params: {
                         accessToken: token
                     }
@@ -258,7 +258,7 @@
                 let commentForm = new FormData();
                 commentForm.append('accessToken',token);
                 commentForm.append('academyName',academyName)
-                this.$http.post('http://localhost:8080/admin/academy/add/'+academyName, commentForm, {
+                this.$http.post('/admin/academy/add/'+academyName, commentForm, {
                     'Content-Type': 'Multipart/form-data'
                 }).then(
                     function (res) {

@@ -67,7 +67,7 @@
                 let token=document.querySelector('#token').value;
                 let commentForm=new FormData();
                 commentForm.append('accessToken',token);
-                this.$http.put('http://localhost:8080/announcement/queryDeletedList',commentForm, {
+                this.$http.put('/announcement/queryDeletedList',commentForm, {
                     'Content-Type': 'Multipart/form-data'
                 }).then(
                     function (res) {

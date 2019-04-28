@@ -65,7 +65,7 @@ var team_type=new Vue({
         loadData:function(){
             let self=this;
             let token=document.querySelector('#token').value;
-            this.$http.get("http://localhost:8080/teamType/queryList", {
+            this.$http.get("/teamType/queryList", {
                 params: {
                     accessToken: token
                 }
@@ -128,7 +128,7 @@ var team_type=new Vue({
             let commentForm = new FormData();
             commentForm.append('accessToken',token);
             commentForm.append('typeId',typeId);
-            this.$http.put('http://localhost:8080/teamType/deleted/'+typeId,commentForm, {
+            this.$http.put('/teamType/deleted/'+typeId,commentForm, {
                 'Content-Type': 'Multipart/form-data'
             }).then(
                 function(res){

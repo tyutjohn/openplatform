@@ -43,7 +43,7 @@
                 let commentForm = new FormData();
                 commentForm.append('accessToken', token);
                 commentForm.append('academyName',academyName);
-                this.$http.post('http://localhost:8080/admin/academy/add/'+academyName, commentForm, {
+                this.$http.post('/admin/academy/add/'+academyName, commentForm, {
                     'Content-Type': 'Multipart/form-data'
                 }).then(
                     function (res) {

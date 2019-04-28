@@ -101,7 +101,7 @@
             loadData:function(){
                 let self=this;
                 let token=document.querySelector('#token').value;
-                this.$http.get("http://localhost:8080/admin/queryNormalList", {
+                this.$http.get("/admin/queryNormalList", {
                     params: {
                         accessToken: token
                     }
@@ -161,7 +161,7 @@
             admindisable:function(event){
                 let token=document.querySelector('#token').value;
                 let adminId=event.target.previousElementSibling.innerHTML;
-                this.$http.get("http://localhost:8080/admin/deleted/"+adminId, {
+                this.$http.get("/admin/deleted/"+adminId, {
                     params: {
                         accessToken: token
                     }
@@ -207,7 +207,7 @@
             adminable:function(event){
                 let token=document.querySelector('#token').value;
                 let adminId=event.target.previousElementSibling.innerHTML;
-                this.$http.get("http://localhost:8080/admin/relieve/"+adminId, {
+                this.$http.get("/admin/relieve/"+adminId, {
                     params: {
                         accessToken: token
                     }
@@ -266,7 +266,7 @@
             disablelist:function(){
                 let self=this;
                 let token=document.querySelector('#token').value;
-                this.$http.get("http://localhost:8080/admin/queryDeletedList", {
+                this.$http.get("/admin/queryDeletedList", {
                     params: {
                         accessToken: token
                     }

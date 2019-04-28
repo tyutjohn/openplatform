@@ -9,7 +9,7 @@
     document.querySelector('#btn_button').addEventListener('click',function(){
         let typeName=document.querySelector('#typeName').value;
         let accessToken=document.querySelector('#token').value;
-        $.post('http://localhost:8080/article/type/add/'+typeName,{
+        $.post('/article/type/add/'+typeName,{
             typeName:typeName,
             accessToken:accessToken
         },function(res){

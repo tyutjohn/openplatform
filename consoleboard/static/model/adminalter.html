@@ -51,7 +51,7 @@
                 commentForm.append('accessToken', token);
                 commentForm.append('mobile',mobile);
                 commentForm.append('rank',rank);
-                this.$http.post('http://localhost:8080/admin/register/', commentForm, {
+                this.$http.post('/admin/register/', commentForm, {
                     'Content-Type': 'Multipart/form-data'
                 }).then(
                     function (res) {

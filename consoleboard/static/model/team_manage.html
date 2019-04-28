@@ -142,7 +142,7 @@ var team_manage=new Vue({
         normal:function(){
             let self=this;
             let token=document.querySelector('#token').value;
-            this.$http.get("http://localhost:8080/team/queryNormalList", {
+            this.$http.get("/team/queryNormalList", {
                 params: {
                     accessToken: token
                 }
@@ -189,7 +189,7 @@ var team_manage=new Vue({
         show_delete:function(){
             let self=this;
             let token=document.querySelector('#token').value;
-            this.$http.get("http://localhost:8080/team/queryDeleteList", {
+            this.$http.get("/team/queryDeleteList", {
                 params: {
                     accessToken: token
                 }
@@ -236,7 +236,7 @@ var team_manage=new Vue({
         show_forbid:function(){
             let self=this;
             let token=document.querySelector('#token').value;
-            this.$http.get("http://localhost:8080/team/queryDisabledList", {
+            this.$http.get("/team/queryDisabledList", {
                 params: {
                     accessToken: token
                 }
@@ -301,7 +301,7 @@ var team_manage=new Vue({
             let commentForm = new FormData();
             commentForm.append('accessToken',token);
             commentForm.append('teamId',teamId)
-            this.$http.post('http://localhost:8080/admin/team/log/forbidden/'+teamId,commentForm, {
+            this.$http.post('/admin/team/log/forbidden/'+teamId,commentForm, {
                 'Content-Type': 'Multipart/form-data'
             }).then(
                 function (res) {
@@ -348,7 +348,7 @@ var team_manage=new Vue({
             let commentForm = new FormData();
             commentForm.append('accessToken',token);
             commentForm.append('teamId',teamId)
-            this.$http.post('http://localhost:8080/admin/team/log/relieveForbidden/'+teamId,commentForm, {
+            this.$http.post('/admin/team/log/relieveForbidden/'+teamId,commentForm, {
                 'Content-Type': 'Multipart/form-data'
             }).then(
                 function (res) {

@@ -123,7 +123,7 @@
             loadData:function(){
                 let self=this;
                 let token=document.querySelector('#token').value;
-                this.$http.get("http://localhost:8080/admin/article/log/queryNoList", {
+                this.$http.get("/admin/article/log/queryNoList", {
                     params: {
                         accessToken: token
                     }
@@ -169,7 +169,7 @@
             show_finish:function(){
                 let self=this;
                 let token=document.querySelector('#token').value;
-                this.$http.get("http://localhost:8080/admin/article/log/queryList", {
+                this.$http.get("/admin/article/log/queryList", {
                     params: {
                         accessToken: token
                     }
@@ -219,7 +219,7 @@
                 let commentForm = new FormData();
                 commentForm.append('accessToken',token);
                 commentForm.append('operationId',operationId)
-                this.$http.put('http://localhost:8080/admin/article/publish/'+operationId,commentForm, {
+                this.$http.put('/admin/article/publish/'+operationId,commentForm, {
                     'Content-Type': 'Multipart/form-data'
                 }).then(
                     function (res) {
@@ -266,7 +266,7 @@
                 let commentForm = new FormData();
                 commentForm.append('accessToken',token);
                 commentForm.append('operationId',operationId)
-                this.$http.put('http://localhost:8080/admin/article/publish/'+operationId,commentForm, {
+                this.$http.put('/admin/article/publish/'+operationId,commentForm, {
                     'Content-Type': 'Multipart/form-data'
                 }).then(
                     function (res) {
@@ -313,7 +313,7 @@
                 let commentForm = new FormData();
                 commentForm.append('accessToken',token);
                 commentForm.append('operationId',operationId)
-                this.$http.put('http://localhost:8080/admin/article/log/ignore/'+operationId,commentForm, {
+                this.$http.put('/admin/article/log/ignore/'+operationId,commentForm, {
                     'Content-Type': 'Multipart/form-data'
                 }).then(
                     function (res) {

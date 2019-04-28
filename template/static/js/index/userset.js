@@ -78,7 +78,7 @@ let app = new Vue({
             }).then(
                 function(res){
                     self.school=res.body;
-                    //console.log(JSON.stringify(res));
+                    console.log(res);
                 },function(res){
                     console.log(res);
                 }

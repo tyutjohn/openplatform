@@ -183,7 +183,7 @@
             loadData:function(){
                 let self=this;
                 let token=document.querySelector('#token').value;
-                this.$http.get("http://localhost:8080/admin/queryMyInformation", {
+                this.$http.get("/admin/queryMyInformation", {
                     params: {
                         accessToken: token
                     }
@@ -239,7 +239,7 @@
             setschool:function(){
                 let self=this;
                 let token=document.querySelector('#token').value;
-                this.$http.get("http://localhost:8080/admin/school/queryNormalList", {
+                this.$http.get("/admin/school/queryNormalList", {
                     params: {
                         accessToken: token
                     }
@@ -258,7 +258,7 @@
             setcollage:function(){
                 let self=this;
                 let token=document.querySelector('#token').value;
-                this.$http.get("http://localhost:8080/admin/academy/queryNormalList", {
+                this.$http.get("/admin/academy/queryNormalList", {
                     params: {
                         accessToken: token
                     }
@@ -290,7 +290,7 @@
                 appendForm.append('adminNumber',adminNumber);
                 appendForm.append('schoolId',schoolId);
                 appendForm.append('academyId',academyId);
-                this.$http.put('http://localhost:8080/admin/infor',appendForm,{
+                this.$http.put('/admin/infor',appendForm,{
                     'Content-Type': 'Multipart/form-data'
                 }).then(
                     function(res){
@@ -351,7 +351,7 @@
                 appendForm.append('formerPassword',formerPassword);
                 appendForm.append('password',password);
                 appendForm.append('confirmPassword',confirmPassword);
-                this.$http.put('http://localhost:8080/admin/changePassword',appendForm,{
+                this.$http.put('/admin/changePassword',appendForm,{
                     'Content-Type': 'Multipart/form-data'
                 }).then(
                     function(res){
