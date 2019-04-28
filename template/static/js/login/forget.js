@@ -12,7 +12,7 @@ code.onclick = function () {
     //console.log(phone);
     if (phone != '') {
         let phone = document.querySelector("#exampleInputPhone").value;
-        $.post("http://127.0.0.1:8080/user/sendCode", {
+        $.post("/user/sendCode", {
             "mobile": phone
         }, function (data) {
             new $.zui.Messager('提示消息:'+JSON.stringify(data),{
@@ -57,7 +57,7 @@ ReadyRegister.onclick = function () {
     let usercode = document.querySelector("#exampleInputCode").value;
     if (userpassword && confirmPassword && userphone && usercode != '') {
         $.ajax({
-            url:"http://127.0.0.1:8080/user/forget",
+            url:"/user/forget",
             type:"put",
             data:{
                 "password": userpassword,

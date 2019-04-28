@@ -54,7 +54,7 @@ $(function () {
         //上传图片设置
         imageUpload:true,
         imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-        imageUploadURL : "/articleImg/",//后端的上传图片服务地址
+        imageUploadURL : "/articleImg",//后端的上传图片服务地址
     });
 })
 
@@ -86,7 +86,7 @@ var share=new Vue({
         get:function(){
             let self=this;
             let token=document.querySelector('#token').value;
-            this.$http.get("http://localhost:8080/article/type/queryArticleTypeList", {
+            this.$http.get("/article/type/queryArticleTypeList", {
                 params: {
                     accessToken: token
                 }
@@ -105,7 +105,7 @@ var share=new Vue({
         panel:function(){
             let self=this;
             let token=document.querySelector('#token').value;
-            this.$http.get("http://localhost:8080/announcement/queryList", {
+            this.$http.get("/announcement/queryList", {
                 params: {
                     accessToken: token
                 }
@@ -142,7 +142,7 @@ var share=new Vue({
             formData.append('title',title);
             formData.append('content',content);
             formData.append('visual',visual);
-            this.$http.post('http://localhost:8080/article/publish',formData,{'Content-Type':'Multipart/form-data'}).then(
+            this.$http.post('/article/publish',formData,{'Content-Type':'Multipart/form-data'}).then(
                 function(res){
                     if (res.data.code == 0) {
                         new $.zui.Messager('发布成功', {
@@ -193,7 +193,7 @@ var share=new Vue({
         userinfor:function(){
             let self=this;
             let token=document.querySelector('#token').value;
-            this.$http.get("http://localhost:8080/user/queryMyInformation", {
+            this.$http.get("/user/queryMyInformation", {
                 params: {
                     accessToken: token
                 }
@@ -226,7 +226,7 @@ var share=new Vue({
         followMe:function(){
             let self=this;
             let token=document.querySelector('#token').value;
-            this.$http.get("http://localhost:8080/user/queryFollowedMeList", {
+            this.$http.get("/user/queryFollowedMeList", {
                 params: {
                     accessToken: token
                 }
@@ -267,7 +267,7 @@ var share=new Vue({
             commentForm.append('content',content);
             commentForm.append('articleType',articleType);
             commentForm.append('visual','0');
-            this.$http.post('http://localhost:8080/article/publish', commentForm, {
+            this.$http.post('/article/publish', commentForm, {
                 'Content-Type': 'Multipart/form-data'
             }).then(
                 function (res) {

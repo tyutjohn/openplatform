@@ -55,7 +55,7 @@ var teamHome=new Vue({
     methods: {
         TeamList: function () {
             let self = this;
-            this.$http.get("http://127.0.0.1:8080/team/queryPublic/" + tar).then(
+            this.$http.get("/team/queryPublic/" + tar).then(
                 function (res) {
                     self.teammation = res.body.data;
                     new $.zui.Messager('加载成功', {
@@ -90,7 +90,7 @@ var teamHome=new Vue({
             let commentForm = new FormData();
             commentForm.append('accessToken', token);
             commentForm.append('teamId',tar);
-            this.$http.post('http://localhost:8080/teamMember/joinPublicTeam/' + tar, commentForm, {
+            this.$http.post('/teamMember/joinPublicTeam/' + tar, commentForm, {
                 'Content-Type': 'Multipart/form-data'
             }).then(
                 function (res) {

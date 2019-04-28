@@ -51,9 +51,13 @@ var teamroom=new Vue({
     el:'#teamroom',
     data:{
         teammation:{
-            teamMemberVOList:{}
+            teamMemberVOList:{
+                length:{}
+            }
         },
-        resourcelist:{},
+        resourcelist:{
+            length:{}
+        },
         teamnumber:{},
         teamType:{}
     },
@@ -65,7 +69,7 @@ var teamroom=new Vue({
     methods:{
         teamlist:function(){
             let self = this;
-            this.$http.get("http://127.0.0.1:8080/team/queryPublic/" + tar).then(
+            this.$http.get("/team/queryPublic/" + tar).then(
                 function (res) {
                     self.teammation = res.body.data;
                     new $.zui.Messager('加载成功', {
@@ -98,19 +102,30 @@ var teamroom=new Vue({
         resourceList:function(){
             let self = this;
             let token=document.querySelector('#token').value;
-            this.$http.get("http://localhost:8080/teamResource/queryList/" + tar,{
+            this.$http.get("/teamResource/queryList/" + tar,{
                 params:{
                     accessToken:token
                 }
             }).then(
                 function (res) {
-                    self.resourcelist = res.body.data;
-                    new $.zui.Messager('加载成功', {
-                        type: 'success',
-                        placement: 'center',
-                        icon: 'icon-ok-sign'
-                    }).show();
-                    console.log(res)
+                    if(res.body.code==0){
+                        self.resourcelist = res.body.data;
+                        new $.zui.Messager('加载成功', {
+                            type: 'success',
+                            placement: 'center',
+                            icon: 'icon-ok-sign'
+                        }).show();
+                    }else{
+                        new $.zui.Messager('即将跳转,'+res.body.message, {
+                            type: 'danger',
+                            placement: 'center',
+                            icon: 'icon-exclamation-sign'
+                        }).show();
+                        window.setTimeout(function(){
+                            window.location.href='team.html'
+                        },3000);
+                    }
+                    //console.log(res)
                 },
                 function (res) {
                     if (res.body.code == 1201) {
@@ -137,7 +152,7 @@ var teamroom=new Vue({
             let token=document.querySelector('#token').value;
             let resourceId = event.target.previousElementSibling.innerHTML;
             //console.log(resourceId);
-            this.$http.get("http://localhost:8080/teamResource/download/"+resourceId,{
+            this.$http.get("/teamResource/download/"+resourceId,{
                 params:{
                     accessToken:token,
                 }
@@ -200,7 +215,7 @@ var teamroom=new Vue({
             commentForm.append('file',file);
             commentForm.append('redourceName',redourceName);
             commentForm.append('teamId',tar);
-            this.$http.post('http://localhost:8080/teamResource/publish', commentForm, {
+            this.$http.post('/teamResource/publish', commentForm, {
                 'Content-Type': 'Multipart/form-data'
             }).then(
                 function (res) {
@@ -248,7 +263,7 @@ var teamroom=new Vue({
             let commentForm=new FormData();
             commentForm.append('accessToken',token);
             commentForm.append('resourceId',resourceId)
-            this.$http.put('http://localhost:8080/teamResource/deleted/'+resourceId,commentForm, {
+            this.$http.put('/teamResource/deleted/'+resourceId,commentForm, {
                 'Content-Type': 'Multipart/form-data'
             }).then(
                 function (res) {
@@ -292,7 +307,7 @@ var teamroom=new Vue({
         teamNumber:function(){
             let self = this;
             let token=document.querySelector('#token').value;
-            this.$http.get("http://localhost:8080/teamMember/queryList/" + tar,{
+            this.$http.get("/teamMember/queryList/" + tar,{
                 params:{
                     accessToken:token
                 }
@@ -341,7 +356,7 @@ var teamroom=new Vue({
             commentForm.append('memberId',memberId);
             commentForm.append('password',password);
             commentForm.append('teamId',tar);
-            this.$http.put('http://localhost:8080/teamMember/remove',commentForm, {
+            this.$http.put('/teamMember/remove',commentForm, {
                 'Content-Type': 'Multipart/form-data'
             }).then(
                 function (res) {
@@ -385,7 +400,7 @@ var teamroom=new Vue({
         // teamtype:function(){
         //     let self=this;
         //     let token=document.querySelector('#token').value;
-        //     this.$http.get("http://localhost:8080/teamType/queryList", {
+        //     this.$http.get("/teamType/queryList", {
         //         params: {
         //             accessToken: token
         //         }
@@ -446,7 +461,7 @@ var teamroom=new Vue({
             commentForm.append('type',type);
             commentForm.append('visual',visual);
             commentForm.append('teamId',tar);
-            this.$http.put('http://localhost:8080/team/updatedTeamInfor',commentForm, {
+            this.$http.put('/team/updatedTeamInfor',commentForm, {
                 'Content-Type': 'Multipart/form-data'
             }).then(
                 function (res) {
@@ -498,7 +513,7 @@ var teamroom=new Vue({
             commentForm.append('formerPassword',formerPassword);
             commentForm.append('confirmPassword',confirmPassword);
             commentForm.append('teamId',tar);
-            this.$http.put('http://localhost:8080/team/updatedPassword',commentForm, {
+            this.$http.put('/team/updatedPassword',commentForm, {
                 'Content-Type': 'Multipart/form-data'
             }).then(
                 function (res) {
@@ -554,7 +569,7 @@ var teamroom=new Vue({
             commentForm.append('confirmPassword',confirmPassword);
             commentForm.append('code',code);
             commentForm.append('teamId',tar);
-            this.$http.put('http://localhost:8080/team/forgetPassword',commentForm, {
+            this.$http.put('/team/forgetPassword',commentForm, {
                 'Content-Type': 'Multipart/form-data'
             }).then(
                 function (res) {
@@ -602,7 +617,7 @@ var teamroom=new Vue({
             commentForm.append('accessToken',token);
             commentForm.append('password',password);
             commentForm.append('teamId',tar);
-            this.$http.put('http://localhost:8080/team/deleted',commentForm, {
+            this.$http.put('/team/deleted',commentForm, {
                 'Content-Type': 'Multipart/form-data'
             }).then(
                 function (res) {
@@ -652,7 +667,7 @@ var teamroom=new Vue({
             commentForm.append('password',password);
             commentForm.append('mobile',mobile);
             commentForm.append('teamId',tar);
-            this.$http.put('http://localhost:8080/team/transfer',commentForm, {
+            this.$http.put('/team/transfer',commentForm, {
                 'Content-Type': 'Multipart/form-data'
             }).then(
                 function (res) {
@@ -698,7 +713,7 @@ var teamroom=new Vue({
             let commentForm=new FormData();
             commentForm.append('accessToken',token);
             commentForm.append('teamId',tar);
-            this.$http.put('http://localhost:8080/teamMember/exitTeam/'+tar,commentForm, {
+            this.$http.put('/teamMember/exitTeam/'+tar,commentForm, {
                 'Content-Type': 'Multipart/form-data'
             }).then(
                 function (res) {

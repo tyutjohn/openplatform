@@ -132,10 +132,10 @@
                                     <span class="label label-danger pull-right" style="cursor:pointer;margin-right:10px"
                                         @click="deleteR($event)"><i class="icon-trash"></i>删除</span>
                                     <div style="display:none">{{resourcelists.resourceId}}</div>
-                                    <span class="label label-primary pull-right" style="cursor: pointer;"
-                                        @click="downloadR($event)"
-                                          :href="'accessory/'"
-                                          :download="'accessory/'"><i class="icon-download-alt"></i>下载</span>
+                                    <a class="label label-primary pull-right" style="cursor: pointer;"
+                                          :href="'resource/'+resourcelists.resource"
+                                          :download="'resource/'+resourcelists.resourceName"
+                                          ><i class="icon-download-alt"></i>下载</a>
                                 </div>
                             </div>
                         </div>
@@ -388,11 +388,11 @@
         </div>
     </footer>
     <!--js-->
-    <script src="js/jquery/jquery.min.js"></script>
-    <script src="js/zui.min.js"></script>
-    <script src="js/vue/vue.min.js"></script>
-    <script src="js/vue/vue-resource.min.js"></script>
-    <script src="js/index/teamroom.js"></script>
+    <script src="js/jquery/jquery.min.js" type="text/javascript"></script>
+    <script src="js/zui.min.js" type="text/javascript"></script>
+    <script src="js/vue/vue.min.js" type="text/javascript"></script>
+    <script src="js/vue/vue-resource.min.js" type="text/javascript"></script>
+    <script src="js/index/teamroom.js" type="text/javascript"></script>
 </body>
 
 </html>
